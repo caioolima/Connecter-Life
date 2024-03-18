@@ -1,0 +1,960 @@
+/* Adicione estilos ao seu arquivo CSS */
+
+/* UserProfile.css */
+
+.page-container {
+  display: flex; /* Permite que os elementos filhos usem flexbox para alinhamento */
+  width: 100%;
+}
+
+.sidebar {
+  height: 100%;
+  width: 100%;
+  width: 180px; /* Largura do menu lateral */
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #000000; /* Cor de fundo do menu */
+  padding-top: 100px;
+  text-align: left; /* Alinhe o texto à esquerda */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinhe os itens à esquerda */
+  border-right: 1px solid rgb(75, 75, 75); /* Adicione uma borda vertical à direita */
+}
+
+.sidebar a,
+.sidebar button {
+  text-decoration: none;
+  color: rgb(161, 160, 160);
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  transition: color 0.3s ease; /* Adicione a regra de transição para a cor */
+}
+
+.sidebar a:hover,
+.sidebar button:hover .sidebar-link {
+  color: #07c449; /* Cor verde desejada ao passar o mouse */
+}
+
+.sidebar button .sidebar-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  transition: color 0.3s ease; /* Adicione a regra de transição para a cor */
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: rgb(161, 160, 160);
+  cursor: pointer;
+  margin-top: 480px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+}
+
+.sidebar button span {
+  font-size: 15px;
+  margin-left: 20px; /* Ajuste o espaçamento entre o ícone e o texto conforme necessário */
+}
+
+.sidebar span {
+  font-size: 15px; /* Ajuste o tamanho do texto conforme necessário */
+  margin-left: 20px; /* Espaço entre o ícone e o texto */
+  margin-top: 25px;
+}
+
+.sidebar span:hover{
+  font-size: 16px; /* Ajuste o tamanho do texto conforme necessário */
+  color: #07c449; /* Cor verde desejada ao passar o mouse */
+ 
+}
+
+.sidebar svg {
+  margin-bottom: 1px;
+  width: 20px; /* Ajuste a largura do ícone para o seu design específico */
+  height: 20px; /* Ajuste a altura do ícone para o seu design específico */
+  margin-left: 20px; /* Espaço entre o ícone e o texto */
+  margin-top: 25px;
+}
+
+.sidebar-link.active {
+  color: #ea4f97; /* Cor para indicar a página ativa */
+  font-weight: 700;
+}
+
+.logo {
+  font-weight: bold;
+  margin-left: 1.4em;
+  margin-top: -30px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente */
+}
+
+.logo a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.logo a:hover {
+  text-decoration: none;
+  color: #ffffff;
+  transition: transparent 0.3s ease;
+}
+
+
+.logo-bar{
+  font-weight: bold;
+  margin-left: 0.7em;
+  margin-top: -50px;
+  margin-bottom: 100px;
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente */
+  
+}
+
+.logo-bar span {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile-info button {
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 105px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  height: 36px;
+}
+
+
+.profile-container {
+    position: absolute; /* Define a posição absoluta */
+    left: 50%; /* Move para o centro horizontal */
+    transform: translateX(-50%); /* Corrige a posição para o centro exato */
+    color: #000000; /* Cor do texto */
+    font-size: 30px; /* Tamanho da fonte */
+    margin-top: 100px; /* Margem superior */
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-top: -30px;
+  margin-left: 100px;
+}
+
+.profile-photo-container {
+  cursor: pointer;
+}
+
+.profile-photo-frame {
+  margin-top: 80px;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #000;; /* Adicione uma cor de fundo padrão */
+  border: 2px solid #f06ba9; /* Adiciona um contorno verde à moldura do perfil */
+}
+
+
+.profile-photo {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  margin:6%; /* Adiciona uma margem interna de 2% */
+  border-radius: 50%;
+}
+
+.add-image-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  color: #666;
+}
+
+.profile-info {
+  text-align: left;
+  margin-left: 60px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-top: -80px;
+}
+
+.user-info h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  color: #000000;
+}
+
+.cont-photos{
+  font-size: 14px;
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.cont-photos strong {
+  font-weight: bold; /* Deixe o número em negrito */
+  color: #000; /* Defina a cor do número desejada */
+  font-size: 16px;
+}
+
+.title-photo{
+  margin: 0;
+  font-size: 2.0rem;
+  color: #000000;
+  margin-top: 120px;
+  padding-top: 20px; /* Adiciona espaço interno acima do título */
+  position: relative; /* Define a posição relativa para permitir a posição absoluta do elemento de linha */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  margin-top: 200px;
+  bottom: 100px;
+}
+
+.title-photo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 100%;
+  height: 4px; /* Altura da linha superior */
+  background-color: #07c449; /* Cor da linha superior */
+  border-radius: 4px 4px 0 0; /* Adiciona bordas arredondadas somente no topo */
+}
+
+.fullname{
+  margin: 0;
+  color: #000000;
+  font-size: 1.2rem;
+}
+
+.profile-info .bio {
+  margin-top: 25px; /* Adiciona margem superior */
+  font-size: 1.0rem;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.profile-info input,
+.profile-info textarea {
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.profile-info .follow-button {
+  /* Cor de fundo padrão */
+  background-color: #16bb1f;
+  border: none; /* Sem borda */
+  color: white;
+  padding: 10px 20px; /* Espaçamento interno */
+  text-decoration: none; /* Sem decoração de texto */
+  font-size: 16px; /* Tamanho da fonte */
+  cursor: pointer; /* Cursor do mouse */
+  border-radius: 5px; /* Borda arredondada */
+  margin-left: 3px; /* Margem à esquerda */
+  transition: background-color 0.8s ease; /* Transição suave */
+  font-weight: bold !important;
+}
+
+.following {
+  /* Cor de fundo quando seguindo */
+  background-color: #f70073 !important; 
+  color: black !important; /* Cor do texto branco */
+}
+
+.follow-button:hover {
+  background-color: #ec2b85; /* Alterar a cor de fundo ao passar o mouse */
+}
+
+.follow-button:active {
+  background-color: #ec2b85; /* Alterar a cor de fundo quando pressionado */
+}
+
+
+.custom-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Raleway", sans-serif;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  width: 80%;
+  max-width: 400px;
+  height: auto; /* Ajuste para altura automática */
+  max-height: 450px; /* Ajuste conforme necessário */
+}
+
+.modal-close-button {
+  border: none;
+  padding: 10px 20px; /* Ajuste conforme necessário para aumentar o tamanho */
+  cursor: pointer;
+  font-size: 18px; /* Ajuste conforme necessário para aumentar o tamanho */
+  font-weight: 800; /* Adiciona negrito ao texto */
+  position: absolute;
+  top: 10px; /* Ajuste conforme necessário */
+  right: 10px; /* Ajuste conforme necessário */
+  color: #000;
+  background-color: transparent; /* Remover o fundo do botão */
+}
+
+.bio-textarea{
+  overflow-wrap: break-word; /* Para quebrar palavras longas */
+  word-wrap: break-word; /* Para compatibilidade com navegadores mais antigos */
+  max-width: 400px; /* Defina a largura máxima desejada */
+}
+.edit-button {
+  background-color: #000;
+  color: #07c449;
+  font-weight: bold;
+}
+.modal-close-edit-button {
+  width: 20%;
+  background-color: #ea4f97;
+}
+
+.custom-file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 60px;
+}
+
+.custom-file-upload label {
+  cursor: pointer;
+  padding: 15px 20px;
+  background-color: #07c449;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 15px;
+  width: 50%;
+  margin-top: -20px;
+}
+
+.custom-file-upload input {
+  display: none;
+}
+
+.selected-image-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.custom-modal-button {
+  background-color: #07c449;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 15px;
+  margin-left: 15px;
+  font-family: "Raleway", sans-serif;
+}
+
+.custom-modal-button:hover {
+  background-color: #16bb1f;
+}
+
+.custom-remove-image {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  margin-top: -20px;
+  width: 50%;
+}
+
+.custom-remove-image:hover {
+  background-color: #d32f2f;
+}
+
+.mobile-logo {
+  display: none; 
+}
+
+/* Estilos responsivos */
+
+@media screen and (max-width: 780px) {
+  .modal {
+    padding: 10px;
+  }
+
+  .custom-modal-button {
+    padding: 10px 18px;
+    height: 30px;
+    font-size: 13px;
+    margin-right: 10px;
+    margin-left: 1px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .custom-remove-image {
+    padding: 12px 18px;
+    font-size: 13px;
+    width: 100%;
+    height: 35px;
+  }
+
+  .custom-file-upload label {
+    padding: 10px 18px;
+    height: 35px;
+    font-size: 13px;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .profile-container {
+    margin-left: 100px; /* Ajustar o padding para compensar a largura do menu */
+    position: fixed;
+    width: 80%;
+  }
+}
+
+/* Para telas menores que 768px */
+@media screen and (max-width: 768px) {
+  .modal-content-edit {
+    width: 90%; /* Ajusta a largura do modal de edição */
+    max-width: 300px; /* Define uma largura máxima para o modal de edição */
+    padding: 15px; /* Ajusta o preenchimento interno do modal de edição */
+  }
+
+  .modal-content-edit button.save-button,
+  .modal-close-edit-button {
+    padding: 8px 12px; /* Reduz o preenchimento dos botões no modal de edição */
+    font-size: 0.8rem; /* Reduz o tamanho da fonte dos botões no modal de edição */
+  }
+}
+
+@media (max-width: 770px) {
+  .desktop-logo {
+    display: none;
+  }
+
+  .mobile-logo {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-bottom: -30px;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .sidebar {
+    width: 80px; /* Largura reduzida da barra lateral */
+    padding-top: 60px; /* Espaçamento superior reduzido */
+  }
+
+  .sidebar a span,
+  .sidebar button span {
+    display: none; /* Oculta o texto nos links e botões */
+  }
+
+  .sidebar svg {
+    margin-top: 10px; /* Ajuste conforme necessário para melhor espaçamento */
+  }
+
+  .modal-content {
+    width: 50%; /* Ajuste conforme necessário para ocupar a largura total */
+    margin-left: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    display: block; /* Mostra o logotipo apenas em telas menores que 768 pixels */
+  }
+}
+
+/* Adiciona uma classe específica para esconder o ícone em telas maiores que 768 pixels */
+@media (min-width: 769px) {
+  .hide-on-desktop {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1006px) {
+  .profile-container {
+    padding-left: 270px; /* Ou qualquer valor que você preferir */
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .profile-container {
+    padding-left: 0; /* Resetar o padding para evitar centralização excessiva */
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile-container {
+    padding-left: 0; /* Resetar o padding */
+    width: 100%; /* Definir largura total */
+    
+    top: 10px; /* Ajustar distância do topo */
+    align-items: flex-start; /* Alinhar itens ao topo */
+    flex-direction: column; /* Mudar para layout de coluna */
+  }
+
+  .profile-photo-frame {
+    width: 100px; /* Reduzir largura do frame da foto */
+    height: 100px; /* Reduzir altura do frame da foto */
+    margin-left: -20px;
+  }
+
+  .user-info h1 {
+    font-size: 1.2rem; /* Reduzir tamanho do nome de usuário */
+    margin-top: 10px; /* Adicionar espaço acima do nome de usuário */
+    margin-left: -35px;
+  }
+
+  .profile-info p {
+    font-size: 0.9rem; /* Reduzir tamanho do nome completo */
+    margin-top: 5px; /* Adicionar espaço acima do nome completo */
+    margin-left: -35px;
+  }
+
+  .profile-info .edit-button {
+    margin-top: 10px; /* Adicionar espaço acima do botão de editar */
+    margin-left: 28px; /* Resetar margem à esquerda */
+    width: 80%; /* Largura total */
+    font-size: 13px; 
+  }
+
+  .modal-content {
+    width: 80%; /* Reduzir a largura do modal */
+    margin-left: 20%; /* Centralizar o modal */
+  }
+
+  .custom-modal-button,
+  .custom-remove-image,
+  .custom-file-upload label {
+    width: 100%; /* Definir largura total para botões */
+    margin-right: 0; /* Resetar margem */
+    margin-left: 0; /* Resetar margem */
+    margin-bottom: 10px; /* Adicionar espaço entre os botões */
+  }
+  .modal-image {
+    max-width: 100%;
+    max-height: 300px; /* ajuste conforme necessário */
+    margin: auto;
+    display: block;
+  }
+  .mobile-logo {
+    display: block; /* Mostrar logo móvel */
+    width: 45%; /* Largura total */
+    margin-top: 55px; /* Espaçamento superior */
+    margin-bottom: 10px; /* Espaçamento inferior */
+    margin-left: 8px;
+  }
+
+  .sidebar {
+    width: 80px; /* Reduzir largura da barra lateral */
+  }
+}
+
+.modal-edit {
+  position: fixed;
+  top: 0;
+  left: -380px;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* Centralize horizontalmente */
+  align-items: center; /* Centralize verticalmente */
+  z-index: 9999; /* Z-index alto para garantir que cubra todo o conteúdo */
+}
+
+.modal-content-edit .error_message {
+  color: red; /* Cor vermelha para indicar um erro */
+  font-size: 14px; /* Tamanho da fonte */
+  margin-top: 5px; /* Espaçamento superior */
+  font-weight: bold;
+}
+
+.modal-content-edit button.save-button {
+  border: none;
+  padding: 10px 20px; /* Ajuste conforme necessário para aumentar o tamanho */
+  cursor: pointer;
+  font-size: 16px; /* Ajuste conforme necessário para aumentar o tamanho */
+  font-weight: bold; /* Adiciona negrito ao texto */
+  color: #fff; /* Cor do texto */
+  background-color: #07c449; /* Cor de fundo */
+  border-radius: 4px; /* Borda arredondada */
+  margin-top: 20px; /* Adiciona margem acima do botão */
+  font-family: "Raleway", sans-serif;
+  margin-right: 100px;
+  width: 30%;
+  
+}
+
+.modal-content-edit button.save-button:hover {
+  background-color: #2ee96f;; /* Cor de fundo do botão ao passar o mouse */
+}
+.modal-content-edit button.save-button.disabled {
+  background-color: gray; /* Altere para a cor desejada para o botão desativado */
+  color: white; 
+}
+
+.modal-close-edit-button {
+  border: none;
+  padding: 8px 16px; /* Reduz o preenchimento interno do botão */
+  cursor: pointer;
+  font-size: 16px; /* Reduz o tamanho da fonte */
+  font-weight: bold; /* Define o peso da fonte como negrito */
+  position: absolute;
+  top: 10px; /* Posiciona o botão no canto superior direito */
+  right: 10px; /* Posiciona o botão no canto superior direito */
+  color: #fff; /* Cor do texto */
+  background-color: #ea4f97; /* Cor de fundo do botão */
+  border-radius: 4px; /* Adiciona bordas arredondadas ao botão *
+  transition: background-color 0.3s; /* Adiciona uma transição suave na mudança de cor */
+  font-family: "Raleway", sans-serif;
+}
+
+.modal-close-edit-button:hover {
+  background-color: #f06ba9; /* Cor de fundo do botão ao passar o mouse */
+}
+
+.modal-content-edit .text-edit{
+  margin-top: 35px;
+  font-size: 17px;
+  color: #000;
+}
+
+.modal-content-edit .black-text {
+  color: #000;
+  margin-top: 2px;
+  font-size: 17px;
+}
+
+.modal-content-edit input[type="text"],
+.modal-content-edit input[type="text"] {
+  margin-top: 10px; /* Adiciona margem acima do campo de entrada */
+  padding: 8px 12px; /* Ajusta o preenchimento interno do campo de entrada */
+  font-size: 16px; /* Define o tamanho da fonte */
+  border: 1px solid #ccc; /* Adiciona uma borda ao campo de entrada */
+  border-radius: 4px; /* Adiciona bordas arredondadas */
+  width: 100%; /* Define a largura para ocupar toda a largura do contêiner */
+  box-sizing: border-box; /* Inclui o preenchimento e a borda na largura total */
+}
+
+.edit-input {
+  margin-top: 10px; /* Adiciona margem superior para separar os inputs */
+  width: 100%; /* Faz com que os inputs ocupem a largura total do modal */
+  padding: 10px; /* Adiciona um espaçamento interno aos inputs */
+  border: 1px solid #ccc; /* Adiciona uma borda ao redor dos inputs */
+  border-radius: 4px; /* Adiciona bordas arredondadas aos inputs */
+  font-size: 16px; /* Define o tamanho da fonte dos inputs */
+}
+
+.modal-content-edit {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  position: absolute;
+  width: 90%;
+  max-width: 500px; /* Ajuste o máximo para 800px */
+  height: 100%; /* Ajuste para altura automática */
+  max-height: 750px; /* Ajuste conforme necessário */
+  margin-top: -150px;
+}
+
+.modal-content-edit .text-edit {
+  margin-top: 45px; /* Espaço superior */
+}
+
+.modal-content-edit .text-edit label {
+  font-weight: bold; /* Texto em negrito */
+}
+
+.modal-content-edit .text-edit input,
+.modal-content-edit .text-edit textarea {
+  width: 100%; /* Largura total */
+  padding: 10px; /* Espaçamento interno */
+  margin-top: 8px; /* Espaço superior */
+  border: 1px solid #ccc; /* Borda cinza */
+  border-radius: 5px; /* Cantos arredondados */
+  box-sizing: border-box; /* Incluir preenchimento e borda na largura */
+  font-size: 16px; /* Tamanho da fonte */
+  transition: border-color 0.3s ease;
+}
+
+.modal-content-edit .text-edit input:focus,
+.modal-content-edit .text-edit textarea:focus {
+  outline: none; /* Remover contorno ao focar */
+  border-color: #ea4f97; /* Mudar cor da borda ao focar */
+  transition: border-color 0.3s ease;
+  border-width: 2px; /* Define a largura da borda */
+}
+
+.modal-edit .modal-content-edit .bio_text_edit {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+.focused-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ff69b4; /* Cor da borda quando focado */
+}
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff69b4;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}
+
+  
+
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  
+  .modal-content-edit {
+    font-size: 15px;
+    margin-right: 200px;
+  }
+  .modal-content-edit button.save-button {
+    width: auto; /* Define a largura automática para o botão */
+    padding: 10px 20px; /* Ajusta o preenchimento interno */
+    max-width: 150px; /* Define uma largura máxima para o botão */
+    font-size: 14px; /* Reduz o tamanho da fonte */
+}
+  .modal-close-edit-button {
+    width: auto; /* Define a largura automática para o botão */
+    padding: 8px 16px; /* Reduz o preenchimento interno */
+    max-width: 100px; /* Define uma largura máxima para o botão */
+    font-size: 14px; /* Reduz o tamanho da fonte */
+  }
+}
+
+
+@media screen and (max-width: 1070px) {
+  
+  .modal-content-edit {
+    margin-left: 280px;
+  }
+  .profile-container {
+    margin-left: 400px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  
+  .profile-container {
+    margin-left: 130px;
+  }
+  .profile-header{
+    margin-left: 50px;
+    position: fixed;
+  }
+}
+
+@media screen and (max-width: 1008px) {
+  
+  .profile-container {
+    margin-left: 400px;
+  }
+}
+
+@media screen and (max-width: 1004px) {
+  
+  .profile-container {
+    margin-left: 100px;
+    position: fixed;
+  }
+  .edit-button {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .profile-header {
+    position: static;
+    }
+}
+
+/* Estilos para o modal de fotos */
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  margin-bottom: 100px;
+}
+
+.photo-upload img {
+  max-width: 100%; /* Garante que a imagem não exceda a largura do contêiner */
+  max-height: 400px; /* Define uma altura máxima para a imagem */
+  border-radius: 8px; /* Adiciona bordas arredondadas à imagem */
+  margin-bottom: 5px; /* Espaçamento inferior para separar das outras imagens */
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Mantenha três colunas */
+  grid-gap: 14px; /* Espaçamento entre as imagens */
+  justify-content: flex-end; /* Alinhe os itens ao final do contêiner */
+  margin-top: -70px;
+  margin-left: 30px;
+}
+
+.photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .photo-overlay {
+  opacity: 1;
+}
+.custom-photo-modal-button {
+  background-color: #07c449;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 5px; /* Reduza a margem direita */
+  margin-left: 5px; /* Reduza a margem esquerda */
+  font-family: "Raleway", sans-serif;
+  width: auto;
+}
+
+
+.custom-photo-modal-button:hover {
+  background-color: #16bb1f;
+}
+
+
+.photo-gallery p {
+  position: absolute; /* Define a posição absoluta */
+  left: 50.00%; /* Move para o centro horizontal */
+  transform: translateX(-50%); /* Corrige a posição para o centro exato */
+  color: #404040; /* Cor do texto */
+  font-size: 20px; /* Tamanho da fonte */
+  margin-top: -100px; /* Margem superior */
+}
+
+
+.photo-item:hover .photo-overlay {
+  opacity: 1;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.photo-item {
+  width: calc(108% - 10px);
+  height: auto;
+  position: relative;
+  margin-bottom: -15px;
+}
+
+.modal-content-2{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: auto; /* Ajuste para altura automática */
+  max-height: 590px; /* Ajuste conforme necessário */
+  margin-top: 150px;
+}
+
+.custom-modal-button-2 {
+  background-color: #07c449;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 15px;
+  margin-left: 15px;
+  font-family: "Raleway", sans-serif;
+}
+
+.custom-modal-button-2:hover {
+  background-color: #16bb1f;
+}
