@@ -91,7 +91,6 @@ exports.updateUserFollowersCount = async (req, res) => {
 
     const result = numberOfFollowers.length;
     // Salvar as alterações no banco de dados
-    //  await user.save();
 
     return res.status(200).send(result);
   } catch (error) {
