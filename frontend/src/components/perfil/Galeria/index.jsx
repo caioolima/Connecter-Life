@@ -7,23 +7,16 @@ const Galeria = () => {
   const { userPhotos } = useMyContext();
   const { handlePublicationClick } = useEventsModals();
   const observer = useRef(null);
-  const [loadedImages, setLoadedImages] = useState([]);
-  const [loadingImages, setLoadingImages] = useState([]);
+  const [loadingImages, setLoadingImages] = useState(Array(userPhotos.length).fill(true));
 
-  
   useEffect(() => {
     if (observer.current) observer.current.disconnect();
 
     observer.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !loadedImages[entry.target.dataset.index]) {
+        if (entry.isIntersecting) {
           const lazyImage = entry.target;
           lazyImage.src = lazyImage.dataset.src;
-          setLoadedImages((prevLoadedImages) => {
-            const newLoadedImages = [...prevLoadedImages];
-            newLoadedImages[entry.target.dataset.index] = true;
-            return newLoadedImages;
-          });
           observer.current.unobserve(lazyImage);
         }
       });
@@ -37,32 +30,15 @@ const Galeria = () => {
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [userPhotos, loadedImages]);
-
-  useEffect(() => {
-    setLoadingImages(Array(userPhotos.length).fill(true));
-    setLoadedImages(Array(userPhotos.length).fill(false));
   }, [userPhotos]);
 
   const handleImageLoaded = (index) => {
-    setLoadedImages((prevLoadedImages) => {
-      const newLoadedImages = [...prevLoadedImages];
-      newLoadedImages[index] = true;
-      return newLoadedImages;
-    });
-  };
-
-  useEffect(() => {
     setLoadingImages((prevLoadingImages) => {
       const newLoadingImages = [...prevLoadingImages];
-      userPhotos.forEach((photo, index) => {
-        if (loadedImages[index]) {
-          newLoadingImages[index] = false;
-        }
-      });
+      newLoadingImages[index] = false;
       return newLoadingImages;
     });
-  }, [userPhotos, loadedImages]);
+  };
 
   return (
     <>
@@ -90,9 +66,9 @@ const Galeria = () => {
               </div>
             ))}
           </div>
-          ) : (
-            <p className="empty-gallery-message">Não há fotos na galeria.</p>
-          )}
+        ) : (
+          <p className="empty-gallery-message">Não há fotos na galeria.</p>
+        )}
       </div>
     </>
   );
