@@ -113,7 +113,7 @@ const UserProfileContainer = () => {
     const visitedBefore = localStorage.getItem("visitedBefore");
 
     if (!token) {
-      navigate("/");
+      navigate("/home");
     } else {
       // Se o usuário já visitou antes, não mostrar a tela de carregamento
       if (visitedBefore) {
@@ -167,7 +167,7 @@ const UserProfileContainer = () => {
 
   const handleSignOut = () => {
     signOut();
-    navigate("/");
+    navigate("/home");
   };
 
   useEffect(() => {

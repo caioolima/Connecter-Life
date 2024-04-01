@@ -75,9 +75,9 @@ const SidebarMenuItems = ({
 
     return (
         <div className="sidebar">
-            <div className="logo-bar">
+            <div className="-bar">
                 <Link to={myProfileLink} onClick={handleLogoClick}>
-                    <span className="desktop-logo">Connecter Life</span>
+                    <h1 className="desktop-logo">ConnecterLife</h1>
                     <img
                         className="mobile-logo"
                         src={logoImage}

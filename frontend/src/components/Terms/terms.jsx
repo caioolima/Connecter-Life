@@ -14,7 +14,7 @@ function Terms() {
   return (
     <div>
       <div className="logo_term">
-        <Link to="/">ConnecterLife</Link>
+        <Link to="/home">ConnecterLife</Link>
       </div>
       <hr />
       <div className="container">

@@ -72,6 +72,12 @@
     margin-left: 20px; /* Ajuste o espaçamento entre o ícone e o texto conforme necessário */
 }
 
+.desktop-logo{
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-left:17px;
+    color: #fff;
+}
 .sidebar span {
     font-size: 15px; /* Ajuste o tamanho do texto conforme necessário */
     margin-left: 20px; /* Espaço entre o ícone e o texto */

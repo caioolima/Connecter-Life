@@ -1,6 +1,6 @@
 // App.js
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import ResetPassword from "./components/Reset Password/ResetPassword";
 import AuthLayout from "./components/AuthLayout/auth";
@@ -8,14 +8,21 @@ import Terms from "./components/Terms/terms";
 import Service from "./components/Terms/service";
 import Privacy from "./components/Terms/privacy";
 import UserProfileContainer from "./components/perfil/UserProfileContainer";
+import Introduction from "./components/Connecter Home/introduction";
 
 function App() {
     return (
         <Routes>
             <Route
-                path="/"
+                path="/introduction"
+                element={<Introduction />} // Redireciona para a tela de introdução quando acessar o caminho inicial "/"
+            />
+            <Route
+                path="/home"
                 element={
-                    <HomeScreen />
+                    <AuthLayout>
+                        <HomeScreen />
+                    </AuthLayout>
                 }
             />
             <Route
@@ -27,7 +34,7 @@ function App() {
                 }
             />
             <Route
-                path="/terms" // Qualquer caminho iniciando com "/terms/" será redirecionado para o componente Terms
+                path="/terms"
                 element={
                     <AuthLayout>
                         <Terms />
@@ -50,9 +57,8 @@ function App() {
                     </AuthLayout>
                 }
             />
-
             <Route
-                path="/profile/:userId" // Defina o caminho da rota para incluir o parâmetro de ID do usuário
+                path="/profile/:userId"
                 element={<UserProfileContainer />}
             />
         </Routes>

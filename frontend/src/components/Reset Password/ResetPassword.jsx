@@ -21,7 +21,7 @@ const ResetPassword = ({ onClose }) => {
   return (
     <div>
       <div className="logo_term">
-        <Link to="/">ConnecTrip</Link>
+        <Link to="/home">Connecter Life</Link>
       </div>
       <hr />
       <div className="container-form ">

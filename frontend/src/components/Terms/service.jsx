@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import "../Terms/service.css"; // Supondo que seus estilos estejam em um arquivo chamado termosDeServico.css
 import { useTranslation } from "react-i18next";
 function TermosDeServico() {
@@ -8,13 +7,15 @@ function TermosDeServico() {
   return (
     <div>
       <div className="logo_term">
-        <Link to="/">ConnecTrip</Link>
+        <Link to="/home">ConnecterLife</Link>
       </div>
       <hr />
       <div className="highlight">
         <p className="paragraph">{t("terms_of_service")}</p>
-       
-        <h1 className='description-text'><p>{t("description-text")}</p></h1>
+
+        <h1 className="description-text">
+          <p>{t("description-text")}</p>
+        </h1>
         {/* Seção 1 */}
         <div className="section">
           <h2>1. {t("servicesoffered")}</h2>

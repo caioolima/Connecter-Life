@@ -1,41 +1,37 @@
-import { createContext, useState, useEffect } from "react";
-import axios from 'axios';
+import { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-export const AuthContext = createContext({})
+import axios from "axios";
 
+export const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-    console.log("erro request")
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (token) {
-      
       axios.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      axios.get('http://localhost:3000/profile', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then(response => {
-        setUser({ ...response.data, id: response.data._id });
-  
-      })
-      .catch(e => {
-        
-        navigate("/")
-      })
+      axios
+        .get("http://localhost:3000/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUser({ ...response.data, id: response.data._id });
+        })
+        .catch(() => {
+          setUser(null);
+        });
+    } else {
+      setUser(null);
     }
-    else{
-      navigate("/")
-    }
-    
-  }, [navigate]);
+  }, []);
 
-  async function signIn({ email,password }) {
+  async function signIn({ email, password }) {
     try {
       const response = await axios.post("http://localhost:3000/auth/login", {
         email,
@@ -43,21 +39,18 @@ export function AuthProvider({ children }) {
       });
 
       if (response.data.token) {
-        setUser({ id: response.data.userId })
-        localStorage.setItem('token', response.data.token);
+        setUser({ id: response.data.userId });
+        localStorage.setItem("token", response.data.token);
       }
 
-      return { userId: response.data.userId }
+      return { userId: response.data.userId };
     } catch (error) {
       throw error;
     }
   }
 
   function signOut() {
-    // Limpar o token do localStorage
-    localStorage.removeItem('token');
-
-    // Resetar o estado do usuário para null
+    localStorage.removeItem("token");
     setUser(null);
   }
 
@@ -65,5 +58,9 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{ user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
 }
