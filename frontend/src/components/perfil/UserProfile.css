@@ -1,0 +1,323 @@
+/* Adicione estilos ao seu arquivo CSS */
+
+/* UserProfile.css */
+
+.page-container {
+    display: flex; /* Permite que os elementos filhos usem flexbox para alinhamento */
+}
+
+.sidebar {
+    height: 100%;
+    width: 180px; /* Largura do menu lateral */
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    background-color: #000000; /* Cor de fundo do menu */
+    padding-top: 100px;
+    text-align: left; /* Alinhe o texto à esquerda */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinhe os itens à esquerda */
+    border-right: 1px solid rgb(75, 75, 75); /*Adicione uma borda vertical à direita*/
+}
+
+@media screen and (max-width: 1000px) {
+    .sidebar {
+        height: 180px;
+        width: 100%; /* Largura do menu lateral */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        border-right: 1px solid rgb(75, 75, 75); /* Adicione uma borda vertical à direita */
+    }
+}
+
+.sidebar a,
+.sidebar button {
+    text-decoration: none;
+    color: rgb(161, 160, 160);
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: color 0.3s ease; /* Adicione a regra de transição para a cor */
+}
+
+.sidebar a:hover,
+.sidebar button:hover .sidebar-link {
+    color: #07c449; /* Cor verde desejada ao passar o mouse */
+}
+
+.sidebar button .sidebar-link {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    transition: color 0.3s ease; /* Adicione a regra de transição para a cor */
+}
+
+.sidebar button {
+    background: none;
+    border: none;
+    color: rgb(161, 160, 160);
+    cursor: pointer;
+    margin-top: 440px;
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+}
+
+.sidebar button span {
+    font-size: 15px;
+    margin-left: 20px; /* Ajuste o espaçamento entre o ícone e o texto conforme necessário */
+}
+
+.sidebar span {
+    font-size: 15px; /* Ajuste o tamanho do texto conforme necessário */
+    margin-left: 20px; /* Espaço entre o ícone e o texto */
+    margin-top: 25px;
+}
+
+.sidebar svg {
+    margin-bottom: 1px;
+    width: 20px; /* Ajuste a largura do ícone para o seu design específico */
+    height: 20px; /* Ajuste a altura do ícone para o seu design específico */
+    margin-left: 20px; /* Espaço entre o ícone e o texto */
+    margin-top: 25px;
+}
+
+.sidebar-link.active {
+    color: #ea4f97; /* Cor para indicar a página ativa */
+    font-weight: 700;
+}
+
+.logo {
+    font-weight: bold;
+    margin-left: 1.4em;
+    margin-top: -30px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+}
+
+.logo a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.logo a:hover {
+    text-decoration: none;
+    color: #ffffff;
+    transition: transparent 0.3s ease;
+}
+
+.logo-bar {
+    font-weight: bold;
+    margin-left: 0.7em;
+    margin-top: -50px;
+    margin-bottom: 100px;
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+}
+
+.logo-bar span {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.profile-info button {
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 105px;
+    font-family: "Raleway", sans-serif;
+    font-size: 15px;
+    height: 36px;
+}
+
+.profile-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000000;
+    font-size: 30px;
+    margin-top: 100px;
+    max-height: calc(100vh - 200px); 
+    width: 50%; /* Defina a largura desejada */
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-top: -30px;
+    margin-left: 100px;
+}
+
+.profile-photo-container {
+    cursor: pointer;
+}
+
+.profile-photo-frame {
+    margin-top: 80px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #000; /* Adicione uma cor de fundo padrão */
+    border: 2px solid #f06ba9; /* Adiciona um contorno verde à moldura do perfil */
+}
+
+.profile-photo {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    margin: 6%; /* Adiciona uma margem interna de 2% */
+    border-radius: 50%;
+}
+
+.add-image-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    color: #666;
+}
+
+.profile-info {
+    text-align: left;
+    margin-left: 60px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-top: -80px;
+}
+
+.user-info h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: #000000;
+}
+
+
+.cont-photos {
+    font-size: 14px;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+.photo-count, .followers-count, .following-count {
+    text-align: center;
+    width: 33.33%;
+    margin-left: -20px;
+}
+
+.photo-count strong, .followers-count strong, .following-count strong {
+    display: block;
+    font-weight: bold;
+}
+
+
+.fullname {
+    margin: 0;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+.profile-info .bio {
+    margin-top: 25px; /* Adiciona margem superior */
+    font-size: 1rem;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.profile-info input,
+.profile-info textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.profile-info .follow-button {
+    /* Cor de fundo padrão */
+    background-color: #16bb1f;
+    border: none; /* Sem borda */
+    color: white;
+    padding: 10px 20px; /* Espaçamento interno */
+    text-decoration: none; /* Sem decoração de texto */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor do mouse */
+    border-radius: 5px; /* Borda arredondada */
+    margin-left: 3px; /* Margem à esquerda */
+    transition: background-color 0.8s ease; /* Transição suave */
+    font-weight: bold !important;
+}
+
+.following {
+    /* Cor de fundo quando seguindo */
+    background-color: #f70073 !important;
+    color: black !important; /* Cor do texto branco */
+}
+
+.follow-button:hover {
+    background-color: #ec2b85; /* Alterar a cor de fundo ao passar o mouse */
+}
+
+.follow-button:active {
+    background-color: #ec2b85; /* Alterar a cor de fundo quando pressionado */
+}
+
+.custom-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway", sans-serif;
+}
+
+.bio-textarea {
+    overflow-wrap: break-word; /* Para quebrar palavras longas */
+    word-wrap: break-word; /* Para compatibilidade com navegadores mais antigos */
+    max-width: 400px; /* Defina a largura máxima desejada */
+}
+.edit-button {
+    background-color: #000;
+    color: #07c449;
+    font-weight: bold;
+}
+.modal-close-edit-button {
+    width: 20%;
+    background-color: #ea4f97;
+}
+
+.mobile-logo {
+    display: none;
+}

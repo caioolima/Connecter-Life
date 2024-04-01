@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.modal-content-2 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    height: auto; /* Ajuste para altura automática */
+    max-height: 590px; /* Ajuste conforme necessário */
+    margin-top: 150px;
+}
+
+.custom-modal-button-2 {
+    background-color: #07c449;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 15px;
+    margin-left: 15px;
+    font-family: "Raleway", sans-serif;
+}
+
+.custom-modal-button-2:hover {
+    background-color: #16bb1f;
+}
+
+.modal-image {
+    width: 100%;
+}
