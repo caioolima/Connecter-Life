@@ -44,7 +44,7 @@ p{
   font-family: "Raleway", sans-serif;
   font-size: 16px;
   font-weight: 600;
-  background-color: #4caf50;
+  background-color: var(--color-details);
   color: #ffffff;
   padding: 15px; /* Ajuste a altura conforme necessário */
   margin: 15px 0;
@@ -82,7 +82,7 @@ p{
 
 /* Estilo do link na resposta */
 .privacy-answer a {
-  color: #4caf50;
+  color: var(--color-details);
 }
 
 /* Ajustes na seta */

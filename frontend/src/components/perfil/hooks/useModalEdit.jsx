@@ -7,7 +7,7 @@ const useProfileEdit = () => {
         setBiography, setUsername,
         setUsernameError, setEditMode,
         setNewPhone, setSelectedImage, 
-        setShowModal, biography,
+        setShowModal
     } = useMyContext();
     
     const { userId } = useParams();

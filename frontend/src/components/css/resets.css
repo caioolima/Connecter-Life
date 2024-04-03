@@ -3,6 +3,18 @@
 
 /*---- resets.css ----*/
 
+:root {
+    --color-details: #16bb1f;
+    --color-details-hover: #0d7813;
+    --color-details-focus: #41ee4a;
+    --color-primary: #ea4f97;
+    --color-primary-hover: #f291be;
+    --color-primary-focus: #f70073;
+    --color-link: #4bc5f5;
+    --color-dark: black;
+    --color-alert: red;
+}
+
 * {
     /* ↓ Reseta margens ee espaçamentos globalmente. */
     margin: 0;

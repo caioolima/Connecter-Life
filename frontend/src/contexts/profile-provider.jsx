@@ -51,6 +51,7 @@ const MyContextProvider = ({ children }) => {
     const [previousButtonDisabled, setPreviousButtonDisabled] = useState(false);
     const [selectedImageLoaded, setSelectedImageLoaded] = useState(false);
     const [fadeState, setFadeState] = useState('fade-in');
+    const [css, setCss] = useState("")
     
     return <MyContext.Provider value={{
       fullName, setFullName,
@@ -94,7 +95,8 @@ const MyContextProvider = ({ children }) => {
       nextButtonDisabled, setNextButtonDisabled,
       previousButtonDisabled, setPreviousButtonDisabled,
       selectedImageLoaded, setSelectedImageLoaded,
-      fadeState, setFadeState
+      fadeState, setFadeState,
+      css, setCss
     }}>{children}</MyContext.Provider>;
 };
 

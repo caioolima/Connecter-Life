@@ -7,8 +7,9 @@
     justify-content: space-around;
     flex-direction: row;
     width: 100%;
-    box-shadow: 2px 2px 5px #0000005b;
-    margin-top: 50px;
+    box-shadow: 0 2px 7px #00000045;
+    margin-top: 10px;
+    border-bottom: 2px solid var(--color-details);
 }
 
 .profile-photo-container {
@@ -24,7 +25,7 @@
     border-radius: 50%;
     overflow: hidden;
     background-color: #000; /* Adicione uma cor de fundo padrão */
-    border: 2px solid #f06ba9; /* Adiciona um contorno verde à moldura do perfil */
+    border: 2px solid var(--color-primary); /* Adiciona um contorno verde à moldura do perfil */
 }
 
 .profile-photo {
@@ -98,7 +99,7 @@
 
 .profile-info .follow-button {
     /* Cor de fundo padrão */
-    background-color: #16bb1f;
+    background-color: var(--color-details);
     border: none; /* Sem borda */
     color: white;
     padding: 10px 20px; /* Espaçamento interno */
@@ -118,11 +119,11 @@
 }
 
 .follow-button:hover {
-    background-color: #ec2b85; /* Alterar a cor de fundo ao passar o mouse */
+    background-color: var(--color-primary); /* Alterar a cor de fundo ao passar o mouse */
 }
 
 .follow-button:active {
-    background-color: #ec2b85; /* Alterar a cor de fundo quando pressionado */
+    background-color: var(--color-primary); /* Alterar a cor de fundo quando pressionado */
 }
 
 .custom-button {
@@ -134,8 +135,8 @@
 }
 
 .edit-button {
-    background-color: #000;
-    color: #07c449;
+    background-color: var(--color-dark);
+    color: var(--color-details);
     font-weight: bold;
     border: none;
     padding: 10px 20px;

@@ -5,7 +5,7 @@ body {
 .form {
     width: 100%;
     max-width: 90%;
-    background-color: #000000;
+    background-color: var(--color-dark);
     height: 340px;
     max-height: 340px !important;
     display: flex;
@@ -118,11 +118,11 @@ body {
 }
 
 .entrada:focus {
-    border: 1px solid #08fc5c;
+    border: 1px solid var(--color-details-focus);
 }
 
 .pink {
-    background-color: #ea4f97;
+    background-color: var(--color-primary);
     color: #fff;
     font-size: 15px;
     border: none;
@@ -135,12 +135,12 @@ body {
 }
 
 .pink:hover {
-    background-color: #e072a6;
+    background-color: var(--color-primary-hover);
 }
 
 .forgot-password-link {
     cursor: pointer;
-    color: #4bc5f5;
+    color: var(--color-link);
     font-size: 15px;
     font-weight: 500;
 }
@@ -175,7 +175,7 @@ body {
 }
 
 .login-message {
-    color: red;
+    color: var(--color-alert);
     font-size: 12px;
     height: 0;
     
@@ -224,7 +224,7 @@ body {
 
 .popup-content input:focus,
 .popup-content select:focus {
-    border: 1px solid #08fc5c;
+    border: 1px solid var(--color-details-focus);
 }
 
 #lastName {
@@ -245,7 +245,7 @@ body {
 .signuping {
     margin-top: 20px;
     font-family: "Raleway", sans-serif;
-    background-color: #ea4f97;
+    background-color: var(--color-primary);
     color: #fff;
     font-size: 17px;
     border: none;
@@ -260,11 +260,11 @@ body {
 }
 
 .signuping:hover {
-    background-color: #e072a6;
+    background-color: var(--color-primary-hover);
 }
 
 .popup-content a {
-    color: #5092e9;
+    color: var(--color-link);
     font-family: "Raleway", sans-serif;
     font-size: 14px;
     margin: 15px 0;
@@ -321,7 +321,7 @@ body {
 }
 .popup .error-message {
     font-size: 10px;
-    color: red;
+    color: var(--color-alert);
 }
 
 .popup-content.error-visible {

@@ -48,8 +48,8 @@
 
 .vamos-nessa-button {
   background-color: #fff;
-  color: #f70073;
-  border: 2px solid #f70073; /* Adiciona uma borda de 2px sólida branca */
+  color: var(--color-primary-focus);
+  border: 2px solid var(--color-primary-focus); /* Adiciona uma borda de 2px sólida branca */
   border-radius: 20px;
   padding: 10px 30px;
   font-size: 1.1rem;
@@ -62,9 +62,9 @@
 
 
 .vamos-nessa-button:hover {
-  background-color: #f70073;
+  background-color: var(--color-primary-focus);
   color: #fff;
-  border: 2px solid #f70073;
+  border: 2px solid var(--color-primary-focus);
 }
 
 .vamos-nessa-button:active {
@@ -103,7 +103,7 @@
   transform: translateY(-50%);
   width: 20px; /* Largura da seta */
   height: 20px; /* Altura da seta */
-  background-color: #16bb1f; /* Cor da seta */
+  background-color: var(--color-details); /* Cor da seta */
 }
 
 .explore-info .sub-title::before {
@@ -138,7 +138,7 @@
 .line {
   width: 20%; /* Reduz a largura das linhas para que haja mais espaço entre elas */
   height: 2px;
-  background-color: #f70073;
+  background-color: var(--color-primary-focus);
 }
 .step {
   display: flex;
@@ -150,7 +150,7 @@
 .step-number {
   width: 50px;
   height: 50px;
-  background-color: #f70073;
+  background-color: var(--color-primary-focus);
   color: #fff;
   font-size: 1.5rem;
   border-radius: 50%;
@@ -225,7 +225,7 @@
   display: flex;
   align-items: center;
   justify-content: center; /* Centraliza horizontalmente */
-  background-color: #f70073; /* Cor de fundo rosa */
+  background-color: var(--color-primary-focus); /* Cor de fundo rosa */
   padding: 20px;
 }
 
@@ -238,7 +238,7 @@
 }
 
 .vamo-comigo-button {
-  background-color: #16bb1f; /* Cor de fundo do botão */
+  background-color: var(--color-details); /* Cor de fundo do botão */
   color: #fff; /* Cor do texto */
   font-size: 1.5rem; /* Tamanho da fonte */
   padding: 10px 20px; /* Espaçamento interno */
@@ -252,7 +252,7 @@
 }
 
 .vamo-comigo-button:hover {
-  background-color: #0d9614; /* Cor de fundo do botão ao passar o mouse */
+  background-color: var(--color-details-hover); /* Cor de fundo do botão ao passar o mouse */
 }
 
 .vamo-comigo-button:active {
@@ -267,7 +267,7 @@
   /* ↑ Estilo do footer. */
   text-align: center; /* ← Alinha os textos. */
   color: white; /* ← Cor da fonte. */
-  background: black; /* ← Cor de fundo. */
+  background: var(--color-dark); /* ← Cor de fundo. */
   padding: 20px; /* ← Espaçamento interior. */
   width: 99.45vw; /* ← Largura total. */
   display: block;

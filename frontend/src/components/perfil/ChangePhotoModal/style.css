@@ -33,7 +33,7 @@
 }
 
 .custom-modal-button {
-    background-color: #07c449;
+    background-color: var(--color-details);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -45,7 +45,7 @@
 }
 
 .custom-modal-button:hover {
-    background-color: #16bb1f;
+    background-color: var(--color-details-hover);
 }
 
 .custom-file-upload {
@@ -59,7 +59,7 @@
 .custom-file-upload label {
     cursor: pointer;
     padding: 15px 20px;
-    background-color: #07c449;
+    background-color: var(--color-details);
     color: #fff;
     border-radius: 4px;
     font-size: 15px;
@@ -72,7 +72,7 @@
 }
 
 .custom-remove-image {
-    background-color: #f44336;
+    background-color: var(--color-alert);
     color: #fff;
     border: none;
     padding: 15px 20px;
@@ -85,5 +85,5 @@
 }
 
 .custom-remove-image:hover {
-    background-color: #d32f2f;
+    background-color: var(--color-alert);
 }

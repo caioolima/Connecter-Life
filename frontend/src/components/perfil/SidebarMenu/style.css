@@ -7,7 +7,7 @@
     z-index: 1;
     bottom: 0;
     left: 0;
-    background-color: #000000; /* Cor de fundo do menu */
+    background-color: var(--color-dark); /* Cor de fundo do menu (black) */
     padding-top: 100px;
     text-align: left; /* Alinhe o texto à esquerda */
     display: flex;
@@ -27,7 +27,7 @@
 
 .sidebar a:hover,
 .sidebar button:hover .sidebar-link {
-    color: #07c449; /* Cor verde desejada ao passar o mouse */
+    color: var(--color-details); /* Cor (verde) desejada ao passar o mouse */
 }
 
 .sidebar button .sidebar-link {
@@ -71,7 +71,7 @@
 }
 
 .sidebar-link.active {
-    color: #ea4f97; /* Cor para indicar a página ativa */
+    color: var(--color-primary); /* Cor (rosa) para indicar a página ativa */
     font-weight: 700;
 }
 

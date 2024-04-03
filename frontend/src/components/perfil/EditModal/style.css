@@ -17,7 +17,7 @@
 }
 
 .modal-content-edit .error_message {
-    color: red; /* Cor vermelha para indicar um erro */
+    color: var(--color-alert); /* Cor vermelha para indicar um erro */
     font-size: 14px; /* Tamanho da fonte */
     margin-top: 5px; /* Espaçamento superior */
     font-weight: bold;
@@ -30,7 +30,7 @@
     font-size: 16px; /* Ajuste conforme necessário para aumentar o tamanho */
     font-weight: bold; /* Adiciona negrito ao texto */
     color: #fff; /* Cor do texto */
-    background-color: #07c449; /* Cor de fundo */
+    background-color: var(--color-details); /* Cor de fundo (verde) */
     border-radius: 4px; /* Borda arredondada */
     margin-top: 20px; /* Adiciona margem acima do botão */
     font-family: "Raleway", sans-serif;
@@ -38,7 +38,7 @@
 }
 
 .modal-content-edit button.save-button:hover {
-    background-color: #2ee96f; /* Cor de fundo do botão ao passar o mouse */
+    background-color: var(--color-details-hover); /* Cor de fundo do botão ao passar o mouse */
 }
 .modal-content-edit button.save-button.disabled {
     background-color: gray; /* Altere para a cor desejada para o botão desativado */
@@ -55,14 +55,14 @@
     top: 10px; /* Posiciona o botão no canto superior direito */
     right: 10px; /* Posiciona o botão no canto superior direito */
     color: #fff; /* Cor do texto */
-    background-color: #ea4f97; /* Cor de fundo do botão */
+    background-color: var(--color-primary); /* Cor de fundo do botão */
     border-radius: 4px; /* Adiciona bordas arredondadas ao botão *
   transition: background-color 0.3s; /* Adiciona uma transição suave na mudança de cor */
     font-family: "Raleway", sans-serif;
 }
 
 .modal-close-edit-button:hover {
-    background-color: #f06ba9; /* Cor de fundo do botão ao passar o mouse */
+    background-color: var(--color-primary-hover); /* Cor de fundo do botão ao passar o mouse */
 }
 
 .modal-content-edit .text-edit {
@@ -133,7 +133,7 @@
 .modal-content-edit .text-edit input:focus,
 .modal-content-edit .text-edit textarea:focus {
     outline: none; /* Remover contorno ao focar */
-    border-color: #ea4f97; /* Mudar cor da borda ao focar */
+    border-color: var(--color-primary); /* Mudar cor da borda ao focar */
     transition: border-color 0.3s ease;
     border-width: 2px; /* Define a largura da borda */
 }
@@ -150,7 +150,7 @@
 .focused-textfield
     .MuiOutlinedInput-root.Mui-focused
     .MuiOutlinedInput-notchedOutline {
-    border-color: #ff69b4; /* Cor da borda quando focado */
+    border-color: var(--color-primary); /* Cor da borda quando focado */
 }
 .progress-bar {
     width: 100%;
@@ -162,7 +162,7 @@
 
 .progress {
     height: 100%;
-    background-color: #ff69b4;
+    background-color: var(--color-primary);
     border-radius: 4px;
     transition: width 0.3s ease-in-out;
 }
