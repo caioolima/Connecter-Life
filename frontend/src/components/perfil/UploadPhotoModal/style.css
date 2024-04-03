@@ -9,7 +9,7 @@
     width: 90%;
     max-width: 500px;
     height: auto; /* Ajuste para altura automática */
-    max-height: 590px; /* Ajuste conforme necessário */
+    max-height: 620px; /* Ajuste conforme necessário */
     margin-top: 150px;
 }
 
@@ -23,6 +23,7 @@
     margin-right: 15px;
     margin-left: 15px;
     font-family: "Raleway", sans-serif;
+    margin-top: 20px;
 }
 
 .custom-modal-button-2:hover {

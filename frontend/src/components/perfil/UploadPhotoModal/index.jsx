@@ -20,7 +20,7 @@ const UploadPhotoModal = () => {
         <div className="modal active">
             <div className="modal-content-2">
                 <button
-                    className="modal-close"
+                    className="modal-closed"
                     onClick={handleClosePhotoModal}>
                     &times;
                 </button>
@@ -35,7 +35,7 @@ const UploadPhotoModal = () => {
                             <button
                                 className="custom-modal-button-2"
                                 onClick={changeImage2}>
-                                Confirmar Mudança
+                                Fazer Postagem
                             </button>
                         </div>
                     </div>

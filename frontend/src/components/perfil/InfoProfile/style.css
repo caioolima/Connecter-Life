@@ -1,2 +1,184 @@
 @charset "UTF-8";
 
+/* infoProfile style */
+
+.profile-header {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+    box-shadow: 2px 2px 5px #0000005b;
+    margin-top: 50px;
+}
+
+.profile-photo-container {
+    cursor: pointer;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.profile-photo-frame {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #000; /* Adicione uma cor de fundo padrão */
+    border: 2px solid #f06ba9; /* Adiciona um contorno verde à moldura do perfil */
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+}
+
+.user-info h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: #000000;
+}
+
+.add-image-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    color: #666;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cont-photos {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 10px;
+}
+
+.cont-photos p {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fullname {
+    margin: 0;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+.profile-info .bio {
+    font-size: 1rem;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.profile-info input,
+.profile-info textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.profile-info .follow-button {
+    /* Cor de fundo padrão */
+    background-color: #16bb1f;
+    border: none; /* Sem borda */
+    color: white;
+    padding: 10px 20px; /* Espaçamento interno */
+    text-decoration: none; /* Sem decoração de texto */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor do mouse */
+    border-radius: 5px; /* Borda arredondada */
+    margin-left: 3px; /* Margem à esquerda */
+    transition: background-color 0.8s ease; /* Transição suave */
+    font-weight: bold !important;
+}
+
+.following {
+    /* Cor de fundo quando seguindo */
+    background-color: #f70073 !important;
+    color: black !important; /* Cor do texto branco */
+}
+
+.follow-button:hover {
+    background-color: #ec2b85; /* Alterar a cor de fundo ao passar o mouse */
+}
+
+.follow-button:active {
+    background-color: #ec2b85; /* Alterar a cor de fundo quando pressionado */
+}
+
+.custom-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.edit-button {
+    background-color: #000;
+    color: #07c449;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: "Raleway", sans-serif;
+    font-size: 15px;
+}
+
+@media screen and (max-width: 660px) {
+    .profile-photo-frame {
+        max-width: 25vw;
+        max-height: 25vw;
+    }
+    
+    .profile-header {
+        width: 100vw;
+    }
+    
+    .profile-info {
+        width: 70%;
+    }
+    
+    .user-info h1 {
+        font-size: 1.3rem;
+    }
+    
+    .cont-photos {
+        font-size: 12px;
+        font-weight: 400;
+        gap: 7px;
+    }
+    
+    .fullname {
+        font-size: 1rem;
+    }
+    
+    .edit-button {
+        padding: 4px 10px;
+        font-size: 10px;
+    }
+    
+    .profile-info .bio {
+        font-size: 0.8rem;
+    }
+}

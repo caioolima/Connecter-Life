@@ -10,7 +10,7 @@ const useUploadModal = () => {
         selectedImage,
         setSelectedImage,
         setShowPhotoModal,
-        setUserPhotos
+        setUserPhotos,
     } = useMyContext();
     const { userId } = useParams();
 
@@ -29,7 +29,7 @@ const useUploadModal = () => {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`
                         },
-                        body: JSON.stringify({ 
+                        body: JSON.stringify({
                             galleryImageUrl: {
                                 url: selectedImage,
                                 postedAt: new Date() // Você pode ajustar isso conforme necessário

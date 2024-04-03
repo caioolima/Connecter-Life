@@ -1,11 +1,11 @@
 import "./style.css";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useEventsModals from "../hooks/useEventsModals";
 import { AiOutlineLike } from "react-icons/ai";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa"
-import { MdOutlineSwipe } from "react-icons/md"
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import { MdOutlineSwipe } from "react-icons/md";
 
 const PublicationDetailsModal = () => {
     const { userId } = useParams();
@@ -73,9 +73,9 @@ const PublicationDetailsModal = () => {
                                 }`}
                                 onClick={goToPreviousImage}
                                 disabled={previousButtonDisabled}>
-                                <FaArrowAltCircleLeft className="arrows"/>
+                                <FaArrowAltCircleLeft className="arrows" />
                             </button>
-                            <MdOutlineSwipe className="swipe"/>
+                            <MdOutlineSwipe className="swipe" />
                             {selectedImageLoaded ? (
                                 <img
                                     ref={imageRef}
@@ -92,7 +92,7 @@ const PublicationDetailsModal = () => {
                                     }
                                 />
                             ) : (
-                                <div className="loading-text">
+                                <div className="loading-text-2">
                                     Carregando...
                                 </div>
                             )}
@@ -103,7 +103,7 @@ const PublicationDetailsModal = () => {
                                 }`}
                                 onClick={goToNextImage}
                                 disabled={nextButtonDisabled}>
-                                <FaArrowAltCircleRight className="arrows"/>
+                                <FaArrowAltCircleRight className="arrows" />
                             </button>
                         </div>
                         {/* Detalhes do usuário */}

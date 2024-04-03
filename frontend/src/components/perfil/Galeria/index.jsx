@@ -1,68 +1,60 @@
+import React from 'react';
 import "./style.css";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useEventsModals from "../hooks/useEventsModals";
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect } from "react";
 
 const Galeria = () => {
   const { userPhotos } = useMyContext();
   const { handlePublicationClick } = useEventsModals();
-  const observer = useRef(null);
-  const [loadingImages, setLoadingImages] = useState(Array(userPhotos.length).fill(true));
+  
+  const [loadedImages, setLoadedImages] = useState(Array(userPhotos.length).fill(false));
 
   useEffect(() => {
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const lazyImage = entry.target;
-          lazyImage.src = lazyImage.dataset.src;
-          observer.current.unobserve(lazyImage);
-        }
+    const preloadImages = () => {
+      userPhotos.forEach((photo, index) => {
+        const img = new Image();
+        img.src = photo.url;
+        img.onload = () => handleImageLoaded(index);
       });
-    });
-
-    const images = document.querySelectorAll(".lazy");
-    images.forEach((image) => {
-      observer.current.observe(image);
-    });
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
     };
+
+    if (userPhotos.length > 0) {
+      preloadImages();
+    }
   }, [userPhotos]);
 
   const handleImageLoaded = (index) => {
-    setLoadingImages((prevLoadingImages) => {
-      const newLoadingImages = [...prevLoadingImages];
-      newLoadingImages[index] = false;
-      return newLoadingImages;
+    setLoadedImages((prevLoadedImages) => {
+      const newLoadedImages = [...prevLoadedImages];
+      newLoadedImages[index] = true;
+      return newLoadedImages;
     });
   };
 
   return (
-    <>
+    <div className="galery-contain">
       <h2 className="title-photo">Galeria</h2>
       <div className="photo-gallery">
         {userPhotos.length > 0 ? (
           <div className="photo-grid">
             {userPhotos.map((photo, index) => (
               <div className="photo-item" key={index}>
-                {photo && photo.url && (
-                  <button onClick={(event) => handlePublicationClick(index, event)}>
-                    {loadingImages[index] && (
-                      <div className="loading-overlay">
-                        <div className="loading-spinner"></div>
-                      </div>
-                    )}
-                    <img
-                      className="lazy"
-                      data-src={photo.url}
-                      alt={`Foto ${index}`}
-                      onLoad={() => handleImageLoaded(index)}
-                    />
-                  </button>
-                )}
+                <button onClick={(event) => handlePublicationClick(index, event)}>
+                  {!loadedImages[index] && (
+                    <div className="loading-spinner">
+                      <div className="dot-loader"></div>
+                      <div className="dot-loader"></div>
+                      <div className="dot-loader"></div>
+                    </div>
+                  )}
+                  <img
+                    src={photo.url}
+                    alt={`Foto ${index}`}
+                    style={{ opacity: loadedImages[index] ? 1 : 0, transition: 'opacity 0.5s' }}
+                    onLoad={() => handleImageLoaded(index)}
+                  />
+                </button>
               </div>
             ))}
           </div>
@@ -70,7 +62,7 @@ const Galeria = () => {
           <p className="empty-gallery-message">Não há fotos na galeria.</p>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

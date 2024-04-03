@@ -1,39 +1,42 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const AuthContext = createContext({});
 
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:3000",
+  // Você pode configurar headers comuns aqui se necessário
+});
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {
-      axios.defaults.headers.common.authorization = `Bearer ${token}`;
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axiosInstance.get("/profile");
 
-      axios
-        .get("http://localhost:3000/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setUser({ ...response.data, id: response.data._id });
-        })
-        .catch(() => {
-          setUser(null);
-        });
+        setUser({ ...response.data, id: response.data._id });
+      } catch (error) {
+        handleLogout();
+      }
+    };
+
+    if (token) {
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      fetchUserProfile();
     } else {
       setUser(null);
     }
   }, []);
 
-  async function signIn({ email, password }) {
+  const handleLogin = async ({ email, password }) => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
+      const response = await axiosInstance.post("/auth/login", {
         email,
         password,
       });
@@ -45,22 +48,27 @@ export function AuthProvider({ children }) {
 
       return { userId: response.data.userId };
     } catch (error) {
-      throw error;
+      throw new Error("Falha ao fazer login. Verifique suas credenciais.");
     }
-  }
+  };
 
-  function signOut() {
+  const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
-  }
+    navigate("/home");
+  };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, signIn: handleLogin, signOut: handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+  }
+  return context;
 }

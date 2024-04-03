@@ -1,6 +1,6 @@
 // App.js
 import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import ResetPassword from "./components/Reset Password/ResetPassword";
 import AuthLayout from "./components/AuthLayout/auth";
@@ -8,14 +8,16 @@ import Terms from "./components/Terms/terms";
 import Service from "./components/Terms/service";
 import Privacy from "./components/Terms/privacy";
 import UserProfileContainer from "./components/perfil/UserProfileContainer";
-import Introduction from "./components/Connecter Home/introduction";
+import Introduction from "./components/ConnecterHome/introduction";
 
 function App() {
     return (
         <Routes>
             <Route
                 path="/introduction"
-                element={<Introduction />} // Redireciona para a tela de introdução quando acessar o caminho inicial "/"
+                element={
+                    <Introduction />
+                } // Redireciona para a tela de introdução quando acessar o caminho inicial "/"
             />
             <Route
                 path="/home"
@@ -57,10 +59,7 @@ function App() {
                     </AuthLayout>
                 }
             />
-            <Route
-                path="/profile/:userId"
-                element={<UserProfileContainer />}
-            />
+            <Route path="/profile/:userId" element={<UserProfileContainer />} />
         </Routes>
     );
 }
