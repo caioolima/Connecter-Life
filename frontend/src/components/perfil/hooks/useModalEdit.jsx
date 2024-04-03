@@ -59,6 +59,38 @@ const useProfileEdit = () => {
         }
     };
     
+     // Função para excluir a biografia do usuário
+     const handleDeleteBiography = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const url = `http://localhost:3000/users/${userId}/biography`;
+
+            const response = await fetch(url, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    setBiography(""); // Limpa a biografia no contexto
+                    setEditMode(false); // Sai do modo de edição
+                    setShowModal(false); // Fecha o modal de edição
+                    console.log("Biografia excluída com sucesso!");
+                } else {
+                    // Se houver um erro, exibe a mensagem de erro fornecida pelo servidor
+                    console.error("Erro ao excluir a biografia:", data.message);
+                }
+            } else {
+                // Se a resposta do servidor não for bem-sucedida, exibe o status da resposta
+                console.error(`Erro ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error("Erro ao excluir a biografia:", error);
+        }
+    };
     // Função para atualizar o novo número de telefone
     const handleChangePhoneNumber = newPhoneNumber => {
         setNewPhone(newPhoneNumber); // Atualiza o estado com o novo número de telefone
@@ -74,7 +106,7 @@ const useProfileEdit = () => {
     
     return { 
         setUsernameError, handleSaveEdit, 
-        handleChangePhoneNumber, handleCloseModal
+        handleChangePhoneNumber, handleCloseModal,handleDeleteBiography
     };
 }
 

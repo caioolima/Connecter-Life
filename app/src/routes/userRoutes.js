@@ -12,6 +12,8 @@ router.post('/:id/biography', middleware.checkAuthMiddleware, userController.add
 // Rota para atualizar a biografia
 router.put('/:id/biography', middleware.checkAuthMiddleware, userController.updateUserBiography);
 
+router.delete('/:id/biography', middleware.checkAuthMiddleware, userController.deleteUserBiography);
+
 // Rota para atualizar o nome de usuário, biografia e nome completo
 router.put('/:id/edit', middleware.checkAuthMiddleware, userController.updateUserProfile);
 
