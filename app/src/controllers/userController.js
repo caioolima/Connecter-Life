@@ -140,6 +140,51 @@ exports.addUserProfileImage = async (req, res) => {
     }
 };
 
+exports.deleteUserBiography = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Encontre o usuário pelo ID
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res
+                .status(404)
+                .json({ success: false, message: "User not found." });
+        }
+
+        // Verifique se o usuário possui uma biografia
+        if (!user.biography) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "User biography does not exist."
+                });
+        }
+
+        // Exclua a biografia do usuário
+        user.biography = undefined;
+        await user.save();
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "User biography deleted successfully."
+            });
+    } catch (error) {
+        console.error("Error deleting user biography:", error);
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message:
+                    "Internal server error while deleting user biography."
+            });
+    }
+};
+
 exports.updateUserProfile = async (req, res) => {
     try {
         const { id } = req.params;
