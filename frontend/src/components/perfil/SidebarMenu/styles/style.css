@@ -140,32 +140,7 @@
         margin: 0;
     }
     
-    .myprofile-link .round-image {
-        display: flex;
-        margin-left: 10px;
-        margin-top: -18px;
-    }
-    
     .-bar {
         display: none;
     }
-}
-
-.myprofile-link {
-    display: flex;
-    margin-left: 10px;
-    margin-top: 20px;
-}
-
-.myprofile-link .round-image {
-    margin-bottom: 1px;
-    width: 30px; /* Ajuste a largura do ícone para o seu design específico */
-    height: 30px; /* Ajuste a altura do ícone para o seu design específico */
-    margin-left: 5px; /* Espaço entre o ícone e o texto */
-    border-radius: 50%; /* Torna a imagem redonda */
-}
-
-.myprofile-link span {
-    margin-left: 10px; /* Adiciona espaçamento à esquerda do texto */
-    margin-top: -5px;
 }

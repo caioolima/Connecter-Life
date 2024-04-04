@@ -412,3 +412,25 @@ exports.deleteGalleryImage = async (req, res) => {
             });
     }
 };
+
+// Função para buscar um usuário pelo nome de usuário
+exports.findAllUsers = async (req, res) => {
+    try {
+        const { username } = req.params;
+
+        // Remove espaços extras e adiciona a flag 'i' para tornar a busca insensível a maiúsculas/minúsculas
+        const cleanedUsername = username.trim().replace(/\s+/g, ' ');
+        const regexUsername = new RegExp(cleanedUsername, 'i');
+
+        const users = await User.find({ username: { $regex: regexUsername } });
+
+        if (users.length > 0) {
+            res.status(200).json(users); // Retorna os dados de todos os usuários em formato JSON
+        } else {
+            res.status(404).json({ error: `Nenhum usuário encontrado com o nome ${cleanedUsername}` });
+        }
+    } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ error: 'Erro interno ao buscar usuários.' });
+    }
+};

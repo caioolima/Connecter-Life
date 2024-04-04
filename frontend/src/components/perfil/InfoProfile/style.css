@@ -110,6 +110,8 @@
     margin-left: 3px; /* Margem à esquerda */
     transition: background-color 0.8s ease; /* Transição suave */
     font-weight: bold !important;
+    width: 36%;
+    font-family: "Raleway", sans-serif;
 }
 
 .following {

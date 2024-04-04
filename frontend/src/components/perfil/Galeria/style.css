@@ -73,7 +73,7 @@
 .empty-gallery-message {
   font-size: 1.2rem;
   text-align: center; /* Centraliza horizontalmente */
-  margin-top: -50px; /* Adiciona margem superior para centralizar verticalmente */
+  margin-top: 50px; /* Adiciona margem superior para centralizar verticalmente */
   color: #999; /* Cor de texto cinza claro */
 }
 
