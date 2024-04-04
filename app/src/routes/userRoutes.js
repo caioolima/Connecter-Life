@@ -32,4 +32,8 @@ router.post('/:id/gallery-image', middleware.checkAuthMiddleware, userController
 // Rota para obter as URLs das imagens da galeria do usuário
 router.get('/:id/gallery-image', middleware.checkAuthMiddleware, userController.getGalleryImages);
 
+// Rota para excluir uma imagem da galeria de um usuário
+router.delete('/:userId/gallery-image/:imageUrl', middleware.checkAuthMiddleware, userController.deleteGalleryImage);
+
+
 module.exports = router;

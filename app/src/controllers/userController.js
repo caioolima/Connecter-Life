@@ -370,3 +370,45 @@ exports.getGalleryImages = async (req, res) => {
     }
 };
 
+exports.deleteGalleryImage = async (req, res) => {
+    try {
+        const { userId, imageUrl } = req.params;
+
+        // Encontre o usuário pelo ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Usuário não encontrado." });
+        }
+
+        // Verifique se a imagem está na galeria do usuário
+        const imageIndex = user.galleryImageUrl.findIndex(image => image.url === imageUrl);
+
+        if (imageIndex === -1) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Imagem não encontrada na galeria do usuário." });
+        }
+
+        // Remova a imagem da galeria do usuário
+        user.galleryImageUrl.splice(imageIndex, 1);
+        await user.save();
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Imagem excluída da galeria com sucesso."
+            });
+    } catch (error) {
+        console.error("Erro ao excluir imagem da galeria:", error);
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: "Erro interno do servidor ao excluir imagem da galeria."
+            });
+    }
+};
