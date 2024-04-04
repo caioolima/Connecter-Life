@@ -12,6 +12,7 @@ router.post('/:id/biography', middleware.checkAuthMiddleware, userController.add
 // Rota para atualizar a biografia
 router.put('/:id/biography', middleware.checkAuthMiddleware, userController.updateUserBiography);
 
+// Rota para deletar a biografia
 router.delete('/:id/biography', middleware.checkAuthMiddleware, userController.deleteUserBiography);
 
 // Rota para atualizar o nome de usuário, biografia e nome completo
@@ -35,5 +36,7 @@ router.get('/:id/gallery-image', middleware.checkAuthMiddleware, userController.
 // Rota para excluir uma imagem da galeria de um usuário
 router.delete('/:userId/gallery-image/:imageUrl', middleware.checkAuthMiddleware, userController.deleteGalleryImage);
 
+// Rota para encontrar todos os usuários
+router.get('/find/:username', userController.findAllUsers);
 
 module.exports = router;
