@@ -14,7 +14,7 @@ import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
 
 /* Functions */
-import useEventsModals from "./hooks/useEventsModals";
+import useGetdata from "./hooks/useGetdata";
 import useUploadModal from "./hooks/useUploadModal";
 import usePhotoModal from "./hooks/usePhotoModal.jsx";
 
@@ -42,37 +42,14 @@ const UserProfileContainer = () => {
         selectedImage
     } = useMyContext();
 
-    const { getDataUser } = useEventsModals();
+    const { getDataUser } = useGetdata();
     const { getGalleryImages } = useUploadModal();
     const { verifyRelationship } = usePhotoModal();
 
     const [loading, setLoading] = useState(true); // Estado para controlar o carregamento das imagens
     const { userId } = useParams();
-    const { signOut, user } = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchFollowersCount = async () => {
-            try {
-                const response = await fetch(
-                    `http://localhost:3000/relationship/${userId}`
-                );
-                if (response.ok) {
-                    const data = await response.json();
-                    setNumberOfFollowers(data.numberOfFollowers);
-                } else {
-                    console.error(
-                        "Erro ao obter o número de seguidores:",
-                        response.status
-                    );
-                }
-            } catch (error) {
-                console.error("Erro ao obter o número de seguidores:", error);
-            }
-        };
-
-        fetchFollowersCount();
-    }, [userId, setNumberOfFollowers]);
 
     useEffect(() => {
         const fetchFollowingCount = async () => {
@@ -144,34 +121,6 @@ const UserProfileContainer = () => {
     }, [userId, getDataUser]); // Adiciona userId como dependência para este useEffect
 
     useEffect(() => {
-        const storedFullName = localStorage.getItem("fullName");
-        const storedUsername = localStorage.getItem("username");
-        const storedProfileImage = localStorage.getItem("profileImage");
-
-        if (storedFullName && storedUsername) {
-            setFullName(storedFullName);
-            setUsername(storedUsername);
-            setProfileImage(storedProfileImage);
-        }
-        if (storedProfileImage) {
-            setProfileImage(storedProfileImage);
-        }
-    }, [setFullName, setProfileImage, setUsername]);
-
-    const openModalTwo = () => {
-        setShowPhotoModal(true);
-    };
-
-    const handleSignOut = () => {
-        signOut();
-        navigate("/home");
-    };
-
-    useEffect(() => {
-        getGalleryImages();
-    }, [setUserPhotos, userId, getGalleryImages]);
-
-    useEffect(() => {
         if (selectedPublicationModalOpen && selectedImage) {
             setSelectedPhotoPosition({
                 x: window.innerWidth / 2,
@@ -212,26 +161,21 @@ const UserProfileContainer = () => {
     }, [user, verifyRelationship]);
 
     return (
-        <div className="container-p">
-            <SidebarMenu
-                userId={userId}
-                handleSignOut={handleSignOut}
-                openModalTwo={openModalTwo}
-            />
+        <>
             {selectedPublicationModalOpen && <PublicationDetailsModal />}
-            <div className="page-full">
+            <main className="profile">
                 {userDataLoaded && (
-                    <div className="profile-container">
+                    <section className="profile-container">
                         <InfoProfile />
-                        <hr className="line-profile" />
                         <Galeria />
-                    </div>
+                    </section>
                 )}
                 {isEditMode && <EditModal />}
                 {showModal && <ChangePhotoModal />}
                 {showPhotoModal && <UploadPhotoModal />}
-            </div>
-        </div>
+                <SidebarMenu/>
+            </main>
+        </>
     );
 };
 

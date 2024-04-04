@@ -44,16 +44,3 @@ div.content {
 }
 
 /* ↓ Configurações do scroll bar */
-*::-webkit-scrollbar {
-    width: 1px;
-}
-
-*::-webkit-scrollbar-thumb {
-    height: 8px; /* ← Ajuste a altura conforme necessário */
-    background-color: #5b5959;
-    border-radius: 3px;
-}
-
-*::-webkit-scrollbar-track {
-    z-index: -1;
-}

@@ -2,56 +2,22 @@
 
 /* UserProfile.css */
 
-.page-full {
-    display: flex; /* Permite que os elementos filhos usem flexbox para alinhamento */
-    height: 100vh;
-    width: 100vw;
+main.profile { /* ← Pagina inteira */
+    display: flex; /* Permite que os filhos usem flexbox para alinhamento */
 }
 
-.profile-container {
-    margin: auto;
-    color: #000000;
-    font-size: 30px;
-    max-height: calc(100vh); 
-    width: 50vw; /* Defina a largura desejada */
-    margin-top: 30px;
+section.profile-container { /* ← Container pai do profile */
+    margin: auto; /* Alinha o container no centro da pagina */
+    width: 50vw; /* Defina a largura desejada */
+    max-height: 100vh; /* Limita a largura */
+    margin-top: 30px; /* Adiciona um espaço do topo da tela para o profile */
 }
 
-/*Hehehehe*/
-
-.hidden {
-    display: none;
-}
-
-@media screen and (max-width: 1000px) {
-    .profile-container {
-        width: 70vw;
-    }
-    
-    .container-p {
-        min-height: 100vh;
-        position: relative;
-        overflow-x: hidden;
-    }
-}
-
-@media screen and (max-width: 660px) {
-    .profile-container {
-        width: 100vw;
-    }
-}
-
-@media sceen and (max-width: 1400px) {
-    .profile-container {
-        width: 700px;
-    }
-}
-
-.modal.active {
+.modal.active { /* ← Estado dos modais */
     display: flex;
 }
 
-.modal {
+.modal { /* Todos os modais */
     position: fixed;
     top: 0;
     left: 0;
@@ -77,4 +43,22 @@
 
 .mobile-logo {
     display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    section.profile-container {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    section.profile-container {
+        width: 100vw;
+    }
+}
+
+@media sceen and (max-width: 1400px) {
+    section.profile-container {
+        width: 700px;
+    }
 }
