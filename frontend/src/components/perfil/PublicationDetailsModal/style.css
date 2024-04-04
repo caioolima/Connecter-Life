@@ -254,3 +254,71 @@
         object-position: center top; /* Centraliza a imagem na parte superior */
     }
 }
+
+/* Estilos para o botão de três pontos */
+.delete-menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+
+/* Estilos para as opções do menu de exclusão */
+.modal-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 1.8); /* Sombreado */
+    width: 57%;
+    animation: modalFadeIn 0.3s ease forwards; /* Animação de fade-in */
+}
+
+
+.modal-content-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centraliza os elementos verticalmente */
+}
+
+.modal-buttons-modal {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row; /* Alinha os botões horizontalmente */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+}
+
+
+.text-delete-modal{
+    font-weight: bold;
+}
+.modal-buttons-modal button {
+    margin: 0 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Raleway", sans-serif;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-buttons-modal button:hover {
+    background-color: #e0e0e0; /* Altera a cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho ao passar o mouse */
+}
+
+.modal-buttons-modal button:first-child {
+    background-color: #ff6666;
+    color: white;
+}
+
+.modal-buttons-modal button:last-child {
+    background-color: #66cc66;
+    color: white;
+}

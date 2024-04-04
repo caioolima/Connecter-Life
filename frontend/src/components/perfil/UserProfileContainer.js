@@ -46,7 +46,6 @@ const UserProfileContainer = () => {
     const { getGalleryImages } = useUploadModal();
     const { verifyRelationship } = usePhotoModal();
 
-    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento das imagens
     const { userId } = useParams();
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -81,30 +80,6 @@ const UserProfileContainer = () => {
         // Limpar a imagem do perfil armazenada localmente ao carregar o perfil de um novo usuário
         localStorage.removeItem("profileImage");
     }, [userId]); // Adiciona userId como dependência para este useEffect
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        const visitedBefore = localStorage.getItem("visitedBefore");
-
-        if (!token) {
-            navigate("/home");
-        } else {
-            // Se o usuário já visitou antes, não mostrar a tela de carregamento
-            if (visitedBefore) {
-                setLoading(false);
-            } else {
-                // Define visitedBefore como true para indicar que o usuário já visitou a página
-                localStorage.setItem("visitedBefore", true);
-            }
-        }
-    }, [navigate]);
-
-    useEffect(() => {
-        // Quando o usuário fizer logout, redefinir visitedBefore para false
-        return () => {
-            localStorage.removeItem("visitedBefore");
-        };
-    }, []);
 
     useEffect(() => {
         const loggedInUserId = localStorage.getItem("userId");
