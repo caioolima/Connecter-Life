@@ -15,12 +15,10 @@ const InfoProfile = () => {
     numberOfFollowers,
     numberOfFollowing,
     biography,
-    newBiography,
     isOwnProfile,
     isFollowing,
     unfollowUser,
     followUser,
-    css
   } = useMyContext();
 
   const { handleEditClick, openModal } = useEventsModals();

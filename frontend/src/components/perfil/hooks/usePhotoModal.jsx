@@ -1,7 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useMyContext } from "../../../contexts/profile-provider";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../../../hooks/use-auth";
 import { storage } from "../../Firebase/storage";
 import useUploadModal from "../hooks/useUploadModal"
 import {
@@ -20,7 +19,6 @@ const usePhotoModal = () => {
         setProfileImage,
         setCurrentUserProfileImage,
         setUploadProgress,
-        setIsFollowing,
         setUserPhotos,
         newUsername,
         newBiography
@@ -31,7 +29,6 @@ const usePhotoModal = () => {
     const [selectedFile, setSelectedFile] = useState(null); // Estado para controlar o arquivo selecionado
     
     const { userId } = useParams();
-    const { user } = useAuth();
 
     const closeModal = () => {
         setShowModal(false);
@@ -168,38 +165,6 @@ const usePhotoModal = () => {
         }
     };
 
-    const verifyRelationship = useCallback(async () => {
-        try {
-            const token = localStorage.getItem("token");
-            // Verifica se user é nulo antes de acessar sua propriedade id
-            if (!user) {
-                console.error("Usuário não definido.");
-                return;
-            }
-            const url = `http://localhost:3000/relationship/${user.id}/${userId}`;
-
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setIsFollowing(data.exists); // Define isFollowing com base na resposta da API
-            } else {
-                console.error(
-                    "Erro ao verificar a relação de seguimento:",
-                    response.status
-                );
-            }
-        } catch (error) {
-            console.error("Erro ao verificar a relação de seguimento:", error);
-        }
-    }, [setIsFollowing, user, userId]); // Removido user.id da lista de dependências
-
     useEffect(() => {
         getGalleryImages();
     }, [setUserPhotos, userId, getGalleryImages]);
@@ -208,8 +173,7 @@ const usePhotoModal = () => {
         closeModal,
         removeImage,
         changeImage,
-        handleImageChange,
-        verifyRelationship
+        handleImageChange
     };
 };
 

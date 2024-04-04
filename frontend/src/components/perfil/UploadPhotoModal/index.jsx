@@ -1,65 +1,49 @@
-import "./style.css"
-import { useMyContext } from "../../../contexts/profile-provider"
-import useEventsModals from "../hooks/useEventsModals"
-import useUploadModal from "../hooks/useUploadModal"
+import "./styles/style.css";
+import { useMyContext } from "../../../contexts/profile-provider";
+import useUploadModal from "../hooks/useUploadModal";
+import ButtonClosed from "./ButtonClosed.jsx"
+import ButtonPublish from "./ButtonPublish.jsx"
+import Loading from "./Loading.jsx"
 
 const UploadPhotoModal = () => {
-    const {
-        selectedImage, uploadInProgress
-    } = useMyContext();
-    
-    const {
-        changeImage2, handleImageUpload
-    } = useUploadModal();
-    
-    const {
-        handleClosePhotoModal
-    } = useEventsModals();
-    
+    const { selectedImage, uploadInProgress } = useMyContext();
+
+    const { handleImageUpload } = useUploadModal();
+
     return (
-        <div className="modal active">
-            <div className="modal-content-2">
-                <button
-                    className="modal-closed"
-                    onClick={handleClosePhotoModal}>
-                    &times;
-                </button>
+        <main className="modal active">
+            <article className="publish-modal">
+                <ButtonClosed/>
                 {selectedImage && (
-                    <div className="photo-upload">
+                    <section className="chosen-image-field">
                         <img
                             src={selectedImage}
                             alt="Selected"
-                            className="modal-image"
+                            className="chosen-image"
                         />
-                        <div className="modal-buttons">
-                            <button
-                                className="custom-modal-button-2"
-                                onClick={changeImage2}>
-                                Fazer Postagem
-                            </button>
-                        </div>
-                    </div>
+                        <ButtonPublish/>
+                    </section>
                 )}
-                {/* Exibir a barra de progresso se o upload estiver em andamento */}
+                {/* Display progress bar if upload is in progress */}
                 {uploadInProgress && (
-                    <div className="loading-text">Carregando...</div>
+                    <Loading/>
                 )}
 
-                {/* Botão para anexar imagem */}
+                {/* Button to attach image */}
                 {!selectedImage && !uploadInProgress && (
-                    <div className="custom-file-upload">
+                    <section className="custom-file-upload">
                         <label>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handleImageUpload}
                             />
-                            Adicionar Foto
+                            Adionar foto
                         </label>
-                    </div>
+                    </section>
                 )}
-            </div>
-        </div>
+            </article>
+        </main>
     );
 };
 

@@ -1,8 +1,14 @@
 import React, { createContext, useState, useContext } from "react";
+import { useAuth } from "../hooks/use-auth";
+import { useLocation } from "react-router-dom"
 
 const MyContext = createContext("");
 
 const MyContextProvider = ({ children }) => {
+    
+    const { user } = useAuth();
+    const location = useLocation();
+    
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
     const [profileImage, setProfileImage] = useState(null);
@@ -51,7 +57,12 @@ const MyContextProvider = ({ children }) => {
     const [previousButtonDisabled, setPreviousButtonDisabled] = useState(false);
     const [selectedImageLoaded, setSelectedImageLoaded] = useState(false);
     const [fadeState, setFadeState] = useState('fade-in');
-    const [css, setCss] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const myProfileLink = `/profile/${user && user.id}`;
+    const isMyProfilePage = location.pathname === myProfileLink;
+
     
     return <MyContext.Provider value={{
       fullName, setFullName,
@@ -96,7 +107,10 @@ const MyContextProvider = ({ children }) => {
       previousButtonDisabled, setPreviousButtonDisabled,
       selectedImageLoaded, setSelectedImageLoaded,
       fadeState, setFadeState,
-      css, setCss
+      isModalOpen, setIsModalOpen,
+      deleting, setDeleting,
+      showDeleteModal, setShowDeleteModal,
+      myProfileLink, isMyProfilePage
     }}>{children}</MyContext.Provider>;
 };
 

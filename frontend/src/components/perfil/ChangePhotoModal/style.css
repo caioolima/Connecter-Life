@@ -48,29 +48,6 @@
     background-color: var(--color-details-hover);
 }
 
-.custom-file-upload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    margin-bottom: 60px;
-}
-
-.custom-file-upload label {
-    cursor: pointer;
-    padding: 15px 20px;
-    background-color: var(--color-details);
-    color: #fff;
-    border-radius: 4px;
-    font-size: 15px;
-    width: 50%;
-    margin-top: -20px;
-}
-
-.custom-file-upload input {
-    display: none;
-}
-
 .custom-remove-image {
     background-color: var(--color-alert);
     color: #fff;

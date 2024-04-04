@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useMyContext } from "../../../contexts/profile-provider.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/use-auth";
@@ -9,18 +9,11 @@ const useEventsModals = () => {
         setSelectedPublicationModalOpen,
         setSelectedImage,
         setUploadInProgress,
-        setFullName,
-        setUsername,
         username,
         fullName,
         modalDateOfBirth,
         setModalFullName,
         setModalDateOfBirth,
-        setPhoneNumber,
-        setProfileImage,
-        setCountryCode,
-        setBiography,
-        setUserDataLoaded,
         userPhotos,
         setCurrentImageIndex,
         setSelectedImageLoaded,
@@ -32,12 +25,15 @@ const useEventsModals = () => {
         setUsernameError,
         setPhoneError,
         setFadeState,
-        setNumberOfFollowers
+        setNumberOfFollowers,
+        selectedImage,
+        selectedPublicationModalOpen,
+        setSelectedPhotoPosition
     } = useMyContext();
 
     const { userId } = useParams();
     const navigate = useNavigate();
-    const { signOut } = useAuth();
+    const { user, signOut } = useAuth();
 
     const handleClosePhotoModal = () => {
         setShowPhotoModal(false); // Fecha o modal
@@ -80,11 +76,15 @@ const useEventsModals = () => {
     const openModal = () => {
         setShowModal(true);
     };
-    
+
     const openModalTwo = () => {
         setShowPhotoModal(true);
     };
     
+    const handlePublishClick = () => {
+        openModalTwo(user && user.id);
+    };
+
     const handleSignOut = () => {
         signOut();
         navigate("/home");
@@ -99,7 +99,27 @@ const useEventsModals = () => {
         setUsernameError(""); // Limpa o estado de erro de nome de usuário
         setPhoneError("");
     };
-    
+
+    useEffect(() => {
+        if (selectedPublicationModalOpen && selectedImage) {
+            setSelectedPhotoPosition({
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2
+            });
+
+            const img = new Image();
+            img.onload = () => {
+                setSelectedImageLoaded(true);
+            };
+            img.src = selectedImage;
+        }
+    }, [
+        selectedPublicationModalOpen,
+        selectedImage,
+        setSelectedImageLoaded,
+        setSelectedPhotoPosition
+    ]);
+
     useEffect(() => {
         const fetchFollowersCount = async () => {
             try {
@@ -131,7 +151,8 @@ const useEventsModals = () => {
         goToPreviousImage,
         goToNextImage,
         openModalTwo,
-        handleSignOut
+        handleSignOut,
+        handlePublishClick
     };
 };
 
