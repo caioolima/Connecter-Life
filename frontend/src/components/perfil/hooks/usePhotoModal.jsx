@@ -24,8 +24,6 @@ const usePhotoModal = () => {
         newBiography
     } = useMyContext();
     
-    const { getGalleryImages } = useUploadModal();
-
     const [selectedFile, setSelectedFile] = useState(null); // Estado para controlar o arquivo selecionado
     
     const { userId } = useParams();
@@ -164,10 +162,6 @@ const usePhotoModal = () => {
             console.error("Erro ao remover a imagem:", error);
         }
     };
-
-    useEffect(() => {
-        getGalleryImages();
-    }, [setUserPhotos, userId, getGalleryImages]);
 
     return {
         closeModal,

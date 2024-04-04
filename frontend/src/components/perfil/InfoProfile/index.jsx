@@ -4,6 +4,7 @@ import useEventsModals from "../hooks/useEventsModals";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../../hooks/use-auth";
 import usePhotoModal from "../hooks/usePhotoModal";
+import useGetdata from "../hooks/useGetdata"
 
 const InfoProfile = () => {
   const {
@@ -16,14 +17,13 @@ const InfoProfile = () => {
     numberOfFollowing,
     biography,
     isOwnProfile,
-    isFollowing,
-    unfollowUser,
-    followUser,
+    isFollowing
   } = useMyContext();
 
   const { handleEditClick, openModal } = useEventsModals();
 
-  const { verifyRelationship } = usePhotoModal();
+  const { verifyRelationship, unfollowUser, followUser } = useGetdata();
+  
 
   const { userId } = useParams();
   const { user } = useAuth();

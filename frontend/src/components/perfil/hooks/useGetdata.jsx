@@ -22,7 +22,8 @@ const useGetdata = () => {
         setIsFollowing,
         setPreviousButtonDisabled,
         setIsModalOpen,
-        myProfileLink
+        myProfileLink,
+        setUserPhotos
     } = useMyContext();
 
     const { userId } = useParams();
@@ -97,6 +98,36 @@ const useGetdata = () => {
         setBiography,
         setUserDataLoaded
     ]);
+    
+    const getGalleryImages = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(
+                `http://localhost:3000/users/${userId}/gallery-image`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                setUserPhotos(data.galleryImageUrls); // Define o estado userPhotos com as URLs das imagens da galeria do usuário
+            } else {
+                console.error(
+                    "Falha ao obter as imagens da galeria:",
+                    response.status
+                );
+            }
+        } catch (error) {
+            console.error("Erro ao obter as imagens da galeria:", error);
+        }
+    };
+    
+    useEffect(() => {
+        getGalleryImages();
+    }, [setUserPhotos, userId, getGalleryImages]);
+
 
     useEffect(() => {
         const fetchFollowingCount = async () => {
@@ -143,7 +174,7 @@ const useGetdata = () => {
                 return ""; // Retornar vazio se o DDD não for reconhecido
         }
     }
-    
+
     useEffect(() => {
         if (
             location.pathname === myProfileLink &&
@@ -167,7 +198,7 @@ const useGetdata = () => {
             window.removeEventListener("popstate", handlePopState);
         };
     }, []);
-    
+
     const handleLogoClick = () => {
         window.location.reload();
     };
@@ -233,6 +264,63 @@ const useGetdata = () => {
             verifyRelationship();
         }
     }, [user, verifyRelationship]);
+    
+    const followUser = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const url = `http://localhost:3000/relationship`;
+
+            const data = {
+                follower_id: user.id, // Use o ID do usuário logado como o seguidor
+                following_id: userId // Use o ID do usuário cujo perfil está sendo visualizado como o usuário a ser seguido
+            };
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                setIsFollowing(true);
+                console.log("Começou a seguir o usuário.");
+            } else {
+                console.error("Erro ao seguir o usuário:", response.status);
+            }
+        } catch (error) {
+            console.error("Erro ao seguir o usuário:", error);
+        }
+    };
+
+    const unfollowUser = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const url = `http://localhost:3000/relationship/${user.id}/${userId}`;
+
+            const response = await fetch(url, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                setIsFollowing(false); // Defina isFollowing como false após parar de seguir com sucesso
+                console.log("Parou de seguir o usuário.");
+            } else {
+                console.error(
+                    "Erro ao deixar de seguir o usuário:",
+                    response.status
+                );
+            }
+        } catch (error) {
+            console.error("Erro ao deixar de seguir o usuário:", error);
+        }
+    };
 
     useEffect(() => {
         // Limpar a imagem do perfil armazenada localmente ao carregar o perfil de um novo usuário
@@ -254,7 +342,8 @@ const useGetdata = () => {
         }
     }, [setFullName, setProfileImage, setUsername]);
 
-    return { getDataUser, handleLogoClick, handleProfileClick };
+    return { getDataUser, handleLogoClick, handleProfileClick,
+    followUser, unfollowUser, verifyRelationship, getGalleryImages};
 };
 
 export default useGetdata;

@@ -13,12 +13,8 @@ import Introduction from "./components/ConnecterHome/introduction";
 function App() {
     return (
         <Routes>
-            <Route
-                path="/introduction"
-                element={
-                    <Introduction />
-                } // Redireciona para a tela de introdução quando acessar o caminho inicial "/"
-            />
+            <Route path="/introduction" element={<Introduction />}/>
+                
             <Route
                 path="/home"
                 element={

@@ -109,32 +109,7 @@ const useUploadModal = () => {
     // Função para obter as URLs das imagens da galeria do usuário
     // Efeito para obter as URLs das imagens da galeria do usuário ao montar o componente
 
-    const getGalleryImages = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const response = await fetch(
-                `http://localhost:3000/users/${userId}/gallery-image`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                setUserPhotos(data.galleryImageUrls); // Define o estado userPhotos com as URLs das imagens da galeria do usuário
-            } else {
-                console.error(
-                    "Falha ao obter as imagens da galeria:",
-                    response.status
-                );
-            }
-        } catch (error) {
-            console.error("Erro ao obter as imagens da galeria:", error);
-        }
-    };
-
-    return { handleImageUpload, changeImage2, getGalleryImages };
+    return { handleImageUpload, changeImage2 };
 };
 
 export default useUploadModal;
