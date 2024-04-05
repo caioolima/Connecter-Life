@@ -1,4 +1,3 @@
-// App.js
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
@@ -10,7 +9,6 @@ import Privacy from "./components/Terms/privacy";
 import UserProfileContainer from "./components/perfil/UserProfileContainer";
 import Introduction from "./components/ConnecterHome/introduction";
 import SearchUser from "./components/SearchUser/SearchUser"; // Importe o componente de busca de usuário
-
 function App() {
   return (
     <Routes>

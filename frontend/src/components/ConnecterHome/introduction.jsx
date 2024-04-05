@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import "./introduction.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../Language/i18n"; // Ajuste o caminho conforme a estrutura real
@@ -67,6 +67,7 @@ const Footer = () => {
 };
 
 const Introduction = () => {
+
   return (
     <div className="abc">
       <h1 className="abcd">ConnecterLife</h1>

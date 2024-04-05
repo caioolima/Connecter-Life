@@ -31,7 +31,7 @@ const InfoProfile = () => {
 
   return (
     <div className="profile-header">
-      <div className="profile-photo-container" onClick={openModal}>
+       <div className="profile-photo-container" onClick={isOwner ? openModal : null}>
         <div className="profile-photo-frame">
           {profileImage !== null && profileImage !== "" ? (
             <img src={profileImage} alt="User" className="profile-photo" />
