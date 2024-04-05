@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import ResetPassword from "./components/Reset Password/ResetPassword";
 import AuthLayout from "./components/AuthLayout/auth";
@@ -8,14 +8,16 @@ import Service from "./components/Terms/service";
 import Privacy from "./components/Terms/privacy";
 import UserProfileContainer from "./components/perfil/UserProfileContainer";
 import Introduction from "./components/ConnecterHome/introduction";
-import SearchUser from "./components/SearchUser/SearchUser"; // Importe o componente de busca de usuário
+import SearchUser from "./components/SearchUser/SearchUser";
+import NotFoundPage from "./components/NotFoundPage/NotFoundPage"; // Importe a página de erro 404
+import { useAuth } from "./hooks/use-auth";
+
 function App() {
+  const { user } = useAuth();
+
   return (
     <Routes>
-      <Route
-        path="/introduction"
-        element={<Introduction />} // Redireciona para a tela de introdução quando acessar o caminho inicial "/"
-      />
+      <Route path="/introduction" element={<Introduction />} />
       <Route
         path="/home"
         element={
@@ -57,8 +59,8 @@ function App() {
         }
       />
       <Route path="/profile/:userId" element={<UserProfileContainer />} />
-      <Route path="/search" element={<SearchUser />} />{" "}
-      {/* Rota para a página de busca de usuário */}
+      <Route path="/search" element={<SearchUser />} />
+      <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
     </Routes>
   );
 }

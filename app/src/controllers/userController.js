@@ -434,3 +434,81 @@ exports.findAllUsers = async (req, res) => {
         res.status(500).json({ error: 'Erro interno ao buscar usuários.' });
     }
 };
+
+exports.likeGalleryImage = async (req, res) => {
+    try {
+        const { userId, imageUrl } = req.params;
+        const { likerId } = req.body; // O usuário que deseja curtir a imagem
+
+        // Encontrar o usuário que possui a imagem na galeria
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Usuário não encontrado." });
+        }
+
+        // Encontrar o índice da imagem na galeria do usuário
+        const imageIndex = user.galleryImageUrl.findIndex(image => image.url === imageUrl);
+
+        if (imageIndex === -1) {
+            return res.status(404).json({ success: false, message: "Imagem não encontrada na galeria do usuário." });
+        }
+
+        // Verificar se o usuário já curtiu a imagem
+        const image = user.galleryImageUrl[imageIndex];
+        if (image.likes.includes(likerId)) {
+            return res.status(400).json({ success: false, message: "Você já curtiu esta imagem." });
+        }
+
+        // Adicionar o ID do usuário que curtiu à lista de likes da imagem
+        image.likes.push(likerId);
+
+        // Salvar o documento atualizado do usuário
+        await user.save();
+
+        return res.status(200).json({ success: true, message: "Imagem curtida com sucesso." });
+    } catch (error) {
+        console.error("Erro ao curtir a imagem da galeria:", error);
+        return res.status(500).json({ success: false, message: "Erro interno do servidor ao curtir a imagem." });
+    }
+};
+
+exports.unlikeGalleryImage = async (req, res) => {
+    try {
+        const { userId, imageUrl } = req.params;
+        const { likerId } = req.body; // O usuário que deseja remover o like da imagem
+
+        // Encontrar o usuário que possui a imagem na galeria
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Usuário não encontrado." });
+        }
+
+        // Encontrar o índice da imagem na galeria do usuário
+        const imageIndex = user.galleryImageUrl.findIndex(image => image.url === imageUrl);
+
+        if (imageIndex === -1) {
+            return res.status(404).json({ success: false, message: "Imagem não encontrada na galeria do usuário." });
+        }
+
+        // Verificar se o usuário já removeu o like da imagem
+        const image = user.galleryImageUrl[imageIndex];
+        const likerIndex = image.likes.indexOf(likerId);
+        if (likerIndex === -1) {
+            return res.status(400).json({ success: false, message: "Você ainda não curtiu esta imagem." });
+        }
+
+        // Remover o ID do usuário que curtiu da lista de likes da imagem
+        image.likes.splice(likerIndex, 1);
+
+        // Salvar o documento atualizado do usuário
+        await user.save();
+
+        return res.status(200).json({ success: true, message: "Like removido com sucesso da imagem." });
+    } catch (error) {
+        console.error("Erro ao remover o like da imagem da galeria:", error);
+        return res.status(500).json({ success: false, message: "Erro interno do servidor ao remover o like da imagem." });
+    }
+};
+

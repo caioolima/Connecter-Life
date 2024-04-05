@@ -12,12 +12,12 @@ import ButtonProfile from "./ButtonProfile.jsx"
 const SidebarMenuItems = () => {
 
     const { myProfileLink, isMyProfilePage } = useMyContext();
-    const { handleLogoClick } = useGetdata();
+    const { handleProfileClick } = useGetdata();
     
     return (
         <div className="sidebar">
             <div className="-bar">
-                <Link to={myProfileLink} onClick={handleLogoClick}>
+                <Link to={myProfileLink} onClick={handleProfileClick}>
                     <h1 className="desktop-logo">ConnecterLife</h1>
                     <img
                         className="mobile-logo"

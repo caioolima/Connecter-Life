@@ -39,4 +39,11 @@ router.delete('/:userId/gallery-image/:imageUrl', middleware.checkAuthMiddleware
 // Rota para encontrar todos os usuários
 router.get('/find/:username', userController.findAllUsers);
 
+// Rota para dar like em uma imagem da galeria do usuário
+router.post('/:userId/gallery-image/:imageUrl/like',  userController.likeGalleryImage);
+
+// Rota para remover o like de uma imagem da galeria do usuário
+router.post('/:userId/gallery-image/:imageUrl/unlike',  userController.unlikeGalleryImage);
+
+
 module.exports = router;

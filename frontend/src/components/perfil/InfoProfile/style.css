@@ -110,7 +110,7 @@
     margin-left: 3px; /* Margem à esquerda */
     transition: background-color 0.8s ease; /* Transição suave */
     font-weight: bold !important;
-    width: 36%;
+    width: 60%;
     font-family: "Raleway", sans-serif;
 }
 
@@ -183,5 +183,8 @@
     
     .profile-info .bio {
         font-size: 0.8rem;
+    }
+    .profile-info .follow-button{
+        width: 50%;
     }
 }

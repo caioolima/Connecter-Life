@@ -64,12 +64,12 @@ const FindUserPage = () => {
                                 <div key={user._id} className="user-item-user"> {/* Item de usuário */}
                                     <a href={`/profile/${user._id}`} className="user-link-user"> {/* Link para o perfil do usuário */}
                                         <div>
-                                            {user.username}
+                                           
                                             {user.profileImageUrl ? ( // Verifica se há uma imagem de perfil
                                                 <img src={user.profileImageUrl} alt={`Foto de ${user.username}`} className="user-avatar" /> // Mostra a imagem de perfil
                                             ) : (
                                                 <div className="profile-frame"></div> // Mostra a moldura se não houver imagem de perfil
-                                            )}
+                                            )} <div className="check-user-check">{user.username}</div>
                                         </div>
                                     </a>
                                 </div>
