@@ -1,20 +1,20 @@
+import { useTranslation } from "react-i18next";
+import { FaDoorOpen } from "react-icons/fa";
 import useEventsModals from "../hooks/useEventsModals";
-import { FaDoorOpen } from "react-icons/fa"
 
 const ButtonExit = () => {
-    
+    const { t } = useTranslation();
     const { handleSignOut } = useEventsModals();
     
     return (
-        <>
-            <button
-                onClick={handleSignOut}
-                title="Sair"
-                className="sidebar-link">
-                <FaDoorOpen />
-                <span>Sair</span>
-            </button>
-        </>
+        <button
+            onClick={handleSignOut}
+            title={t("signout_title")}
+            className="sidebar-link"
+        >
+            <FaDoorOpen />
+            <span>{t("signout_label")}</span>
+        </button>
     );
 };
 
