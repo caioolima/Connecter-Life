@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./FindUserPage.css"; // Importar o arquivo de estilos CSS
 
 /* Componentes */
-import SidebarMenu from "../perfil/SidebarMenu/index";
-import Footer from "../Footer/footer";
+import SidebarMenu from "../../pages/perfil/SidebarMenu/index";
+import Footer from "../../components/Footer/footer";
 import { useTranslation } from "react-i18next"; // Importar o hook useTranslation para tradução
 
 const FindUserPage = () => {

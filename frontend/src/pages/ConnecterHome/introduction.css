@@ -9,7 +9,7 @@
 .background-image {
   width: 100%;
   height: 87.2vh;
-  background-image: url("../images/backpackercommunity.jpeg");
+  background-image: url("../../assets/backpackercommunity.jpeg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Adiciona a animação de rolagem */
@@ -187,7 +187,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../images/backpacker-community.jpeg");
+  background-image: url("../../assets/backpacker-community.jpeg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

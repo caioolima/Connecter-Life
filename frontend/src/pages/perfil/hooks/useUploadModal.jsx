@@ -1,6 +1,6 @@
 import { useMyContext } from "../../../contexts/profile-provider.jsx";
 import { useParams } from "react-router-dom";
-import { storage } from "../../Firebase/storage";
+import { storage } from "../../../components/Firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 

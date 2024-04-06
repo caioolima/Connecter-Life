@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Importe Link para criar links
-import imagemTermosServico from '../images/imagemTermosServico.jpg';
-import imagemPoliticaPrivacidade from '../images/imagemPoliticaPrivacidade.jpg';
-import imagemRegrasComunidade from '../images/imagemRegrasComunidade.jpg'
+import imagemTermosServico from '../../assets/imagemTermosServico.jpg';
+import imagemPoliticaPrivacidade from '../../assets/imagemPoliticaPrivacidade.jpg';
+import imagemRegrasComunidade from '../../assets/imagemRegrasComunidade.jpg'
 import { useTranslation } from "react-i18next";
 
 import "../Terms/terms.css"; // Supondo que seus estilos estejam em um arquivo chamado terms.css

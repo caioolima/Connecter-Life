@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import Header from "../Header/header"; // Atualize o caminho para Header.js
-import Form from "../Form/form"; // Atualize o caminho para Form.js
-import Footer from "../Footer/footer.jsx"
+import React from "react";
+import Header from "../../components/Header/header"; // Atualize o caminho para Header.js
+import Form from "../../components/Form/form"; // Atualize o caminho para Form.js
+import Footer from "../../components/Footer/footer.jsx"
 
 function HomeScreen() {
     const handleLogin = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import "../Reset Password/resets_password.css";
+import "../ResetPassword/resets_password.css";
 
 const ResetPassword = ({ onClose }) => {
   const { t } = useTranslation();

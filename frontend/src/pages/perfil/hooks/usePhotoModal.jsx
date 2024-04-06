@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMyContext } from "../../../contexts/profile-provider";
 import { useParams } from "react-router-dom";
-import { storage } from "../../Firebase/storage";
+import { storage } from "../../../components/Firebase/storage";
 import useUploadModal from "../hooks/useUploadModal"
 import {
     ref,

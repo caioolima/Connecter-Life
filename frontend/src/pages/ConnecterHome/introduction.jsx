@@ -1,10 +1,10 @@
 import React from "react";
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import "./introduction.css";
+import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next";
-import i18n from "../Language/i18n"; // Ajuste o caminho conforme a estrutura real
-import "../Footer/footer.css";
-import Footer from "../Footer/footer";
+import i18n from "../../components/Language/i18n"; // Ajuste o caminho conforme a estrutura real
+import "../../components/Footer/footer.css";
+import Footer from "../../components/Footer/footer";
 
 
 const Introduction = () => {

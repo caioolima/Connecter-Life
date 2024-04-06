@@ -1,6 +1,6 @@
 import "./styles/style.css";
 import { Link } from "react-router-dom";
-import logoImage from "../../images/icons-backpack.png";
+import logoImage from "../../../assets/icons-backpack.png";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useGetdata from "../hooks/useGetdata";
 import ButtonExit from "./ButtonExit.jsx";
