@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./UserProfile.css";
 import { useParams } from "react-router-dom";
 import { useMyContext } from "../../contexts/profile-provider";
@@ -23,7 +23,13 @@ const UserProfileContainer = () => {
         isEditMode,
         showPhotoModal,
         selectedPublicationModalOpen,
-        userDataLoaded
+        userDataLoaded,
+        likes,
+        userPhotos,
+        currentImageIndex,
+        setDesactiveLike,
+        setActiveLike,
+        setLikes
     } = useMyContext();
     
     /* Função que obtem todos os dados do servidor */

@@ -512,3 +512,32 @@ exports.unlikeGalleryImage = async (req, res) => {
     }
 };
 
+exports.getLikes = async (req, res) => {
+    try {
+        const { userId, imageUrl } = req.params;
+
+        // Encontrar o usuário que possui a imagem na galeria
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Usuário não encontrado." });
+        }
+
+        // Encontrar o índice da imagem na galeria do usuário
+        const imageIndex = user.galleryImageUrl.findIndex(image => image.url === imageUrl);
+
+        if (imageIndex === -1) {
+            return res.status(404).json({ success: false, message: "Imagem não encontrada na galeria do usuário." });
+        }
+
+        // Obter as informações da imagem, incluindo a lista de likes
+        const image = user.galleryImageUrl[imageIndex];
+        const likesCount = image.likes.length;
+
+        return res.status(200).json({ success: true, likesCount });
+    } catch (error) {
+        console.error("Erro ao obter as curtidas da imagem da galeria:", error);
+        return res.status(500).json({ success: false, message: "Erro interno do servidor ao obter as curtidas da imagem." });
+    }
+};
+

@@ -62,7 +62,9 @@ const MyContextProvider = ({ children }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const myProfileLink = `/profile/${user && user.id}`;
     const isMyProfilePage = location.pathname === myProfileLink;
-
+    const [likes, setLikes] = useState("");
+    const [activeLike, setActiveLike] = useState("");
+    const [desactiveLike, setDesactiveLike] = useState("");
     
     return <MyContext.Provider value={{
       fullName, setFullName,
@@ -110,7 +112,10 @@ const MyContextProvider = ({ children }) => {
       isModalOpen, setIsModalOpen,
       deleting, setDeleting,
       showDeleteModal, setShowDeleteModal,
-      myProfileLink, isMyProfilePage
+      myProfileLink, isMyProfilePage,
+      likes, setLikes,
+      activeLike, setActiveLike,
+      desactiveLike, setDesactiveLike
     }}>{children}</MyContext.Provider>;
 };
 

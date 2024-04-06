@@ -69,8 +69,15 @@
 
 .like {
     font-size: 40px;
-    width: 15%;
-    transform: translateY(-7px);
+    transition: opacity 1s;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
 }
 
 .arrows {

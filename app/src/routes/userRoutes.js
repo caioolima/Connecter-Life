@@ -45,5 +45,7 @@ router.post('/:userId/gallery-image/:imageUrl/like',  userController.likeGallery
 // Rota para remover o like de uma imagem da galeria do usuário
 router.post('/:userId/gallery-image/:imageUrl/unlike',  userController.unlikeGalleryImage);
 
+router.get('/:userId/gallery-image/:imageUrl/verify',  userController.getLikes);
+
 
 module.exports = router;

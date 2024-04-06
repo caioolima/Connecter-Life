@@ -261,7 +261,7 @@ const useGetdata = () => {
 
     useEffect(() => {
         if (user) {
-            verifyRelationship();
+            verifyRelationship(); 
         }
     }, [user, verifyRelationship]);
     

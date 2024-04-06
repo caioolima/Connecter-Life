@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMyContext } from "../../../contexts/profile-provider.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/use-auth";
@@ -28,7 +28,12 @@ const useEventsModals = () => {
         setNumberOfFollowers,
         selectedImage,
         selectedPublicationModalOpen,
-        setSelectedPhotoPosition
+        setSelectedPhotoPosition,
+        setLikes,
+        currentImageIndex,
+        likes,
+        setDesactiveLike,
+        setActiveLike
     } = useMyContext();
 
     const { userId } = useParams();
@@ -49,11 +54,13 @@ const useEventsModals = () => {
         setCurrentImageIndex(index); // Definir o índice da imagem clicada
         setSelectedPublicationModalOpen(true);
         setSelectedImage(userPhotos[index].url); // Definir a URL da imagem selecionada
+        getLikes()
         document.body.style.overflow = "hidden"; // Impedir que a página role enquanto o modal estiver aberto
     };
 
     // Função para ir para a imagem anterior na galeria
     const goToPreviousImage = () => {
+        getLikes();
         setFadeState("fade-out");
         setTimeout(() => {
             setCurrentImageIndex(prevIndex =>
@@ -64,6 +71,7 @@ const useEventsModals = () => {
     };
 
     const goToNextImage = () => {
+        getLikes();
         setFadeState("fade-out");
         setTimeout(() => {
             setCurrentImageIndex(
@@ -80,7 +88,7 @@ const useEventsModals = () => {
     const openModalTwo = () => {
         setShowPhotoModal(true);
     };
-    
+
     const handlePublishClick = () => {
         openModalTwo(user && user.id);
     };
@@ -143,6 +151,109 @@ const useEventsModals = () => {
         fetchFollowersCount();
     }, [userId, setNumberOfFollowers]);
 
+    const [likeUpdate, setLikeUpdate] = useState();
+
+    const getLikes = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const url = `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+                userPhotos[currentImageIndex].url
+            )}/verify`;
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setLikes(data.likesCount.toString());
+            } else {
+                console.log("não enviado");
+            }
+        } catch (error) {
+            console.log("Erro!");
+        }
+    };
+
+    useEffect(() => {
+        getLikes();
+    }, []);
+
+    const handleRemoveLike = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const url = `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+                userPhotos[currentImageIndex].url
+            )}/unlike`;
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                console.log("Like Removido");
+                getLikes();
+                alert(likes)
+            } else {
+                console.log("Like não removido");
+            }
+        } catch (error) {
+            console.log("Erro!");
+        }
+    };
+
+    const handleLike = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const url = `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+                userPhotos[currentImageIndex].url
+            )}/like`;
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (likes === "1") {
+                handleRemoveLike();
+            }
+
+            if (response.ok) {
+                console.log("Like enviado.");
+                getLikes();
+                alert(likes);
+            } else {
+                console.log("Like não enviado");
+            }
+        } catch (error) {
+            console.log("Erro!");
+        }
+    };
+
+    useEffect(() => {
+        if (likes === "1") {
+            setDesactiveLike("hidden");
+            setActiveLike("show");
+        } else {
+            setDesactiveLike("show");
+            setActiveLike("hidden");
+        }
+    }, [likes]);
+
     return {
         handleClosePhotoModal,
         handlePublicationClick,
@@ -152,7 +263,9 @@ const useEventsModals = () => {
         goToNextImage,
         openModalTwo,
         handleSignOut,
-        handlePublishClick
+        handlePublishClick,
+        handleLike,
+        getLikes
     };
 };
 
