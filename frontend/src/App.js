@@ -10,6 +10,7 @@ import UserProfileContainer from "./pages/perfil/UserProfileContainer";
 import Introduction from "./pages/ConnecterHome/introduction";
 import SearchUser from "./pages/SearchUser/SearchUser";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"; // Importe a página de erro 404
+import PrivateRoute from "./PrivateRoute.js"
 import { useAuth } from "./hooks/use-auth";
 
 function App() {
