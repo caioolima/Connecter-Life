@@ -45,6 +45,10 @@
     font-weight: bold;
 }
 
+.sidebar-link-out{
+    margin-top: 400px;
+    position: relative;
+}
 .sidebar button span {
     font-size: 15px;
     margin-left: 20px; /* Ajuste o espaçamento entre o ícone e o texto conforme necessário */

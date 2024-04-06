@@ -10,7 +10,7 @@ const ButtonExit = () => {
         <button
             onClick={handleSignOut}
             title={t("signout_title")}
-            className="sidebar-link"
+            className="sidebar-link-out"
         >
             <FaDoorOpen />
             <span>{t("signout_label")}</span>
