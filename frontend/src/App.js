@@ -25,7 +25,7 @@ function App() {
           <PrivateRoute>
             <AuthLayout>
               <HomeScreen />
-            </AuthLayout>
+            </AuthLayout>{" "}
           </PrivateRoute>
         }
       />
@@ -64,6 +64,7 @@ function App() {
       <Route path="/profile/:userId" element={<UserProfileContainer />} />
       <Route path="/search" element={<SearchUser />} />
       <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
+     
     </Routes>
   );
 }
