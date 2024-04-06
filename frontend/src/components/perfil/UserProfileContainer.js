@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import "./UserProfile.css";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useMyContext } from "../../contexts/profile-provider";
 
 /* Components */
@@ -13,62 +14,96 @@ import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
 
 /* Functions */
-import useGetdata from "./hooks/useGetdata"
+import useGetdata from "./hooks/useGetdata";
 
 const UserProfileContainer = () => {
-    
-    /* Estados necessários */
-    const {
-        showModal,
-        isEditMode,
-        showPhotoModal,
-        selectedPublicationModalOpen,
-        userDataLoaded,
-        likes,
-        userPhotos,
-        currentImageIndex,
-        setDesactiveLike,
-        setActiveLike,
-        setLikes
-    } = useMyContext();
-    
-    /* Função que obtem todos os dados do servidor */
-    const { getDataUser } = useGetdata();
-    const { userId } = useParams();
-    
-    /* Se a aplicação renderizar, busque os dados no servidor */
-    useEffect(() => {
-        getDataUser();
-    }, [getDataUser]);
-    
-    useEffect(() => {
-        if (!userId) return; // Verifica se userId está definido antes de fazer a chamada para getDataUser
-        getDataUser();
-    }, [userId, getDataUser]); // Adiciona userId como dependência para este useEffect
-    
-    return (
-        <>
-            {/* Modal que exibe publicações */}
-            {selectedPublicationModalOpen && <PublicationDetailsModal />}
-            
-            {/* Todo o conteúdo do profile */}
-            <main className="profile">
-            
-                {userDataLoaded && ( /* Se os dados do usuário estiverem carregados */
-                    <section className="profile-container">
-                        <InfoProfile /> {/* Campo de perfil do usuário */}
-                        <Galeria /> {/* Galeria de imagens */}
-                    </section>
-                )}
-                
-                {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
-                {showModal && <ChangePhotoModal />} {/* Modal de mudar a foto perfil */}
-                {showPhotoModal && <UploadPhotoModal />} {/* Modal de publicar foto na galeria */}
-                <SidebarMenu/> {/* Menu */}
-                
-            </main>
-        </>
-    );
+
+  /* Estados necessários */
+  const {
+    showModal,
+    isEditMode,
+    showPhotoModal,
+    selectedPublicationModalOpen,
+    userDataLoaded,
+  } = useMyContext();
+
+   /* Função que obtem todos os dados do servidor */
+   const { getDataUser } = useGetdata();
+   const { userId } = useParams();
+   const [profileNotFound, setProfileNotFound] = useState(false);
+ 
+   /* Se a aplicação renderizar, busque os dados no servidor */
+   useEffect(() => {
+     getDataUser();
+   }, [getDataUser]);
+ 
+   useEffect(() => {
+     if (!userId) return;
+ 
+     const checkValidity = async () => {
+       try {
+         const token = localStorage.getItem("token");
+         if (!token) {
+           setProfileNotFound(true);
+           return;
+         }
+ 
+         const response = await fetch(
+           `http://localhost:3000/users/${userId}`,
+           {
+             headers: {
+               Authorization: `Bearer ${token}`
+             }
+           }
+         );
+ 
+         if (!response.ok) {
+           setProfileNotFound(true);
+           return;
+         }
+ 
+         const userData = await response.json();
+ 
+         if (!userData) {
+           setProfileNotFound(true);
+           return;
+         }
+       } catch (error) {
+         console.error("Erro ao verificar a validade do ID do usuário:", error);
+         setProfileNotFound(true);
+       }
+     };
+ 
+     checkValidity();
+   }, [userId, getDataUser]);
+ 
+   if (profileNotFound) {
+     // Se o perfil não for encontrado, podemos renderizar alguma mensagem ou redirecionar o usuário
+     return <Navigate to="/erro" />;
+   }
+
+  return (
+    <>
+      {/* Modal que exibe publicações */}
+      {selectedPublicationModalOpen && <PublicationDetailsModal />}
+
+      {/* Todo o conteúdo do profile */}
+      <main className="profile">
+        {userDataLoaded /* Se os dados do usuário estiverem carregados */ && (
+          <section className="profile-container">
+            <InfoProfile /> {/* Campo de perfil do usuário */}
+            <Galeria /> {/* Galeria de imagens */}
+          </section>
+        )}
+        {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
+        {showModal && <ChangePhotoModal />} {/* Modal de mudar a foto perfil */}
+        {showPhotoModal && <UploadPhotoModal />}{" "}
+        {/* Modal de publicar foto na galeria */}
+       
+      </main> 
+      <SidebarMenu /> {/* Menu */}
+    </>
+  );
 };
 
 export default UserProfileContainer;

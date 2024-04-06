@@ -11,7 +11,7 @@ import Introduction from "./components/ConnecterHome/introduction";
 import SearchUser from "./components/SearchUser/SearchUser";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage"; // Importe a página de erro 404
 import { useAuth } from "./hooks/use-auth";
-import PrivateRoute from "./PrivateRoute"
+import PrivateRoute from "../src/PrivateRoute";
 
 function App() {
   const { user } = useAuth();
@@ -26,9 +26,11 @@ function App() {
       <Route
         path="/home"
         element={
-          <AuthLayout>
-            <HomeScreen />
-          </AuthLayout>
+          <PrivateRoute>
+            <AuthLayout>
+              <HomeScreen />
+            </AuthLayout>
+          </PrivateRoute>
         }
       />
       <Route
