@@ -45,10 +45,12 @@ function LoginForm() {
 
   const handleLoginEmailChange = (event) => {
     setLoginFormEmail(event.target.value);
+    setLoginErrorMessage(""); // Limpar a mensagem de erro ao digitar no campo de e-mail
   };
 
   const handleLoginPasswordChange = (event) => {
     setLoginFormPassword(event.target.value);
+    setLoginErrorMessage(""); // Limpar a mensagem de erro ao digitar no campo de senha
   };
 
   const handleRegistrationEmailChange = (event) => {
@@ -348,13 +350,17 @@ function LoginForm() {
       setRegistrationMessage(t("registration_error_message"));
     }
   };
-
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
   const handleLoginButtonClick = async () => {
     setRegistrationMessage("");
-    setLoginMessage("");
     setFormErrors({});
+    setLoginErrorMessage("");
 
     try {
+      if (!loginFormEmail || !loginFormPassword) {
+        throw new Error(t("required_fields_error"));
+      }
+
       const response = await signIn({
         email: loginFormEmail,
         password: loginFormPassword,
@@ -362,16 +368,14 @@ function LoginForm() {
 
       navigate(`/profile/${response.userId}`);
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        // Erro de campos obrigatórios
-        setLoginMessage(t("required_fields_error"));
-      } else if (error.response && error.response.status === 401) {
-        // Erro de credenciais inválidas
-        setLoginMessage(t("invalid_credentials"));
+      if (error.response && error.response.data && error.response.data.error) {
+        setLoginErrorMessage(error.response.data.error);
+      } else if (error.message) {
+        // Se um erro customizado foi lançado (por exemplo, campos obrigatórios não preenchidos)
+        setLoginErrorMessage(error.message);
       } else {
-        // Erro interno do servidor
         console.error("Erro durante o login:", error);
-        setLoginMessage(t("internal_server_error"));
+        setLoginErrorMessage(t("internal_server_error"));
       }
     }
   };
@@ -443,7 +447,9 @@ function LoginForm() {
         >
           {t("login")}
         </button>
-        {loginMessage && <p className="login-message">{loginMessage}</p>}
+        {loginErrorMessage && (
+          <p className="login-message">{loginErrorMessage}</p>
+        )}
 
         <span
           onClick={handleForgotPasswordClick}

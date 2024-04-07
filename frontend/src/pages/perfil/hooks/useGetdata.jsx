@@ -126,7 +126,7 @@ const useGetdata = () => {
     
     useEffect(() => {
         getGalleryImages();
-    }, [setUserPhotos, userId, getGalleryImages]);
+    }, [setUserPhotos, userId]);
 
 
     useEffect(() => {

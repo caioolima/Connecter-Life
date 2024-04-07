@@ -1,311 +1,322 @@
 @charset "UTF-8";
 
 .overlay {
-    position: fixed;
-    display: flex;
-    background: #00000095;
-    width: 100vw;
-    height: 100vh;
-    z-index: 999;
+  position: fixed;
+  display: flex;
+  background: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente mais escuro */
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
 }
 
 .post-modal {
-    position: fixed;
-    top: 50%; /* Centraliza verticalmente */
-    left: 50%; /* Centraliza horizontalmente */
-    transform: translate(-50%, -50%); /* Move o modal para o centro da tela */
-    background-color: #f5f5f5; /* Cinza claro */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 600px; /* Aumenta a largura do modal */
-    height: 80%; /* Ajusta a altura do modal conforme necessário */
-    z-index: 1000;
+  position: fixed;
+  top: 50%; /* Centraliza verticalmente */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Move o modal para o centro da tela */
+  background-color: #f5f5f5; /* Cinza claro */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 600px; /* Aumenta a largura do modal */
+  height: 80%; /* Ajusta a altura do modal conforme necessário */
+  z-index: 1000;
 }
 
 /* Estilos para o contêiner da imagem dentro do modal */
 .modal-image-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .image-contain {
-    max-width: 100%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    position: relative;
+  max-width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .content-post {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+  height: 100%;
 }
 
 .user-details {
-    display: flex;
-    flex-direction: row;
-    text-align: left;
-    width: 100%;
-    padding: 10px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  align-items: center;
 }
 
 .text-content {
-    margin-left: 10px;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    height: 60px;
+  margin-left: 10px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 60px;
 }
 
 .like {
-    font-size: 40px;
-    transition: opacity 1s;
+  font-size: 38px;
+  transition: color 0.3s ease; /* Transição suave da cor */
+  color: #ffc837;margin-left: -45px;
+}
+
+.like.filled {
+    color:  #ff8008; /* Gradiente laranja para simular fogo */
+  }
+  
+  
+/* Adicione uma animação para o botão de curtir */
+.contain-like {
+  transition: transform 0.3s ease; /* Transição suave de escala */
+  
+}
+
+.contain-like:hover {
+  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .show {
-    display: block;
+  display: block;
 }
 
 .arrows {
-    font-size: 40px;
-    color: white;
-    margin: 3px;
-    transition: 0.3s;
-    filter: drop-shadow(2px 2px 5px #00000068);
+  font-size: 40px;
+  color: white;
+  margin: 3px;
+  transition: 0.3s;
+  filter: drop-shadow(2px 2px 5px #00000068);
 }
 
 .arrows:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 /* Estilos para a imagem dentro do modal */
 .selected-publication-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .nav-button {
-    border: none;
-    font-size: 18px; /* Reduz o tamanho da fonte */
-    cursor: pointer;
-    background: transparent;
-    position: absolute;
-    z-index: 1001; /* Certifique-se de que os botões estejam acima da imagem */
+  border: none;
+  font-size: 18px; /* Reduz o tamanho da fonte */
+  cursor: pointer;
+  background: transparent;
+  position: absolute;
+  z-index: 1001; /* Certifique-se de que os botões estejam acima da imagem */
 }
 
 .left {
-    left: 0;
-    top: calc(50% - 20px);
+  left: 0;
+  top: calc(50% - 20px);
 }
 
 .right {
-    right: 0;
-    top: calc(50% - 20px);
+  right: 0;
+  top: calc(50% - 20px);
 }
 
 .modal-close {
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff;
-    position: absolute;
-    background-color: transparent; /* Cor de fundo do botão de fechar */
-    transition: background-color 0.3s;
-    font-family: Arial, sans-serif;
-    top: 0;
-    right: 7px;
-    width: 7%;
-    height: 3%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  position: absolute;
+  background-color: transparent; /* Cor de fundo do botão de fechar */
+  transition: background-color 0.3s;
+  font-family: Arial, sans-serif;
+  top: 0;
+  right: 7px;
+  width: 7%;
+  height: 3%;
 }
 
 .loading-text-2 {
-    font-size: 28px;
-    font-weight: bold;
-    color: transparent; /* Torna o texto inicialmente transparente */
-    position: relative;
-    animation: reveal-text 5s ease infinite, scale-text 0.5s ease 4.5s forwards;
-    margin-top: 300px;
-  }
+  font-size: 28px;
+  font-weight: bold;
+  color: transparent; /* Torna o texto inicialmente transparente */
+  position: relative;
+  animation: reveal-text 5s ease infinite, scale-text 0.5s ease 4.5s forwards;
+  margin-top: 300px;
+}
 
 .post-modal .follow-button {
-    width: 100%;
+  width: 100%;
 }
 
 .rounded-image {
-    width: 100px; /* Ajuste a largura da imagem redonda conforme necessário */
-    height: 100px; /* Ajuste a altura da imagem redonda conforme necessário */
-    object-fit: cover;
-    border-radius: 50%;
+  width: 100px; /* Ajuste a largura da imagem redonda conforme necessário */
+  height: 100px; /* Ajuste a altura da imagem redonda conforme necessário */
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .details-user {
-    margin: 0; /* Remove a margem padrão */
-    font-size: 1.4rem; /* Ajuste o tamanho da fonte conforme necessário */
-    font-weight: bold;
+  margin: 0; /* Remove a margem padrão */
+  font-size: 1.4rem; /* Ajuste o tamanho da fonte conforme necessário */
+  font-weight: bold;
 }
 
 .post-time {
-    font-size: 14px;
-    color: #8e8e8e;
+  font-size: 14px;
+  color: #8e8e8e;
 }
 
 .post-time::before {
-    content: "\1F551"; /* Unicode para o ícone de relógio */
+  content: "\1F551"; /* Unicode para o ícone de relógio */
 }
 
 .selected-publication-photo {
-    transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
 }
 
 .fade-out {
-    opacity: 0;
+  opacity: 0;
 }
 
 .fade-in {
-    opacity: 1;
+  opacity: 1;
 }
 
 .swipe {
-    display: none;
+  display: none;
 }
 
 @media screen and (max-width: 1000px) {
-    .arrows {
-        display: none;
-    }
-    
-    .rounded-image {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .details-user {
-        font-size: 15px;
-    }
-    
-    .post-time {
-        font-size: 13px;
-    }
+  .arrows {
+    display: none;
+  }
 
-    .post-modal {
-        width: 80%;
+  .rounded-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .details-user {
+    font-size: 15px;
+  }
+
+  .post-time {
+    font-size: 13px;
+  }
+
+  .post-modal {
+    width: 80%;
+  }
+
+  .swipe {
+    position: absolute;
+    display: block;
+    top: calc(50% - 50px);
+    color: white;
+    font-size: 100px;
+    filter: drop-shadow(2px 2px 5px #00000068);
+    transition: 1s;
+    animation: swipe 1s infinite alternate ease-in-out;
+  }
+
+  @keyframes swipe {
+    from {
+      opacity: 0.5;
+      transform: rotate(-30deg);
     }
-
-    .swipe {
-        position: absolute;
-        display: block;
-        top: calc(50% - 50px);
-        color: white;
-        font-size: 100px;
-        filter: drop-shadow(2px 2px 5px #00000068);
-        transition: 1s;
-        animation: swipe 1s infinite alternate ease-in-out;
+    to {
+      opacity: 0;
+      transform: rotate(30deg);
     }
-
-    @keyframes swipe {
-        from {
-            opacity: 0.5;
-            transform: rotate(-30deg);
-        }
-        to {
-            opacity: 0;
-            transform: rotate(30deg);
-        }
-    }
-
-
+  }
 }
 
 @media screen and (max-width: 1762px) {
-    .selected-publication-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center top; /* Centraliza a imagem na parte superior */
-    }
+  .selected-publication-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top; /* Centraliza a imagem na parte superior */
+  }
 }
 
 /* Estilos para o botão de três pontos */
 .delete-menu-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
 
 /* Estilos para as opções do menu de exclusão */
 .modal-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    z-index: 1000;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 1.8); /* Sombreado */
-    width: 57%;
-    animation: modalFadeIn 0.3s ease forwards; /* Animação de fade-in */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 1.8); /* Sombreado */
+  width: 57%;
+  animation: modalFadeIn 0.3s ease forwards; /* Animação de fade-in */
 }
 
-
 .modal-content-modal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Centraliza os elementos verticalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centraliza os elementos verticalmente */
 }
 
 .modal-buttons-modal {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row; /* Alinha os botões horizontalmente */
-    justify-content: center; /* Centraliza os botões horizontalmente */
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row; /* Alinha os botões horizontalmente */
+  justify-content: center; /* Centraliza os botões horizontalmente */
 }
 
-
-.text-delete-modal{
-    font-weight: bold;
+.text-delete-modal {
+  font-weight: bold;
 }
 .modal-buttons-modal button {
-    margin: 0 10px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: "Raleway", sans-serif;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+  margin: 0 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Raleway", sans-serif;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .modal-buttons-modal button:hover {
-    background-color: #e0e0e0; /* Altera a cor de fundo ao passar o mouse */
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho ao passar o mouse */
+  background-color: #e0e0e0; /* Altera a cor de fundo ao passar o mouse */
+  transform: scale(1.05); /* Aumenta ligeiramente o tamanho ao passar o mouse */
 }
 
 .modal-buttons-modal button:first-child {
-    background-color: #ff6666;
-    color: white;
+  background-color: #ff6666;
+  color: white;
 }
 
 .modal-buttons-modal button:last-child {
-    background-color: #66cc66;
-    color: white;
+  background-color: #66cc66;
+  color: white;
 }

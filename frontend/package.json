@@ -26,6 +26,7 @@
     "react-scripts": "^5.0.1",
     "react-spinkit": "^3.0.0",
     "react-spinners": "^0.13.8",
+    "react-spring": "^9.7.3",
     "react-toastify": "^10.0.4",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
