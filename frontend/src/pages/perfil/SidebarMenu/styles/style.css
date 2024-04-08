@@ -66,6 +66,11 @@
     margin-top: 25px;
 }
 
+.sidebar-link-out {
+    margin-top: auto; /* Garante que o botão "Sair" fique no final do sidebar */
+    position: relative;
+}
+
 .sidebar svg {
     margin-bottom: 1px;
     width: 20px; /* Ajuste a largura do ícone para o seu design específico */
@@ -109,13 +114,7 @@
     font-weight: bold;
 }
 
-@media screen and (max-width:768px){
-    .myprofile-link {
-        display: flex;
-        margin-left: 10px;
-        margin-top: -60px;
-    }
-}
+
 @media screen and (max-width: 1000px) {
     
     .sidebar {

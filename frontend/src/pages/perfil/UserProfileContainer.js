@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import "./UserProfile.css";
 import { useParams, Navigate } from "react-router-dom";
@@ -17,7 +16,6 @@ import PublicationDetailsModal from "./PublicationDetailsModal/index";
 import useGetdata from "./hooks/useGetdata";
 
 const UserProfileContainer = () => {
-
   /* Estados necessários */
   const {
     showModal,
@@ -27,60 +25,60 @@ const UserProfileContainer = () => {
     userDataLoaded,
   } = useMyContext();
 
-   /* Função que obtem todos os dados do servidor */
-   const { getDataUser } = useGetdata();
-   const { userId } = useParams();
-   const [profileNotFound, setProfileNotFound] = useState(false);
- 
-   /* Se a aplicação renderizar, busque os dados no servidor */
-   useEffect(() => {
-     getDataUser();
-   }, [getDataUser]);
- 
-   useEffect(() => {
-     if (!userId) return;
- 
-     const checkValidity = async () => {
-       try {
-         const token = localStorage.getItem("token");
-         if (!token) {
-           setProfileNotFound(true);
-           return;
-         }
- 
-         const response = await fetch(
-           `http://localhost:3000/users/${userId}`,
-           {
-             headers: {
-               Authorization: `Bearer ${token}`
-             }
-           }
-         );
- 
-         if (!response.ok) {
-           setProfileNotFound(true);
-           return;
-         }
- 
-         const userData = await response.json();
- 
-         if (!userData) {
-           setProfileNotFound(true);
-           return;
-         }
-       } catch (error) {
-         console.error("Erro ao verificar a validade do ID do usuário:", error);
-         setProfileNotFound(true);
-       }
-     };
- 
-     checkValidity();
-   }, [userId, getDataUser]);
- 
-   if (profileNotFound) {
-     // Se o perfil não for encontrado, podemos renderizar alguma mensagem ou redirecionar o usuário
-     return <Navigate to="/erro" />;
-   }
+  /* Função que obtem todos os dados do servidor */
+  const { getDataUser } = useGetdata();
+  const { userId } = useParams();
+  const [profileNotFound, setProfileNotFound] = useState(false);
+
+  /* Se a aplicação renderizar, busque os dados no servidor */
+  useEffect(() => {
+    getDataUser();
+  }, [getDataUser]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const checkValidity = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setProfileNotFound(true);
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:3000/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        if (!response.ok) {
+          setProfileNotFound(true);
+          return;
+        }
+
+        const userData = await response.json();
+
+        if (!userData) {
+          setProfileNotFound(true);
+          return;
+        }
+      } catch (error) {
+        console.error("Erro ao verificar a validade do ID do usuário:", error);
+        setProfileNotFound(true);
+      }
+    };
+
+    checkValidity();
+  }, [userId, getDataUser]);
+
+  if (profileNotFound) {
+    // Se o perfil não for encontrado, podemos renderizar alguma mensagem ou redirecionar o usuário
+    return <Navigate to="/erro" />;
+  }
 
   return (
     <>
@@ -89,19 +87,18 @@ const UserProfileContainer = () => {
 
       {/* Todo o conteúdo do profile */}
       <main className="profile">
-        {userDataLoaded /* Se os dados do usuário estiverem carregados */ && (
+        {userDataLoaded && (
           <section className="profile-container">
             <InfoProfile /> {/* Campo de perfil do usuário */}
             <Galeria /> {/* Galeria de imagens */}
-          </section>
+            <SidebarMenu /> {/* Menu */}
+          </section> 
         )}
         {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
         {showModal && <ChangePhotoModal />} {/* Modal de mudar a foto perfil */}
         {showPhotoModal && <UploadPhotoModal />}{" "}
         {/* Modal de publicar foto na galeria */}
-       
-      </main> 
-      <SidebarMenu /> {/* Menu */}
+      </main>
     </>
   );
 };

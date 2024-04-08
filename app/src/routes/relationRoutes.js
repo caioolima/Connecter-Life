@@ -29,5 +29,17 @@ router.get(
   relationshipController.getUserFollowingCount
 );
 
+// Rota para obter os seguidores de um usuário
+router.get(
+  "/user/:userId/followers",
+  relationshipController.getUserFollowers
+);
+
+// Rota para obter os usuários que um usuário está seguindo
+router.get(
+  "/user/:userId/following",
+  relationshipController.getUserFollowing
+);
+
 
 module.exports = router;

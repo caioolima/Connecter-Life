@@ -178,7 +178,8 @@
     
     .edit-button {
         padding: 4px 10px;
-        font-size: 10px;
+        font-size: 13px;
+        padding: 10px;
     }
     
     .profile-info .bio {
@@ -186,5 +187,93 @@
     }
     .profile-info .follow-button{
         width: 50%;
+    }
+}
+
+.modal-modal-follow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5); /* Adiciona um fundo escuro semi-transparente */
+}
+
+.modal-content-two {
+    background-color: rgb(0, 0, 0);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 35%; /* Largura máxima ajustada */
+    max-height: 80vh;
+    overflow-y: auto;
+    width: 70%; /* Largura ajustada para centralizar */
+}
+
+.modal-content-two h3 {
+    margin-top: 0;
+    color: #f70073;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.modal-content-two ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: #f0f0f0;
+}
+
+.modal-content-two ul li {
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.closed-follow {
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #f0f0f0;
+    font-size: 40px;
+}
+
+.follower-avatar,
+.followee-avatar {
+    width: 50px; /* Tamanho ajustável */
+    height: 50px; /* Tamanho ajustável */
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px; /* Espaço à direita para separar a foto do nome de usuário */
+}
+
+.username-follower {
+    color: #fff;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1100px) {
+    .modal-content-two {
+        max-width: 60%; /* Reduz ainda mais a largura máxima para telas muito pequenas */
+    }
+    
+    .follower-avatar,
+    .followee-avatar {
+        width: 40px; /* Reduz ainda mais o tamanho da foto do usuário para telas muito pequenas */
+        height: 40px; /* Reduz ainda mais o tamanho da foto do usuário para telas muito pequenas */
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .modal-content-two {
+        max-width: 95%; /* Reduz ainda mais a largura máxima para telas muito pequenas */
     }
 }

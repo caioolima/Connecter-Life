@@ -1,4 +1,5 @@
 const Relationship = require("../models/relationShip");
+const User = require("../models/userModel")
 const express = require("express");
 
 exports.followUser = async (req, res) => {
@@ -115,5 +116,45 @@ exports.getUserFollowingCount = async (req, res) => {
       error
     );
     return res.status(500).json({ error: "Erro interno do servidor" });
+  }
+};
+
+exports.getUserFollowers = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Encontre todos os relacionamentos onde o following_id é igual ao ID do usuário
+    const followers = await Relationship.find({ following_id: userId });
+
+    // Extrair apenas os IDs dos seguidores
+    const followerIds = followers.map((follower) => follower.follower_id);
+
+    // Consultar o banco de dados para obter os detalhes dos seguidores com base nos IDs
+    const followerDetails = await User.find({ _id: { $in: followerIds } });
+
+    res.status(200).json({ followers: followerDetails });
+  } catch (error) {
+    console.error("Erro ao obter os seguidores do usuário:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
+  }
+};
+
+exports.getUserFollowing = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Encontre todos os relacionamentos onde o follower_id é igual ao ID do usuário
+    const following = await Relationship.find({ follower_id: userId });
+
+    // Extrair apenas os IDs dos usuários seguidos
+    const followingIds = following.map((followee) => followee.following_id);
+
+    // Consultar o banco de dados para obter os detalhes dos usuários seguidos com base nos IDs
+    const followingDetails = await User.find({ _id: { $in: followingIds } });
+
+    res.status(200).json({ following: followingDetails });
+  } catch (error) {
+    console.error("Erro ao obter os usuários seguidos pelo usuário:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
   }
 };
