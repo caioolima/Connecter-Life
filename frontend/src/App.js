@@ -18,7 +18,7 @@ function App() {
     
   return (
     <Routes>
-      <Route path="/introduction" element={<Introduction />} />
+      <Route path="/" element={<Introduction />} />
       <Route
         path="/home"
         element={

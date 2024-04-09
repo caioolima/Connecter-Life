@@ -11,7 +11,7 @@ import UploadPhotoModal from "./UploadPhotoModal/index";
 import Galeria from "./Galeria/index";
 import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
-
+import { useAuth } from "../../hooks/use-auth";
 /* Functions */
 import useGetdata from "./hooks/useGetdata";
 
@@ -29,7 +29,7 @@ const UserProfileContainer = () => {
   const { getDataUser } = useGetdata();
   const { userId } = useParams();
   const [profileNotFound, setProfileNotFound] = useState(false);
-
+  const { user } = useAuth();
   /* Se a aplicação renderizar, busque os dados no servidor */
   useEffect(() => {
     getDataUser();
@@ -43,17 +43,13 @@ const UserProfileContainer = () => {
         const token = localStorage.getItem("token");
         if (!token) {
           setProfileNotFound(true);
-          return;
         }
 
-        const response = await fetch(
-          `http://localhost:3000/users/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
+        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
           setProfileNotFound(true);
@@ -77,7 +73,11 @@ const UserProfileContainer = () => {
 
   if (profileNotFound) {
     // Se o perfil não for encontrado, podemos renderizar alguma mensagem ou redirecionar o usuário
-    return <Navigate to="/erro" />;
+    return user ? (
+      <Navigate to={`/profile/${user.id}`} />
+    ) : (
+      <Navigate to="/erro" />
+    );
   }
 
   return (
@@ -92,7 +92,7 @@ const UserProfileContainer = () => {
             <InfoProfile /> {/* Campo de perfil do usuário */}
             <Galeria /> {/* Galeria de imagens */}
             <SidebarMenu /> {/* Menu */}
-          </section> 
+          </section>
         )}
         {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
         {showModal && <ChangePhotoModal />} {/* Modal de mudar a foto perfil */}

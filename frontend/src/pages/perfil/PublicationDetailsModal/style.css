@@ -262,6 +262,11 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  margin-left: -20px;
+}
+
+.delete-menu{
+  margin-left: 15px;
 }
 
 /* Estilos para as opções do menu de exclusão */
@@ -320,3 +325,4 @@
   background-color: #66cc66;
   color: white;
 }
+

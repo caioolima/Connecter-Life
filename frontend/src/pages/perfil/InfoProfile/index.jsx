@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../../../hooks/use-auth";
 import usePhotoModal from "../hooks/usePhotoModal";
 import useGetdata from "../hooks/useGetdata";
+import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 
 const InfoProfile = () => {
   const {
@@ -19,7 +20,7 @@ const InfoProfile = () => {
     biography,
     isOwnProfile,
     isFollowing,
-    setNumberOfFollowers
+    setNumberOfFollowers,
   } = useMyContext();
 
   const { handleEditClick, openModal } = useEventsModals();
@@ -30,7 +31,7 @@ const InfoProfile = () => {
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const { userId } = useParams();
-  const [isUpdatingFollowers, setIsUpdatingFollowers] = useState(false); 
+  const [isUpdatingFollowers, setIsUpdatingFollowers] = useState(false);
   const { user } = useAuth();
   const isOwner = user && user.id === userId;
 
@@ -48,21 +49,19 @@ const InfoProfile = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log('Clique fora do modal');
+      console.log("Clique fora do modal");
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setShowFollowersModal(false);
         setShowFollowingModal(false);
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
-  
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [modalRef]);
-  
-  
 
   const handleShowFollowers = () => {
     if (numberOfFollowers > 0) {
@@ -80,6 +79,19 @@ const InfoProfile = () => {
     setShowFollowersModal(false);
     setShowFollowingModal(false);
   };
+
+  const formatNumber = (num) => {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k";
+    }
+    return num;
+  };
+
+  const formattedFollowers = formatNumber(numberOfFollowers);
+
   useEffect(() => {
     const fetchFollowersAndFollowing = async () => {
       const fetchedFollowers = await getFollowers();
@@ -109,7 +121,7 @@ const InfoProfile = () => {
       setIsUpdatingFollowers(false);
     }
   };
-  
+
   return (
     <div className="profile-header">
       <div
@@ -118,9 +130,13 @@ const InfoProfile = () => {
       >
         <div className="profile-photo-frame">
           {profileImage !== null && profileImage !== "" ? (
-            <img src={profileImage} alt="User" className="profile-photo" />
+            <img
+              src={profileImage}
+              alt="User"
+              className={`profile-photo ${!profileImage && "loading-animation"}`}
+            />
           ) : (
-            <div className="add-image-icon">+</div>
+            <AiOutlineUser className="profile-icon" /> // Ícone de foto de perfil padrão
           )}
         </div>
       </div>
@@ -144,7 +160,7 @@ const InfoProfile = () => {
           </p>
           {numberOfFollowers !== null && (
             <p className="followers-count" onClick={handleShowFollowers}>
-              <strong>{numberOfFollowers}</strong>
+              <strong>{formattedFollowers}</strong>
               Seguidores
             </p>
           )}
@@ -178,51 +194,78 @@ const InfoProfile = () => {
         )}
       </div>
       {showFollowersModal && (
-  <div className="modal-modal-follow" ref={modalRef}>
-    <div className="modal-content-two">
-      <span className="closed-follow" onClick={handleCloseModal}>
-        &times;
-      </span>
-      <h3>Seguidores</h3>
-      <ul>
-        {followers.map((follower) => (
-          <li key={follower.id}>
-            <img
-              src={follower.profileImageUrl}
-              alt={follower.username}
-              className="follower-avatar"
-            />
-            <span className="username-follower">{follower.username}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-)}
+        <div className="modal-modal-follow" ref={modalRef}>
+          <div className="modal-content-two">
+            <span className="closed-follow" onClick={handleCloseModal}>
+              &times;
+            </span>
+            <h3>Seguidores</h3>
+            <ul>
+              {followers.map((follower) => (
+                <li key={follower.id} className="follower-user">
+                  <a href={`/profile/${follower._id}`} className="profile-link">
+                    <div className="user-avatar">
+                      {follower.profileImageUrl ? (
+                        <img
+                          src={follower.profileImageUrl}
+                          alt={follower.username}
+                          className="follower-avatar"
+                        />
+                      ) : (
+                        <div className="profile-icon-container">
+                          <AiOutlineUser className="profile-icon-profile" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="user-details">
+                      <span className="username-follower">
+                        {follower.username}
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
 
-{showFollowingModal && (
-  <div className="modal-modal-follow" ref={modalRef}>
-    <div className="modal-content-two">
-      <span className="closed-follow" onClick={handleCloseModal}>
-        &times;
-      </span>
-      <h3>Seguindo</h3>
-      <ul>
-        {following.map((followee) => (
-          <li key={followee.id}>
-            <img
-              src={followee.profileImageUrl}
-              alt={followee.username}
-              className="followee-avatar"
-            />
-            <span className="username-follower">{followee.username}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-)}
-
+      {showFollowingModal && (
+        <div className="modal-modal-follow" ref={modalRef}>
+          <div className="modal-content-two">
+            <span className="closed-follow" onClick={handleCloseModal}>
+              &times;
+            </span>
+            <h3>Seguindo</h3>
+            <ul>
+              {following.map((followee) => (
+                <li key={followee.Id} className="following-user">
+                  <a href={`/profile/${followee._id}`} className="profile-link">
+                    <div className="user-avatar">
+                      {followee.profileImageUrl ? (
+                        <img
+                          src={followee.profileImageUrl}
+                          alt={followee.username}
+                          className="followee-avatar"
+                        />
+                      ) : (
+                        <div className="profile-icon-container">
+                          <AiOutlineUser className="profile-icon-profile" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="user-details">
+                      <span className="username-follower">
+                        {followee.username}
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import "./FindUserPage.css"; // Importar o arquivo de estilos CSS
 import SidebarMenu from "../../pages/perfil/SidebarMenu/index";
 import Footer from "../../components/Footer/footer";
 import { useTranslation } from "react-i18next"; // Importar o hook useTranslation para tradução
+import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 
 const FindUserPage = () => {
   const { t } = useTranslation(); // Usar o hook useTranslation para tradução
@@ -57,7 +58,8 @@ const FindUserPage = () => {
       <div className="find-user-content">
         {" "}
         {/* Conteúdo da página */}
-        <h1 className="details-users-details">{t("find_user_title")}</h1> {/* Traduzir o título */}
+        <h1 className="details-users-details">{t("find_user_title")}</h1>{" "}
+        {/* Traduzir o título */}
         <input
           type="text"
           value={username}
@@ -77,7 +79,7 @@ const FindUserPage = () => {
                   <a href={`/profile/${user._id}`} className="user-link-user">
                     {" "}
                     {/* Link para o perfil do usuário */}
-                    <div>
+                    <div className="user-info">
                       {user.profileImageUrl ? ( // Verifica se há uma imagem de perfil
                         <img
                           src={user.profileImageUrl}
@@ -85,9 +87,9 @@ const FindUserPage = () => {
                           className="user-avatar"
                         /> // Mostra a imagem de perfil
                       ) : (
-                        <div className="profile-frame"></div> // Mostra a moldura se não houver imagem de perfil
-                      )}{" "}
-                      <div className="check-user-check">{user.username}</div>
+                        <AiOutlineUser className="profile-icon-profile" /> // Mostra a moldura se não houver imagem de perfil
+                      )}
+                      <div className="username-search">{user.username}</div>
                     </div>
                   </a>
                 </div>
@@ -95,8 +97,13 @@ const FindUserPage = () => {
             </div>
           </div>
         )}
-        {error && <p className="error-message-error">{t("error")}: {error}</p>}{" "} {/* Mensagem de erro */}
-        <Footer />
+        {error && (
+          <p className="error-message-error">
+            {t("error")}: {error}
+          </p>
+        )}{" "}
+        {/* Mensagem de erro */}
+        {/*<Footer />*/}
       </div>
     </div>
   );

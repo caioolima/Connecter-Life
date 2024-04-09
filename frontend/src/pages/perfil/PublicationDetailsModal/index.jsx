@@ -1,5 +1,5 @@
 import "./style.css";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useEventsModals from "../hooks/useEventsModals";
@@ -32,8 +32,8 @@ const PublicationDetailsModal = () => {
     likesArray,
   } = useMyContext();
 
-   // Verifica se a imagem atual está curtida
-   const isLiked = likesArray[currentImageIndex] === "1";
+  // Verifica se a imagem atual está curtida
+  const isLiked = likesArray[currentImageIndex] === "1";
 
   const {
     handleClosePhotoModal,
@@ -43,9 +43,42 @@ const PublicationDetailsModal = () => {
     getLikes,
   } = useEventsModals();
 
+  const [postTime, setPostTime] = useState(""); // Estado para armazenar o tempo de postagem formatado
+
   useEffect(() => {
     getLikes();
+    calculatePostTime(); // Chame a função para calcular o tempo de postagem formatado
   }, []);
+
+  // Função para calcular o tempo de postagem formatado
+  const calculatePostTime = () => {
+    const postedAt = userPhotos[currentImageIndex].postedAt;
+    const currentTime = new Date().getTime();
+    const difference = currentTime - new Date(postedAt).getTime();
+    const seconds = Math.floor(difference / 1000);
+    let timeAgo = "";
+
+    if (seconds < 60) {
+      timeAgo = `${seconds} segundo${seconds === 1 ? "" : "s"} atrás`;
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      timeAgo = `${minutes} minuto${minutes === 1 ? "" : "s"} atrás`;
+    } else if (seconds < 86400) {
+      const hours = Math.floor(seconds / 3600);
+      timeAgo = `${hours} hora${hours === 1 ? "" : "s"} atrás`;
+    } else if (seconds < 2592000) {
+      const days = Math.floor(seconds / 86400);
+      timeAgo = `${days} dia${days === 1 ? "" : "s"} atrás`;
+    } else if (seconds < 31536000) {
+      const months = Math.floor(seconds / 2592000);
+      timeAgo = `${months} mês${months === 1 ? "" : "es"} atrás`;
+    } else {
+      const years = Math.floor(seconds / 31536000);
+      timeAgo = `${years} ano${years === 1 ? "" : "s"} atrás`;
+    }
+
+    setPostTime(timeAgo);
+  };
 
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
@@ -131,10 +164,6 @@ const PublicationDetailsModal = () => {
       handleClosePhotoModal();
     }
   };
-  useEffect(() => {
-    getLikes(); // Chama getLikes após a montagem do componente
-  }, []); // Array vazio indica que este efeito ocorre apenas uma vez após a montagem
-
 
   return (
     <>
@@ -195,15 +224,8 @@ const PublicationDetailsModal = () => {
                 <p className="details-user">
                   <Link to={`/profile/${userId}`}>{username}</Link>
                 </p>
-                {/* Exibir horário da postagem */}
-                {userPhotos[currentImageIndex].postedAt && (
-                  <p className="post-time">
-                    Postado:{" "}
-                    {new Date(
-                      userPhotos[currentImageIndex].postedAt
-                    ).toLocaleString()}
-                  </p>
-                )}
+                {/* Exibir tempo de postagem */}
+                <p className="post-time">{postTime}</p>
               </div>
               <div className="contain-like" onClick={handleLike}>
                 {isLiked ? (
