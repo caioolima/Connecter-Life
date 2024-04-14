@@ -12,7 +12,7 @@ import SearchUser from "./pages/SearchUser/SearchUser";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"; // Importe a página de erro 404
 import PrivateRoute from "./PrivateRoute.js"
 import FirstWorldCountries from "./pages/Community/FirstWorldCountries.js";
-import CommunityChat from "./pages/Community/CommunityChat.js";
+import Community from "./pages/Community/Community.js"
 import { useAuth } from "./hooks/use-auth";
 
 function App() {
@@ -67,7 +67,7 @@ function App() {
       <Route path="/search" element={<SearchUser />} />
       <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
      <Route path="/worldcommunity" element={<FirstWorldCountries/>}/>
-     <Route path="/community/:country" element={<CommunityChat />} /> {/* Adiciona a rota para o chat da comunidade */}
+     <Route path="/community/:country" element={<Community />} /> {/* Adiciona a rota para o chat da comunidade */}
     </Routes>
   );
 }

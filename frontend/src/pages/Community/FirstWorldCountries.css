@@ -1,0 +1,43 @@
+.community-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .community-list-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .community-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .community-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    width: 300px;
+  }
+  
+  .country-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .country-link:hover {
+    color: #007bff;
+  }
