@@ -8,7 +8,7 @@ const IconHome = () => {
     return (
         <>
             <SidebarLink
-                to="/"
+                to="/worldcommunity"
                 title={t("home_title")}
                 icon={<FaHome />}
                 label={t("home_label")}
