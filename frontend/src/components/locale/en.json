@@ -165,5 +165,15 @@
   "supportEmail": "support@travelconnect.com",
   "brazilPrivacyNotice": "Brazil Privacy Notice",
   "brazilPrivacyNoticeContent": "This section applies to personal data processing activities in accordance with Brazilian laws and complements this Privacy Policy.",
-  "dataController": "The data controller responsible for your information is Travel Platforms, Inc. You also have the right to contact the National Data Protection Authority (“ANPD”) by contacting the DPA directly."
+  "dataController": "The data controller responsible for your information is Travel Platforms, Inc. You also have the right to contact the National Data Protection Authority (“ANPD”) by contacting the DPA directly.",
+  "United States": "United States",
+  "Brasil": "Brazil",
+  "Canada": "Canada",
+  "Australia": "Australia",
+  "England": "England",
+  "Germany": "Germany",
+  "France": "France",
+  "Japan": "Japan",
+  "Alemanha": "Germany",
+  "Countries List": "Communities"
 }

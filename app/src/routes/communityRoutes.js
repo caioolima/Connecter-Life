@@ -1,30 +1,52 @@
+// communityRoutes.js
 const express = require('express');
 const router = express.Router();
 const usuarioPaisController = require('../controllers/communityController');
 
-// Rota para adicionar um usuário a uma comunidade
-router.post('/comunidade/:country/:userId', usuarioPaisController.addUserCommunity);
+// Rota para entrar na comunidade
+router.post('/comunidade/entrar/:userId/:communityId', async (req, res) => {
+    const { userId, communityId } = req.params;
 
-// Rota para verificar se o usuário faz parte da comunidade
-router.get('/checkUserInCommunity/:country/:userId', usuarioPaisController.addUserCommunity);
+    try {
+        const result = await usuarioPaisController.entrarNaComunidade(userId, communityId);
+        res.status(200).json({ message: result });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
-// Rota para criar uma nova publicação
-router.post('/community/:country/posts', usuarioPaisController.createPost);
+// Rota para sair da comunidade
+router.post('/comunidade/sair/:userId/:communityId', async (req, res) => {
+    const { userId, communityId } = req.params;
 
-// Rota para obter todas as publicações da comunidade de um país
-router.get('/community/:country/posts', usuarioPaisController.getAllPosts);
+    try {
+        const result = await usuarioPaisController.sairDaComunidade(userId, communityId);
+        res.status(200).json({ message: result });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
-// Rota para obter uma única publicação
-router.get('/community/:country/posts/:postId', usuarioPaisController.getPostById);
+// Rota para criar uma nova comunidade
+router.post('/comunidade/criar/:country', async (req, res) => {
+    const { country } = req.params;
 
-// Rota para adicionar um comentário a uma publicação
-router.post('/community/:country/posts/:postId/comments', usuarioPaisController.addCommentToPost);
+    try {
+        const newCommunityId = await usuarioPaisController.criarComunidade(country);
+        res.status(201).json({ message: 'Comunidade criada com sucesso', communityId: newCommunityId });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
-// Rota para adicionar/remover curtida de uma publicação
-router.post('/community/:country/posts/:postId/like', usuarioPaisController.toggleLikeOnPost);
-
-// Rota para excluir uma publicação
-router.delete('/community/:country/posts/:postId', usuarioPaisController.deletePost);
-
+// Rota para listar todas as comunidades
+router.get('/comunidade/listar', async (req, res) => {
+    try {
+        const comunidades = await usuarioPaisController.listarComunidades();
+        res.status(200).json(comunidades);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
 module.exports = router;
