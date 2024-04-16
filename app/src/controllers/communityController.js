@@ -70,5 +70,22 @@ async function listarComunidades() {
   }
 }
 
+// Função para verificar se o usuário está na comunidade
+async function verificarMembroDaComunidade(userId, communityId) {
+    try {
+        const community = await CommunityUser.findById(communityId);
+        if (!community) {
+            throw new Error('Comunidade não encontrada');
+        }
 
-module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades };
+        // Verifica se o usuário está na comunidade
+        const isMember = community.userCountry.includes(userId);
+
+        return isMember;
+    } catch (error) {
+        throw new Error('Erro ao verificar a associação do usuário com a comunidade: ' + error.message);
+    }
+}
+
+
+module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade   };
