@@ -67,7 +67,8 @@ function App() {
       <Route path="/search" element={<SearchUser />} />
       <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
      <Route path="/worldcommunity" element={<FirstWorldCountries/>}/>
-     <Route path="/community/:country" element={<Community />} /> {/* Adiciona a rota para o chat da comunidade */}
+     <Route path="/community/:countryId/:communityId" element={<Community />} /> {/* Rota para a página da comunidade */}
+
     </Routes>
   );
 }
