@@ -3,14 +3,72 @@
 /* Estilo para centralizar o conteúdo */
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  margin-top: 60px;
+  flex-direction: column;
+  width: 100vw;
   height: 100vh; /* Centraliza verticalmente */
 }
 
-/* Estilo para a lista de comunidades */
-.comunidades-list {
-  text-align: center;
+.images-field-top {
+    background: gray;
+    height: 320px;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+}
+
+.img {
+    width: 40%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.a1 {
+    background-image: url("../../assets/backpacker-community.jpeg");
+}
+.a2 {
+    background-image: url('../../assets/backpackercommunity.jpeg');
+}
+.a3 {
+    background-image: url('../../assets/womanmedia.jpeg');
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.cards-contain {
+    background: black;
+    height: 380px;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--color-details);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.cards-contain > h2  {
+    color: white;
+    text-align: left;
+    width: 90%;
+    transform: translateY(10px);
+    margin: auto;
+}
+
+.cards-contain hr {
+    width: 90%;
+    padding: 1px;
+    border-radius: 20px;
+    background: var(--color-details);
+    border: none;
+    margin: auto;
 }
 
 /* Estilo para o título da lista */
@@ -18,18 +76,46 @@
   margin-bottom: 20px;
 }
 
-/* Estilo para a lista de comunidades */
-.comunidades-list-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0 auto; /* Centraliza horizontalmente */
-  width: 300px; /* Defina a largura da lista */
-}
-
 /* Estilo para os itens da lista */
 .comunidades-list-item {
-  margin-bottom: 10px;
-  background-color: var(--color-details-focus); /* Cor de fundo */
-  padding: 10px;
+  background-color: var(--color-primary); /* Cor de fundo */
+  color: white;
+  padding: 8px;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  width: 110px;
   border-radius: 5px; /* Borda arredondada */
+}
+
+.card-community {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    width: 210px;
+    height: 250px;
+    border-radius: 20px;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.image-country {
+    width: 100%;
+    height: 140px;
+    background: gray;
+}
+
+.more-btn-flex {
+    width: 85%;
+    margin: auto;
+}
+
+.more-btn {
+    position: relative;
+    padding: 5px 20px;
+    float: right;
+    background: black;
+    color: white;
+    border: 2px solid var(--color-details);
 }

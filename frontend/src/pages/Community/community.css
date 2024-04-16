@@ -1,0 +1,42 @@
+.country-details-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .country-details-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .country-id {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .community-rules-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .community-rules-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .join-button {
+    background-color: var(--color-details);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .already-joined-message {
+    font-size: 18px;
+    color: var(--color-details);
+  }

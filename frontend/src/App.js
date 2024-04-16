@@ -63,11 +63,12 @@ function App() {
           </AuthLayout>
         }
       />
+      
       <Route path="/profile/:userId" element={<UserProfileContainer />} />
       <Route path="/search" element={<SearchUser />} />
       <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
      <Route path="/worldcommunity" element={<FirstWorldCountries/>}/>
-     <Route path="/community/:country" element={<Community />} /> {/* Adiciona a rota para o chat da comunidade */}
+     <Route path="/community/:countryId" element={<Community />} /> {/* Rota para a página da comunidade */}
     </Routes>
   );
 }
