@@ -175,5 +175,9 @@
   "Germany": "Alemanha",
   "France": "França",
   "Alemanha": "Alemanha",
-  "Countries List": "Comunidades"
+  "Japão": "Japão",
+  "Countries List": "Comunidades",
+  "member": "{{count}} membro",
+  "members": "{{count}} membros",
+  "join": "Fazer parte"
 }

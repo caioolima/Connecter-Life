@@ -4,7 +4,7 @@ const router = express.Router();
 const usuarioPaisController = require('../controllers/communityController');
 
 // Desestruture a função verificarMembroDaComunidade
-const { verificarMembroDaComunidade } = usuarioPaisController;
+const { verificarMembroDaComunidade, contarMembrosDaComunidade } = usuarioPaisController;
 // Rota para entrar na comunidade
 router.post('/comunidade/entrar/:userId/:communityId', async (req, res) => {
     const { userId, communityId } = req.params;
@@ -68,6 +68,18 @@ router.get('/comunidade/verificar/:userId/:communityId', async (req, res) => {
     }
 });
 
+// Rota para obter o número de membros da comunidade
+router.get('/comunidade/contarMembros/:communityId', async (req, res) => {
+    const { communityId } = req.params;
+
+    try {
+        // Conte o número de membros na comunidade
+        const numberOfMembers = await contarMembrosDaComunidade(communityId);
+        res.status(200).json({ numberOfMembers });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
 
 module.exports = router;

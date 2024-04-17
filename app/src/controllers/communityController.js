@@ -87,5 +87,20 @@ async function verificarMembroDaComunidade(userId, communityId) {
     }
 }
 
+// Função para contar o número de usuários dentro de uma comunidade
+async function contarMembrosDaComunidade(communityId) {
+    try {
+        const community = await CommunityUser.findById(communityId);
+        if (!community) {
+            throw new Error('Comunidade não encontrada');
+        }
 
-module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade   };
+        const numberOfMembers = community.userCountry.length;
+
+        return numberOfMembers;
+    } catch (error) {
+        throw new Error('Erro ao contar os membros da comunidade: ' + error.message);
+    }
+}
+
+module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade, contarMembrosDaComunidade   };

@@ -173,7 +173,10 @@
   "England": "England",
   "Germany": "Germany",
   "France": "France",
-  "Japan": "Japan",
+  "Japão": "Japan",
   "Alemanha": "Germany",
-  "Countries List": "Communities"
+  "Countries List": "Communities",
+  "member": "{{count}} member",
+  "members": "{{count}} members",
+  "join": "Join"
 }

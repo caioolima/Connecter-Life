@@ -2,120 +2,120 @@
 
 /* Estilo para centralizar o conteúdo */
 .container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 60px;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh; /* Centraliza verticalmente */
-}
-
-.images-field-top {
-    background: gray;
-    height: 320px;
-    max-width: 800px;
-    margin: auto;
     display: flex;
-}
-
-.img {
-    width: 40%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.a1 {
-    background-image: url("../../assets/backpacker-community.jpeg");
-}
-.a2 {
-    background-image: url('../../assets/backpackercommunity.jpeg');
-}
-.a3 {
-    background-image: url('../../assets/womanmedia.jpeg');
-}
-
-.cards {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
-    margin: auto;
-}
-
-.cards-contain {
-    background: black;
-    height: 380px;
-    width: 100%;
-    border-radius: 20px;
-    border: 1px solid var(--color-details);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.cards-contain > h2  {
-    color: white;
-    text-align: left;
-    width: 90%;
-    transform: translateY(10px);
-    margin: auto;
-}
-
-.cards-contain hr {
-    width: 90%;
-    padding: 1px;
-    border-radius: 20px;
-    background: var(--color-details);
-    border: none;
-    margin: auto;
-}
-
-/* Estilo para o título da lista */
-.comunidades-list h2 {
-  margin-bottom: 20px;
-}
-
-/* Estilo para os itens da lista */
-.comunidades-list-item {
-  background-color: var(--color-primary); /* Cor de fundo */
-  color: white;
-  padding: 8px;
-  border: none;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-  width: 110px;
-  border-radius: 5px; /* Borda arredondada */
-}
-
-.card-community {
-    background: white;
-    display: flex;
-    flex-direction: column;
-    width: 210px;
-    height: 250px;
-    border-radius: 20px;
     justify-content: space-between;
-    font-weight: 700;
-}
-
-.image-country {
-    width: 100%;
-    height: 140px;
-    background: gray;
-}
-
-.more-btn-flex {
-    width: 85%;
+    margin-top: 60px;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh; /* Centraliza verticalmente */
+  }
+  
+  .images-field-top {
+      background: gray;
+      height: 600px;
+      max-width: 1870px;
+      margin: auto;
+      display: flex;
+      object-fit: cover;
+  }
+  
+  .img {
+      width: 40%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  
+  .a1 {
+      background-image: url("../../assets/backpacker-community.jpeg");
+  }
+  .a2 {
+      background-image: url('../../assets/backpackercommunity.jpeg');
+  }
+  .a3 {
+      background-image: url('../../assets/womanmedia.jpeg');
+  }
+  
+  .cards {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-around;
+      margin: auto;
+  }
+  
+  .cards-contain {
+      background: black;
+      height: 380px;
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid var(--color-details);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+  }
+  
+  .cards-contain > h2  {
+      color: white;
+      text-align: left;
+      width: 90%;
+      transform: translateY(10px);
+      margin: auto;
+      padding: 10px 10px;
+  }
+  
+  .cards-contain hr {
+      width: 90%;
+      padding: 1px;
+      border-radius: 20px;
+      background: var(--color-details);
+      border: none;
+      margin: auto;
+  }
+  
+  .card-community {
+      background: white;
+      display: flex;
+      flex-direction: column;
+      width: 210px;
+      height: 250px;
+      justify-content: space-between;
+      font-weight: 700;
+      border-radius: 20px;
+      box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.9);
+      margin: 10px 0;
+  }
+  
+  .card-community span, p {
+      margin: 0 10px;
+  }
+  
+  .sign-button-sign {
     margin: auto;
-}
-
-.more-btn {
-    position: relative;
-    padding: 5px 20px;
-    float: right;
-    background: black;
-    color: white;
-    border: 2px solid var(--color-details);
-}
+    display: block;
+    margin: 20px auto;
+    border: none;
+    border-radius: 20px;
+    color: var(--color-dark);
+    background: var( --color-primary-focus);
+    padding: 8px 10px;
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
+  }
+  
+  .sign-button-sign:hover {
+    background: var(--color-dark); /* Altera a cor de fundo ao passar o mouse */
+    color: var( --color-primary-focus);
+  }
+  
+  .image-country {
+    width: 100%;
+    height: 120px;
+    background: gray;
+    background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o container */
+    background-position: center; /* Centraliza a imagem dentro do container */
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
+  }
+  

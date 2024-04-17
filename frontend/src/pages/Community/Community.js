@@ -4,14 +4,18 @@ import { useAuth } from "../../hooks/use-auth";
 import "./community.css";
 import BrasilFlag from "./flags/brasil.jpeg";
 import AlemanhaFlag from "./flags/alemanha.png";
+import SidebarMenu from "../perfil/SidebarMenu/index";
+import JapaoFlag from "./flags/japao.png";
 
 const CountryDetails = () => {
-  const { countryId, communityId } = useParams();
+
   const { user } = useAuth();
   const [userId, setUserId] = useState(null);
   const [joined, setJoined] = useState(false);
   const navigate = useNavigate(); // Use useNavigate
-
+  const { countryId, communityId } = useParams();
+  const normalizedCountryId = countryId.toLowerCase();
+  
   useEffect(() => {
     if (user) {
       setUserId(user.id);
@@ -62,14 +66,17 @@ const CountryDetails = () => {
   const flagMappings = {
     brasil: BrasilFlag,
     alemanha: AlemanhaFlag,
+    japão: JapaoFlag, // Corrigido para "japao" em minúsculas
   };
+  
 
-  const normalizedCountryId = countryId.toLowerCase();
   const countryFlag = flagMappings[normalizedCountryId];
 
   return (
     <div className="flag" style={{ backgroundImage: `url(${countryFlag})` }}>
-      <div className="country-details-container">
+      
+      <div className="country-details-container"> 
+      <SidebarMenu />
         <h2 className="country-details-title">Detalhes do País</h2>
         <p className="country-id">{countryId}</p>
         <h3 className="community-rules-title">Regras da Comunidade:</h3>
