@@ -41,5 +41,8 @@ router.get(
   relationshipController.getUserFollowing
 );
 
+// Rota para obter os perfis com mais seguidores
+router.get("/user/top-followed", relationshipController.getTopFollowedUsers);
+
 
 module.exports = router;

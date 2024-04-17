@@ -9,12 +9,13 @@ import Footer from "../../components/Footer/footer.jsx";
 import BrasilFlag from "./flags/brasil.jpeg";
 import AlemanhaFlag from "./flags/alemanha.png";
 import JapaoFlag from "./flags/japao.png";
-
+import { AiOutlineUser } from "react-icons/ai";
 const FirstWorldCountries = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [userId, setUserId] = useState(null);
   const [comunidades, setComunidades] = useState([]);
+  const [topFollowedUsers, setTopFollowedUsers] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -24,6 +25,7 @@ const FirstWorldCountries = () => {
 
   useEffect(() => {
     fetchComunidades();
+    fetchTopFollowedUsers();
   }, []);
 
   const fetchComunidades = async () => {
@@ -67,6 +69,19 @@ const FirstWorldCountries = () => {
       fetchNumeroMembros(comunidade._id);
     });
   }, [comunidades]);
+
+  const fetchTopFollowedUsers = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/user/top-followed");
+      const data = await response.json();
+      setTopFollowedUsers(data.topFollowedUsers);
+    } catch (error) {
+      console.error(
+        "Erro ao buscar os top usuários com mais seguidores:",
+        error
+      );
+    }
+  };
 
   const flagMappings = {
     brasil: BrasilFlag,
@@ -117,6 +132,36 @@ const FirstWorldCountries = () => {
               </section>
             ))}
           </section>
+        </section>
+
+        <section className="users-container">
+          <h2>{t("userMoreFollow")}</h2>
+
+          <hr />
+          <div className="users-list-list">
+            {topFollowedUsers.map((follower) => (
+              <div key={follower} className="user-item-user">
+                {/* Lógica para renderizar a imagem de perfil ou o ícone de perfil padrão */}
+                {follower.profileImageUrl ? (
+                  <img src={follower.profileImageUrl} alt="Profile" />
+                ) : (
+                  <AiOutlineUser className="profile-icon-profile" />
+                )}
+                <span>{follower.username}</span>
+                <p>
+                  {follower.numberOfFollowers}{" "}
+                  {follower.numberOfFollowers === 1
+                    ? t("follower-user")
+                    : t("followers-user")}
+                </p>
+                <a href={`/profile/${follower.userId}`} className="profile-link">
+                  <button className="sign-button-sign">
+                    {t("viewProfile")}
+                  </button>
+                </a>
+              </div>
+            ))}
+          </div>
         </section>
       </article>
       <Footer />

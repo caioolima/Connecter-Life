@@ -119,3 +119,47 @@
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
   }
   
+
+/* Estilos para o contêiner de usuários */
+.users-container {
+    display: flex; /* Define o layout como flexível */
+    flex-direction: column;
+    justify-content: space-between; /* Distribui os itens uniformemente na linha */
+    margin: 0 auto;
+  }
+  
+  /* Estilos para o contêiner de usuários */
+.users-container h2{
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  /* Estilos para cada item de usuário na lista */
+.user-item-user { flex-direction: row;
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Reduzindo a margem direita */
+    margin-bottom: 20px; /* Adiciona um espaço abaixo dos usuários */
+    flex-grow: 1; /* Ocupa todo o espaço disponível */
+  }
+  
+  /* Estilos para a imagem de perfil */
+  .user-item-user img {
+    width: 50px; /* Define a largura da imagem */
+    height: 50px; /* Define a altura da imagem */
+    border-radius: 50%; /* Torna a imagem redonda */
+    margin-right: 10px; /* Adiciona um espaço à direita */
+  }
+  
+  /* Estilos para o nome de usuário */
+  .user-item-user span {
+    font-weight: bold; /* Define o texto em negrito */
+    margin-right: 10px; /* Adiciona um espaço à direita */
+  }
+  
+  /* Estilos para o número de seguidores */
+  .user-item-user p {
+    font-size: 0.8em; /* Define o tamanho da fonte menor */
+    color: #666; /* Define a cor do texto cinza */
+  }

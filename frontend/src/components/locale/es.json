@@ -170,5 +170,9 @@
   "Countries List": "Comunidades",
   "member": "{{count}} miembro",
   "members": "{{count}} miembros",
-  "join": "Unirse"
+  "join": "Unirse",
+  "userMoreFollow":"Top 10 de usuarios con más seguidores",
+  "follower-user":"seguidor",
+  "followers-user":"seguidores",
+  "viewProfile":"Ver perfil"
 }

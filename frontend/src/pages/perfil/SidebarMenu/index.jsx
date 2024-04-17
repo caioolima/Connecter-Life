@@ -19,14 +19,14 @@ const SidebarMenuItems = () => {
     return (
         <div className="sidebar">
             <div className="-bar">
-                <Link to={myProfileLink} onClick={handleProfileClick}>
+            <a href={myProfileLink} onClick={handleProfileClick}>
                     <h1 className="desktop-logo">{t("title")}</h1> {/* Traduzindo o título */}
                     <img
                         className="mobile-logo"
                         src={logoImage}
                         alt="Mobile Logo Icon"
                     />
-                </Link>
+                </a>
             </div>
             <>
                 <IconHome/>

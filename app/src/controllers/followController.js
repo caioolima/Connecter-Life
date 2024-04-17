@@ -158,3 +158,53 @@ exports.getUserFollowing = async (req, res) => {
     res.status(500).json({ error: "Erro interno do servidor" });
   }
 };
+
+exports.getTopFollowedUsers = async (req, res) => {
+  try {
+    // Encontrar todos os usuários
+    const allUsers = await User.find();
+
+    // Mapear os IDs dos usuários para um objeto onde a chave é o ID do usuário e o valor é 0 (para contar os seguidores)
+    const userFollowersCount = allUsers.reduce((acc, user) => {
+      acc[user._id] = 0;
+      return acc;
+    }, {});
+
+    // Encontrar todos os relacionamentos
+    const allRelationships = await Relationship.find();
+
+    // Contar os seguidores para cada usuário
+    allRelationships.forEach((relationship) => {
+      userFollowersCount[relationship.following_id]++;
+    });
+
+    // Converter o objeto em um array de pares chave-valor
+    const userFollowersCountArray = Object.entries(userFollowersCount);
+
+    // Filtrar usuários com 0 seguidores
+    const usersWithFollowers = userFollowersCountArray.filter(([userId, numberOfFollowers]) => numberOfFollowers > 0);
+
+    // Ordenar o array por número de seguidores em ordem decrescente
+    usersWithFollowers.sort((a, b) => b[1] - a[1]);
+
+    // Pegar os top 10 usuários com mais seguidores
+    const topFollowedUsers = usersWithFollowers.slice(0, 10);
+
+    const topFollowedUsersDetails = await Promise.all(
+      topFollowedUsers.map(async ([userId, numberOfFollowers]) => {
+        const userDetails = await User.findById(userId);
+        return {
+          userId: userDetails._id,
+          username: userDetails.username,
+          profileImageUrl: userDetails.profileImageUrl,
+          numberOfFollowers,
+        };
+      })
+    );
+
+    res.status(200).json({ topFollowedUsers: topFollowedUsersDetails });
+  } catch (error) {
+    console.error("Erro ao obter os perfis com mais seguidores:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
+  }
+};
