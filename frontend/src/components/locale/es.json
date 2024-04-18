@@ -174,5 +174,7 @@
   "userMoreFollow":"Top 10 de usuarios con más seguidores",
   "follower-user":"seguidor",
   "followers-user":"seguidores",
-  "viewProfile":"Ver perfil"
+  "viewProfile":"Ver perfil",
+  "topLikedPosts": "Top 10 publicaciones más gustadas",
+  "numberOfLikes": "Número de me gusta"
 }

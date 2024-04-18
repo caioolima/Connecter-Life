@@ -182,5 +182,7 @@
   "userMoreFollow":"Top 10 users with the most followers",
   "follower-user":"follow",
   "followers-user":"followers",
-  "viewProfile":"View profile"
+  "viewProfile":"View profile",
+  "topLikedPosts": "Top 10 most liked posts",
+  "numberOfLikes": "Number of likes"
 }

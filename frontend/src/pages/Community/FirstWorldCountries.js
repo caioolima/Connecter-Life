@@ -16,6 +16,7 @@ const FirstWorldCountries = () => {
   const [userId, setUserId] = useState(null);
   const [comunidades, setComunidades] = useState([]);
   const [topFollowedUsers, setTopFollowedUsers] = useState([]);
+  const [topLikedPosts, setTopLikedPosts] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -26,6 +27,7 @@ const FirstWorldCountries = () => {
   useEffect(() => {
     fetchComunidades();
     fetchTopFollowedUsers();
+    fetchTopLikedPosts();
   }, []);
 
   const fetchComunidades = async () => {
@@ -83,6 +85,26 @@ const FirstWorldCountries = () => {
     }
   };
 
+  const fetchTopLikedPosts = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:3000/users/gallery-image/top-liked-images",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data); // Verifique os dados retornados no console
+      setTopLikedPosts(data.topLikedImages);
+    } catch (error) {
+      console.error("Erro ao buscar as top publicações mais curtidas:", error);
+    }
+  };
+
   const flagMappings = {
     brasil: BrasilFlag,
     alemanha: AlemanhaFlag,
@@ -99,7 +121,7 @@ const FirstWorldCountries = () => {
       </section>
       <article className="container">
         <section className="cards-contain">
-          <h2>Comunidades</h2>
+          <h2 className="title-comunidade">{t("Countries List")}</h2>
           <hr />
           <section className="cards">
             {comunidades.map((comunidade) => (
@@ -133,7 +155,6 @@ const FirstWorldCountries = () => {
             ))}
           </section>
         </section>
-
         <section className="users-container">
           <h2>{t("userMoreFollow")}</h2>
 
@@ -147,14 +168,17 @@ const FirstWorldCountries = () => {
                 ) : (
                   <AiOutlineUser className="profile-icon-profile" />
                 )}
-                <span>{follower.username}</span>
+                <span className="user-name-user">{follower.username}</span>
                 <p>
                   {follower.numberOfFollowers}{" "}
                   {follower.numberOfFollowers === 1
                     ? t("follower-user")
                     : t("followers-user")}
                 </p>
-                <a href={`/profile/${follower.userId}`} className="profile-link">
+                <a
+                  href={`/profile/${follower.userId}`}
+                  className="profile-link"
+                >
                   <button className="sign-button-sign">
                     {t("viewProfile")}
                   </button>
@@ -163,8 +187,28 @@ const FirstWorldCountries = () => {
             ))}
           </div>
         </section>
+        <section className="post-wrapper">
+          <h2>{t("topLikedPosts")}</h2>
+          {topLikedPosts.map((post) => (
+            <div key={post.imageUrl} className="post-item">
+              <img
+                src={post.imageUrl}
+                alt="Top Liked Post"
+                className="post-image"
+              />
+
+              <span className="post-name">{post.username}</span>
+              <p className="post-content">
+                {t("numberOfLikes")}: {post.numberOfLikes}
+              </p>
+              <a href={`/profile/${post.userId}`} className="post-link">
+                <button className="post-button-post">{t("viewProfile")}</button>
+              </a>
+            </div>
+          ))}
+        </section>
+        <Footer />
       </article>
-      <Footer />
     </main>
   );
 };

@@ -20,7 +20,7 @@ function App() {
     
   return (
     <Routes>
-      <Route path="/" element={<Introduction />} />
+      <Route path="/" element={<PrivateRoute><Introduction /></PrivateRoute>} />
       <Route
         path="/home"
         element={

@@ -151,15 +151,92 @@
     border-radius: 50%; /* Torna a imagem redonda */
     margin-right: 10px; /* Adiciona um espaço à direita */
   }
-  
-  /* Estilos para o nome de usuário */
-  .user-item-user span {
-    font-weight: bold; /* Define o texto em negrito */
-    margin-right: 10px; /* Adiciona um espaço à direita */
+
+  .user-name-user{
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    font-weight: bold;
   }
+  
   
   /* Estilos para o número de seguidores */
   .user-item-user p {
     font-size: 0.8em; /* Define o tamanho da fonte menor */
     color: #666; /* Define a cor do texto cinza */
   }
+
+/* Estilos para o contêiner das publicações */
+.post-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 80px;
+  position: relative; /* Adiciona posicionamento relativo */
+  background-color: var(--color-dark); /* Fundo semi-transparente */ 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9); /* Sombra suave */
+  border-radius: 20px; /* Borda arredondada */
+  margin-bottom: 80px;
+  width: 100%;
+}
+
+.post-wrapper h2 {
+  position: absolute; /* Altera para posicionamento absoluto */
+  top: -40px; /* Posiciona o título acima das imagens */
+  left: 50%; /* Alinha o título ao centro horizontalmente */
+  transform: translateX(-50%); /* Move o título 50% para a esquerda para centralizá-lo */
+  padding: 10px; /* Adiciona espaço interno ao redor do título */
+  z-index: 1; /* Garante que o título esteja sobre as postagens */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+  margin-top: -20px;
+}
+
+/* Estilos para cada publicação */
+.post-item {
+  width: calc(33.33% - 10px);
+  margin-bottom: 90px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative; /* Adiciona posicionamento relativo */
+}
+
+/* Estilos para a imagem dentro da publicação */
+.post-image {
+  width: 100%; /* Garante que a imagem ocupe toda a largura da publicação */
+  height: auto; /* Mantém a proporção da imagem */ 
+  border-radius: 20px; /* Arredonda apenas as bordas superiores */
+  padding: 10px 10px;
+}
+
+/* Estilos para o texto dentro da publicação */
+.post-content {
+  padding: 10px; /* Adiciona um espaçamento interno */
+  margin: 0; /* Remove a margem padrão */
+  font-weight: bold;
+  color: white;
+}
+
+.post-name{
+  color: white;
+  padding: 8px 10px;
+  font-weight: bold;
+  margin: 20px auto;
+}
+
+.post-button-post {
+  display: block;
+  margin: 20px auto;
+  border: none;
+  border-radius: 20px;
+  color: var(--color-dark);
+  background: var( --color-primary-focus);
+  padding: 8px 10px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
+}
+
+.post-button-post:hover {
+  background: white; /* Altera a cor de fundo ao passar o mouse */
+  color: var( --color-primary-focus);
+}
