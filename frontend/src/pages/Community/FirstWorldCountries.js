@@ -115,11 +115,11 @@ const FirstWorldCountries = () => {
     <main>
       <SidebarMenu />
       <section className="images-field-top">
-        <div className="img a1"></div>
-        <div className="img a2"></div>
-        <div className="img a3"></div>
+        <div className="imagefield a1"></div>
+        <div className="imagefield a2"></div>
+        <div className="imagefield a3"></div>
       </section>
-      <article className="container">
+      <article className="container-cards">
         <section className="cards-contain">
           <h2 className="title-comunidade">{t("Countries List")}</h2>
           <hr />
@@ -157,56 +157,70 @@ const FirstWorldCountries = () => {
         </section>
         <section className="users-container">
           <h2>{t("userMoreFollow")}</h2>
-
           <hr />
           <div className="users-list-list">
-            {topFollowedUsers.map((follower) => (
-              <div key={follower} className="user-item-user">
-                {/* Lógica para renderizar a imagem de perfil ou o ícone de perfil padrão */}
-                {follower.profileImageUrl ? (
-                  <img src={follower.profileImageUrl} alt="Profile" />
-                ) : (
-                  <AiOutlineUser className="profile-icon-profile" />
-                )}
-                <span className="user-name-user">{follower.username}</span>
-                <p>
-                  {follower.numberOfFollowers}{" "}
-                  {follower.numberOfFollowers === 1
-                    ? t("follower-user")
-                    : t("followers-user")}
-                </p>
-                <a
-                  href={`/profile/${follower.userId}`}
-                  className="profile-link"
-                >
-                  <button className="sign-button-sign">
+            {topFollowedUsers.length > 0 ? (
+              topFollowedUsers.map((follower) => (
+                <div key={follower} className="user-item-user">
+                  {/* Lógica para renderizar a imagem de perfil ou o ícone de perfil padrão */}
+                  {follower.profileImageUrl ? (
+                    <img src={follower.profileImageUrl} alt="Profile" />
+                  ) : (
+                    <AiOutlineUser className="profile-icon-profile" />
+                  )}
+                  <span className="user-name-user">{follower.username}</span>
+                  <p>
+                    {follower.numberOfFollowers}{" "}
+                    {follower.numberOfFollowers === 1
+                      ? t("follower-user")
+                      : t("followers-user")}
+                  </p>
+                  <a
+                    href={`/profile/${follower.userId}`}
+                    className="profile-link"
+                  >
+                    <button className="sign-button-sign">
+                      {t("viewProfile")}
+                    </button>
+                  </a>
+                </div>
+              ))
+            ) : (
+              <p className="noFollowers">{t("noFollowers")}</p>
+            )}
+          </div>
+        </section>
+
+        <section
+          className={`post-wrapper ${
+            topLikedPosts.length > 0 ? "has-posts" : ""
+          }`}
+        >
+          <h2>{t("topLikedPosts")}</h2>
+          {topLikedPosts.length > 0 ? (
+            topLikedPosts.map((post) => (
+              <div key={post.imageUrl} className="post-item-post">
+                <a href={`/profile/${post.userId}`} className="post-link">
+                  <img
+                    src={post.imageUrl}
+                    alt="Top Liked Post"
+                    className="post-image-likes"
+                  />
+                  <span className="post-name">{post.username}</span>
+                  <p className="post-content-text">
+                    {t("numberOfLikes")}: {post.numberOfLikes}
+                  </p>
+                  <button className="post-button-post">
                     {t("viewProfile")}
                   </button>
                 </a>
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <p className="noLikedPosts">{t("noLikedPosts")}</p>
+          )}
         </section>
-        <section className="post-wrapper">
-          <h2>{t("topLikedPosts")}</h2>
-          {topLikedPosts.map((post) => (
-            <div key={post.imageUrl} className="post-item">
-              <img
-                src={post.imageUrl}
-                alt="Top Liked Post"
-                className="post-image"
-              />
 
-              <span className="post-name">{post.username}</span>
-              <p className="post-content">
-                {t("numberOfLikes")}: {post.numberOfLikes}
-              </p>
-              <a href={`/profile/${post.userId}`} className="post-link">
-                <button className="post-button-post">{t("viewProfile")}</button>
-              </a>
-            </div>
-          ))}
-        </section>
         <Footer />
       </article>
     </main>

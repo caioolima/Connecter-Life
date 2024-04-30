@@ -41,7 +41,7 @@ function Footer() {
             </div>
 
             <div className="footer-info">
-                <p>&copy; 2023 TravelConnect</p>
+                <p>&copy; 2023 ConnecterLife</p>
             </div>
         </footer>
     );

@@ -79,7 +79,6 @@ router.delete(
 // Rota para encontrar todos os usuários
 router.get(
   "/find/:username",
-  middleware.checkAuthMiddleware,
   userController.findAllUsers
 );
 

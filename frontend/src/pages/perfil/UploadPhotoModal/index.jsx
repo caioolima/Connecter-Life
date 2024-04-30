@@ -38,7 +38,7 @@ const UploadPhotoModal = () => {
                                 accept="image/*"
                                 onChange={handleImageUpload}
                             />
-                            Adionar foto
+                            Adicionar foto
                         </label>
                     </section>
                 )}

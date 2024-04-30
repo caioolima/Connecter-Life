@@ -1,185 +1,279 @@
 /* FirstWorldCountries.css */
 
 /* Estilo para centralizar o conteúdo */
-.container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 60px;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh; /* Centraliza verticalmente */
-  }
-  
-  .images-field-top {
-      background: gray;
-      height: 600px;
-      max-width: 1870px;
-      margin: auto;
-      display: flex;
-      object-fit: cover;
-  }
-  
-  .img {
-      width: 40%;
-      height: 100%;
-      background-repeat: no-repeat;
-      background-size: cover;
-  }
-  
-  .a1 {
-      background-image: url("../../assets/backpacker-community.jpeg");
-  }
-  .a2 {
-      background-image: url('../../assets/backpackercommunity.jpeg');
-  }
-  .a3 {
-      background-image: url('../../assets/womanmedia.jpeg');
-  }
-  
-  .cards {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      justify-content: space-around;
-      margin: auto;
-  }
-  
-  .cards-contain {
-      background: black;
-      height: 380px;
-      width: 100%;
-      border-radius: 20px;
-      border: 1px solid var(--color-details);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-  }
-  
-  .cards-contain > h2  {
-      color: white;
-      text-align: left;
-      width: 90%;
-      transform: translateY(10px);
-      margin: auto;
-      padding: 10px 10px;
-  }
-  
-  .cards-contain hr {
-      width: 90%;
-      padding: 1px;
-      border-radius: 20px;
-      background: var(--color-details);
-      border: none;
-      margin: auto;
-  }
-  
-  .card-community {
-      background: white;
-      display: flex;
-      flex-direction: column;
-      width: 210px;
-      height: 250px;
-      justify-content: space-between;
-      font-weight: 700;
-      border-radius: 20px;
-      box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.9);
-      margin: 10px 0;
-  }
-  
-  .card-community span, p {
-      margin: 0 10px;
-  }
-  
-  .sign-button-sign {
-    margin: auto;
-    display: block;
-    margin: 20px auto;
-    border: none;
-    border-radius: 20px;
-    color: var(--color-dark);
-    background: var( --color-primary-focus);
-    padding: 8px 10px;
-    font-family: "Raleway", sans-serif;
-    font-weight: bold;
-    transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
-  }
-  
-  .sign-button-sign:hover {
-    background: var(--color-dark); /* Altera a cor de fundo ao passar o mouse */
-    color: var( --color-primary-focus);
-  }
-  
-  .image-country {
-    width: 100%;
-    height: 120px;
-    background: gray;
-    background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o container */
-    background-position: center; /* Centraliza a imagem dentro do container */
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
-  }
-  
+.container-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh; /* Centraliza verticalmente */
+}
+
+.images-field-top {
+  background: gray;
+  height: 600px;
+  max-width: 1870px;
+  margin: auto;
+  display: flex;
+  object-fit: cover;
+}
+
+.imagefield {
+  width: 40%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.a1 {
+  background-image: url("../../assets/backpacker-community.jpeg");
+}
+.a2 {
+  background-image: url("../../assets/backpackercommunity.jpeg");
+}
+.a3 {
+  background-image: url("../../assets/womanmedia.jpeg");
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  margin: auto;
+}
+
+.cards-contain {
+  background: black;
+  max-width: 1200px; /* Limita a largura máxima */
+  border-radius: 20px;
+  border: 1px solid var(--color-details);
+  display: flex;
+  flex-wrap: wrap; /* Permite que os cartões quebrem para a próxima linha */
+  justify-content: center; /* Centraliza os cartões horizontalmente */
+  padding: 20px; /* Adiciona um espaçamento interno */
+  margin: 40px auto; /* Centraliza verticalmente e define margens superior e inferior */
+}
+
+.cards-contain > h2 {
+  color: white;
+  text-align: left;
+  width: 90%;
+  transform: translateY(10px);
+  margin: auto;
+  padding: 10px 10px;
+}
+
+.cards-contain hr {
+  width: 90%;
+  padding: 1px;
+  border-radius: 20px;
+  background: var(--color-details);
+  border: none;
+  margin: 10px auto;
+}
+
+.card-community {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  width: 210px;
+  height: 250px;
+  justify-content: space-between;
+  font-weight: 700;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.9);
+  margin: 10px 0;
+}
+
+.card-community span,
+p {
+  margin: 0 10px;
+}
+
+.sign-button-sign {
+  margin: auto;
+  display: block;
+  margin: 20px auto;
+  border: none;
+  border-radius: 20px;
+  color: var(--color-dark);
+  background: var(--color-primary-focus);
+  padding: 8px 10px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
+}
+
+.sign-button-sign:hover {
+  background: var(--color-dark); /* Altera a cor de fundo ao passar o mouse */
+  color: var(--color-primary-focus);
+}
+
+.image-country {
+  width: 100%;
+  height: 120px;
+  background: gray;
+  background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o container */
+  background-position: center; /* Centraliza a imagem dentro do container */
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
+}
 
 /* Estilos para o contêiner de usuários */
 .users-container {
-    display: flex; /* Define o layout como flexível */
-    flex-direction: column;
-    justify-content: space-between; /* Distribui os itens uniformemente na linha */
-    margin: 0 auto;
-  }
-  
-  /* Estilos para o contêiner de usuários */
-.users-container h2{
-    display: flex;
-    align-items: center;
-  }
-  
-  
-  /* Estilos para cada item de usuário na lista */
-.user-item-user { flex-direction: row;
-    display: flex;
-    align-items: center;
-    margin-right: 10px; /* Reduzindo a margem direita */
-    margin-bottom: 20px; /* Adiciona um espaço abaixo dos usuários */
-    flex-grow: 1; /* Ocupa todo o espaço disponível */
-  }
-  
-  /* Estilos para a imagem de perfil */
-  .user-item-user img {
-    width: 50px; /* Define a largura da imagem */
-    height: 50px; /* Define a altura da imagem */
-    border-radius: 50%; /* Torna a imagem redonda */
-    margin-right: 10px; /* Adiciona um espaço à direita */
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 40px auto;
+  margin-bottom: 40px; /* Adiciona uma margem inferior para separar do conteúdo abaixo */
+}
 
-  .user-name-user{
-    color: rgb(0, 0, 0);
-    padding: 10px 10px;
-    font-weight: bold;
-  }
-  
-  
-  /* Estilos para o número de seguidores */
-  .user-item-user p {
-    font-size: 0.8em; /* Define o tamanho da fonte menor */
-    color: #666; /* Define a cor do texto cinza */
-  }
+/* Estilos para o contêiner de usuários */
+.users-container h2 {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para cada item de usuário na lista */
+.user-item-user {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Reduzindo a margem direita */
+  margin-bottom: 20px; /* Adiciona um espaço abaixo dos usuários */
+  flex-grow: 1; /* Ocupa todo o espaço disponível */
+}
+
+/* Estilos para a imagem de perfil */
+.user-item-user img {
+  width: 50px; /* Define a largura da imagem */
+  height: 50px; /* Define a altura da imagem */
+  border-radius: 50%; /* Torna a imagem redonda */
+  margin-right: 10px; /* Adiciona um espaço à direita */
+}
+
+.user-name-user {
+  color: rgb(0, 0, 0);
+  padding: 10px 10px;
+  font-weight: bold;
+}
+
+/* Estilos para o número de seguidores */
+.user-item-user p {
+  font-size: 0.8em; /* Define o tamanho da fonte menor */
+  color: #666; /* Define a cor do texto cinza */
+}
+
+.noFollowers {
+  text-align: center;
+  color: #666;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 10px;
+}
 
 /* Estilos para o contêiner das publicações */
 .post-wrapper {
+  max-width: 1200px; /* Defina a mesma largura máxima que os cards */
+  margin: 0 auto; /* Centralize horizontalmente */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 80px;
   position: relative; /* Adiciona posicionamento relativo */
-  background-color: var(--color-dark); /* Fundo semi-transparente */ 
+  background-color: var(--color-dark); /* Fundo semi-transparente */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9); /* Sombra suave */
   border-radius: 20px; /* Borda arredondada */
   margin-bottom: 80px;
-  width: 100%;
+  height: 550px; /* Altura automática para acomodar o conteúdo */
 }
 
 .post-wrapper h2 {
+  position: absolute; /* Altera para posicionamento absoluto */
+  top: -40px; /* Posiciona o título acima das imagens */
+  left: 50%; /* Alinha o título ao centro horizontalmente */
+  transform: translateX(
+    -50%
+  ); /* Move o título 50% para a esquerda para centralizá-lo */
+  padding: 10px; /* Adiciona espaço interno ao redor do título */
+  z-index: 1; /* Garante que o título esteja sobre as postagens */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+  margin-top: -20px;
+}
+
+/* Estilos para cada publicação */
+.post-item-post {
+  width: calc(33.33% - 10px);
+  margin-bottom: 90px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative; /* Adiciona posicionamento relativo */
+}
+
+/* Estilos para a imagem dentro da publicação */
+.post-image-likes {
+  width: 100%; /* Garante que a imagem ocupe toda a largura da publicação */
+  height: auto; /* Mantém a proporção da imagem */
+  border-radius: 20px; /* Arredonda apenas as bordas superiores */
+  padding: 20px; /* Adiciona espaçamento interno ao redor da imagem */
+}
+
+/* Estilos para o texto dentro da publicação */
+.post-content-text {
+  padding: 10px; /* Adiciona um espaçamento interno */
+  margin: 10px; /* Remove a margem padrão */
+  font-weight: bold;
+  color: white;
+}
+
+.post-name {
+  color: white;
+  padding: 8px 10px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.post-button-post {
+  display: block;
+  margin: 20px auto;
+  border: none;
+  border-radius: 20px;
+  color: var(--color-dark);
+  background: var(--color-primary-focus);
+  padding: 8px 10px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
+}
+
+.post-button-post:hover {
+  background: white; /* Altera a cor de fundo ao passar o mouse */
+  color: var(--color-primary-focus);
+}
+
+/* Estilos para o contêiner das publicações */
+.post-wrapper {
+  max-width: 1200px; /* Defina a mesma largura máxima que os cards */
+  margin: 0 auto; /* Centralize horizontalmente */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 80px;
+  position: relative; /* Adiciona posicionamento relativo */
+  border-radius: 20px; /* Borda arredondada */
+  margin-bottom: 80px;
+  height: 550px; /* Altura automática para acomodar o conteúdo */
+}
+
+.post-wrapper.has-posts {
+  background-color: var(--color-dark); /* Fundo semi-transparente */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9); /* Sombra suave */
+}
+
+.post-wrapper.has-posts h2 {
   position: absolute; /* Altera para posicionamento absoluto */
   top: -40px; /* Posiciona o título acima das imagens */
   left: 50%; /* Alinha o título ao centro horizontalmente */
@@ -190,8 +284,7 @@
   margin-top: -20px;
 }
 
-/* Estilos para cada publicação */
-.post-item {
+.post-wrapper.has-posts .post-item-post {
   width: calc(33.33% - 10px);
   margin-bottom: 90px;
   box-sizing: border-box;
@@ -200,43 +293,49 @@
   position: relative; /* Adiciona posicionamento relativo */
 }
 
-/* Estilos para a imagem dentro da publicação */
-.post-image {
+.post-wrapper.has-posts .post-item-post .post-image-likes {
   width: 100%; /* Garante que a imagem ocupe toda a largura da publicação */
-  height: auto; /* Mantém a proporção da imagem */ 
+  height: auto; /* Mantém a proporção da imagem */
   border-radius: 20px; /* Arredonda apenas as bordas superiores */
-  padding: 10px 10px;
+  padding: 20px; /* Adiciona espaçamento interno ao redor da imagem */
 }
 
-/* Estilos para o texto dentro da publicação */
-.post-content {
+.post-wrapper.has-posts .post-item-post .post-content-text {
   padding: 10px; /* Adiciona um espaçamento interno */
-  margin: 0; /* Remove a margem padrão */
+  margin: 10px; /* Remove a margem padrão */
   font-weight: bold;
   color: white;
 }
 
-.post-name{
+.post-wrapper.has-posts .post-item-post .post-name {
   color: white;
   padding: 8px 10px;
   font-weight: bold;
-  margin: 20px auto;
+  margin: 10px;
 }
 
-.post-button-post {
+.post-wrapper.has-posts .post-item-post .post-button-post {
   display: block;
   margin: 20px auto;
   border: none;
   border-radius: 20px;
   color: var(--color-dark);
-  background: var( --color-primary-focus);
+  background: var(--color-primary-focus);
   padding: 8px 10px;
   font-family: "Raleway", sans-serif;
   font-weight: bold;
   transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
 }
 
-.post-button-post:hover {
+.post-wrapper.has-posts .post-item-post .post-button-post:hover {
   background: white; /* Altera a cor de fundo ao passar o mouse */
-  color: var( --color-primary-focus);
+  color: var(--color-primary-focus);
+}
+
+.noLikedPosts {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 10px;
 }

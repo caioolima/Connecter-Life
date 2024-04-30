@@ -83,6 +83,9 @@
     color: var(--color-primary); /* Cor (rosa) para indicar a página ativa */
     font-weight: 700;
 }
+.sidebar-link {
+    cursor: pointer;
+}
 
 .logo {
     font-weight: bold;

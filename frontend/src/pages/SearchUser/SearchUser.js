@@ -27,13 +27,13 @@ const FindUserPage = () => {
     const timeout = setTimeout(() => {
       const fetchUsers = async () => {
         try {
-          const response = await fetch(
-            `http://localhost:3000/find/${cleanedUsername}`
-          );
+          const response = await fetch(`http://localhost:3000/find/${cleanedUsername}`);
+          const userData = await response.json();
+          
           if (!response.ok) {
             throw new Error(t("users_not_found")); // Traduzir a mensagem de erro
           }
-          const userData = await response.json();
+          
           setUsers(userData);
           setError(null);
         } catch (error) {
@@ -42,6 +42,7 @@ const FindUserPage = () => {
           setUsers([]);
         }
       };
+      
 
       fetchUsers();
     }, 500);
