@@ -2,9 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const usuarioPaisController = require('../controllers/communityController');
+const multer = require('multer'); // Importe o multer
+const upload = multer({ dest: 'uploads/' });
 
 // Desestruture a função verificarMembroDaComunidade
 const { verificarMembroDaComunidade, contarMembrosDaComunidade } = usuarioPaisController;
+
+
 // Rota para entrar na comunidade
 router.post('/comunidade/entrar/:userId/:communityId', async (req, res) => {
     const { userId, communityId } = req.params;
@@ -80,6 +84,33 @@ router.get('/comunidade/contarMembros/:communityId', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
+// Rota para enviar uma mensagem (texto ou mídia) para a comunidade
+router.post('/comunidade/enviar-mensagem/:userId/:communityId', upload.single('media'), async (req, res) => {
+    const { userId, communityId } = req.params;
+    const { message } = req.body;
+    const media = req.file ? req.file.filename : null;
+
+    try {
+        const result = await usuarioPaisController.enviarMensagem(userId, communityId, message, media); // Corrigido para usuarioPaisController
+        res.status(200).json({ message: result });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+// Rota para listar mensagens da comunidade
+router.get('/comunidade/mensagens/:communityId', async (req, res) => {
+    const { communityId } = req.params;
+
+    try {
+        const messages = await usuarioPaisController.listarMensagens(communityId); // Corrigido para usar usuarioPaisController
+        res.status(200).json(messages);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 
 
 module.exports = router;

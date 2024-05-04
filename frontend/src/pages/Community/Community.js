@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; 
+import { useParams, Link } from "react-router-dom"; 
 import { useAuth } from "../../hooks/use-auth";
 import "./community.css";
 import BrasilFlag from "./flags/brasil.jpeg";
@@ -12,7 +12,6 @@ const CountryDetails = () => {
   const { user } = useAuth();
   const [userId, setUserId] = useState(null);
   const [joined, setJoined] = useState(false);
-  const navigate = useNavigate(); // Use useNavigate
   const { countryId, communityId } = useParams();
   const normalizedCountryId = countryId.toLowerCase();
   
@@ -74,9 +73,8 @@ const CountryDetails = () => {
 
   return (
     <div className="flag" style={{ backgroundImage: `url(${countryFlag})` }}>
-      
       <div className="country-details-container"> 
-      <SidebarMenu />
+        <SidebarMenu />
         <h2 className="country-details-title">Detalhes do País</h2>
         <p className="country-id">{countryId}</p>
         <h3 className="community-rules-title">Regras da Comunidade:</h3>
@@ -86,9 +84,15 @@ const CountryDetails = () => {
           <li>Respeite as opiniões dos outros membros;</li>
           <li>Mantenha as discussões relacionadas ao país.</li>
         </ul>
-        <button className="join-button" onClick={joined ? () => navigate('/chat') : handleJoinCommunity}>
-          {joined ? "Entrar" : "Participar da Comunidade"}
-        </button>
+        {joined ? (
+          <Link to={`/comunidade/${countryId}/${communityId}/chat`} className="join-button">
+            Entrar
+          </Link>
+        ) : (
+          <button className="join-button" onClick={handleJoinCommunity}>
+            Participar da Comunidade
+          </button>
+        )}
       </div>
     </div>
   );

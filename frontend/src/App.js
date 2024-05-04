@@ -10,17 +10,25 @@ import UserProfileContainer from "./pages/perfil/UserProfileContainer";
 import Introduction from "./pages/ConnecterHome/introduction";
 import SearchUser from "./pages/SearchUser/SearchUser";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"; // Importe a página de erro 404
-import PrivateRoute from "./PrivateRoute.js"
+import PrivateRoute from "./PrivateRoute.js";
 import FirstWorldCountries from "./pages/Community/FirstWorldCountries.js";
-import Community from "./pages/Community/Community.js"
+import Community from "./pages/Community/Community.js";
+import ChatScreen from "./pages/Community/ChatScreen.js";
 import { useAuth } from "./hooks/use-auth";
 
 function App() {
-    const { user } = useAuth();
-    
+  const { user } = useAuth();
+
   return (
     <Routes>
-      <Route path="/" element={<PrivateRoute><Introduction /></PrivateRoute>} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Introduction />
+          </PrivateRoute>
+        }
+      />
       <Route
         path="/home"
         element={
@@ -63,12 +71,16 @@ function App() {
           </AuthLayout>
         }
       />
-      
       <Route path="/profile/:userId" element={<UserProfileContainer />} />
       <Route path="/search" element={<SearchUser />} />
       <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
-     <Route path="/worldcommunity" element={<FirstWorldCountries/>}/>
-     <Route path="/community/:countryId/:communityId" element={<Community />} /> {/* Rota para a página da comunidade */}
+      <Route path="/worldcommunity" element={<FirstWorldCountries />} />
+      <Route path="/comunidade/:countryId/:communityId/chat" element={<ChatScreen />} />
+      <Route
+        path="/community/:countryId/:communityId"
+        element={<Community />}
+      />{" "}
+      {/* Rota para a página da comunidade */}
     </Routes>
   );
 }

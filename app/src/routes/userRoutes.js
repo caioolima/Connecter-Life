@@ -109,4 +109,10 @@ router.get(
   userController.getTopLikedImages
 );
 
+// Rota para obter todas as fotos de perfil por ID do usuário
+router.get(
+  "/:id/profile-images",
+  userController.getAllProfileImagesById
+);
+
 module.exports = router;

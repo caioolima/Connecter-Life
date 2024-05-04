@@ -1,0 +1,160 @@
+/* chat.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+
+.chat-screen {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-white);
+}
+
+.chat-name {
+  margin: 100px auto;
+  color: #ea4f97; /* Cor primária para o nome do chat */
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha as mensagens à esquerda */
+    justify-content: flex-end; /* Alinha as mensagens na parte inferior */
+    width: 50%; /* Ocupa 60% da largura do chat-screen */
+    margin-bottom: 120px;
+  }
+  
+  .message {
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+  }
+  
+  .message.left {
+    align-self: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .message.right {
+    align-self: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .message-content {
+    max-width: auto;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    position: relative; /* Adicionado para posicionar a cauda do balão de fala */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9); /* Adiciona uma sombra suave */
+  }
+  
+  .message-content.left {
+    background-color: var(--color-primary); /* Cor de fundo para mensagens do lado esquerdo */
+    margin: 10px auto;
+    margin-bottom: 20px;
+    border-top-right-radius: 30px; /* Bordas arredondadas no canto superior direito */
+    border-top-left-radius: 10px; /* Bordas arredondadas no canto superior esquerdo */
+    border-bottom-right-radius: 30px; /* Bordas arredondadas no canto inferior direito */
+    border-bottom-left-radius: 10px; /* Bordas arredondadas no canto inferior esquerdo */
+  }
+  
+  .message-content.right {
+    background-color: var(--color-details); /* Cor de fundo para mensagens do lado direito */
+    margin: 10px auto;
+    margin-bottom: 20px;
+    border-top-right-radius: 10px; /* Bordas arredondadas no canto superior direito */
+    border-top-left-radius: 30px; /* Bordas arredondadas no canto superior esquerdo */
+    border-bottom-right-radius: 10px; /* Bordas arredondadas no canto inferior direito */
+    border-bottom-left-radius: 30px; /* Bordas arredondadas no canto inferior esquerdo */
+  }
+  
+  /* Adicionando a cauda do balão de fala para mensagens do lado esquerdo */
+  .message-content.left::before {
+    content: "";
+    position: absolute;
+    bottom: -15px; /* Ajuste conforme necessário para posicionar a cauda */
+    left: 20%; /* Ajuste conforme necessário para posicionar a cauda */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 10px 0; /* Tamanho e formato da cauda */
+    border-color: var(--color-primary) transparent transparent transparent; /* Cor da cauda */
+  }
+  
+  .message-content.right::before {
+    content: "";
+    position: absolute;
+    bottom: -15px; /* Ajuste conforme necessário para posicionar a cauda */
+    right: 4px; /* Mover a cauda para a direita */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 10px 0; /* Tamanho e formato da cauda */
+    border-color: var(--color-details) transparent transparent transparent; /* Cor da cauda */
+  }
+  
+  
+  .message-input {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 40px;
+    background-color: var(--color-dark);
+    border-top: 1px solid #ccc;
+  }
+  
+  .message-input input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 80%; /* Reduz a largura do input */
+    max-width: 50%; /* Define um máximo para o input */
+    margin-right: 10px;
+  }
+  
+  .message-input button {
+    padding: 10px 20px;
+    background-color: #16bb1f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+  }
+  
+  .message-input button:hover {
+    background-color: #0d7813;
+  }
+  
+  .message-input input::placeholder {
+    color: #999;
+    font-family: 'Raleway', sans-serif;
+    font-style: italic;
+  }
+  
+  .unread-messages {
+    color: blue;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: absolute; /* Alterado para posição absoluta */
+    top: -30px; /* Ajustado para ficar acima do input */
+    cursor: pointer;
+  }
+
+  .rounded-image-message {
+    width: 80px; /* Ajuste a largura da imagem redonda conforme necessário */
+    height: 80px; /* Ajuste a altura da imagem redonda conforme necessário */
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9); /* Adiciona uma sombra suave */
+}

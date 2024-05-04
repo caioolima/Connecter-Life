@@ -623,3 +623,39 @@ exports.getTopLikedImages = async (req, res) => {
     res.status(500).json({ error: "Erro interno do servidor" });
   }
 };
+
+
+exports.getAllProfileImagesById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Encontre o usuário pelo ID
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
+    }
+
+    // Verifique se o usuário possui uma imagem de perfil
+    if (!user.profileImageUrl) {
+      return res.status(404).json({
+        success: false,
+        message: "User profile image does not exist.",
+      });
+    }
+
+    // Retorna a URL da imagem de perfil do usuário
+    return res.status(200).json({
+      success: true,
+      profileImageUrl: user.profileImageUrl,
+    });
+  } catch (error) {
+    console.error("Error getting user profile image:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error while getting user profile image.",
+    });
+  }
+};

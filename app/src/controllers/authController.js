@@ -118,3 +118,20 @@ exports.checkFieldAvailability = async (req, res) => {
     res.status(500).json({ available: false }); // Em caso de erro, considerar como não disponível
   }
 };
+
+// Função para buscar e retornar todos os nomes de usuário cadastrados
+exports.getAllUsernames = async (req, res) => {
+  try {
+    // Busca todos os usuários no banco de dados
+    const users = await User.find({}, 'username');
+
+    // Extrai apenas os nomes de usuário
+    const usernames = users.map(user => user.username);
+
+    // Retorna os nomes de usuário
+    res.json({ usernames });
+  } catch (error) {
+    console.error('Erro ao buscar nomes de usuário:', error);
+    res.status(500).json({ error: 'Erro interno ao buscar nomes de usuário.' });
+  }
+};
