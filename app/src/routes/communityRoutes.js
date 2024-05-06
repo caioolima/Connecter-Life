@@ -86,13 +86,12 @@ router.get('/comunidade/contarMembros/:communityId', async (req, res) => {
 });
 
 // Rota para enviar uma mensagem (texto ou mídia) para a comunidade
-router.post('/comunidade/enviar-mensagem/:userId/:communityId', upload.single('media'), async (req, res) => {
+router.post('/comunidade/enviar-mensagem/:userId/:communityId', async (req, res) => {
     const { userId, communityId } = req.params;
-    const { message } = req.body;
-    const media = req.file ? req.file.filename : null;
+    const { message, media } = req.body;
 
     try {
-        const result = await usuarioPaisController.enviarMensagem(userId, communityId, message, media); // Corrigido para usuarioPaisController
+        const result = await usuarioPaisController.enviarMensagem(userId, communityId, message, media);
         res.status(200).json({ message: result });
     } catch (error) {
         res.status(400).json({ error: error.message });

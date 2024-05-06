@@ -8,9 +8,13 @@ const CommunityUserSchema = new mongoose.Schema({
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       message: String,
-      media: String
+      media: String,
+      timestamp: { type: Date, default: Date.now } // Adiciona um campo de timestamp
     }
   ]
 });
 
+
 module.exports = mongoose.model('CommunityUser', CommunityUserSchema);
+
+

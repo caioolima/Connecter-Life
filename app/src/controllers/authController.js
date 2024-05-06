@@ -119,19 +119,22 @@ exports.checkFieldAvailability = async (req, res) => {
   }
 };
 
-// Função para buscar e retornar todos os nomes de usuário cadastrados
-exports.getAllUsernames = async (req, res) => {
+// Função para buscar e retornar o nome de usuário pelo ID
+exports.getUsernameById = async (req, res) => {
+  const { userId } = req.params; // Obtém o userId dos parâmetros da solicitação
+
   try {
-    // Busca todos os usuários no banco de dados
-    const users = await User.find({}, 'username');
+    // Busca o usuário no banco de dados pelo ID
+    const user = await User.findById(userId);
 
-    // Extrai apenas os nomes de usuário
-    const usernames = users.map(user => user.username);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
 
-    // Retorna os nomes de usuário
-    res.json({ usernames });
+    // Retorna o nome de usuário
+    res.json({ username: user.username });
   } catch (error) {
-    console.error('Erro ao buscar nomes de usuário:', error);
-    res.status(500).json({ error: 'Erro interno ao buscar nomes de usuário.' });
+    console.error('Erro ao buscar nome de usuário:', error);
+    res.status(500).json({ error: 'Erro interno ao buscar nome de usuário.' });
   }
 };

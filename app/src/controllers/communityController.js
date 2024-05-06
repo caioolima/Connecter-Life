@@ -116,7 +116,12 @@ async function enviarMensagem(userId, communityId, message, media) {
         }
 
         // Adiciona a mensagem à comunidade
-        community.messages.push({ userId, message, media });
+        let mediaUrl = media; // Assume que a mídia é um nome de arquivo local
+        if (media && media.startsWith('http')) {
+            // Se a mídia já for uma URL (caso seja um link do Firebase Storage), use diretamente
+            mediaUrl = media;
+        }
+        community.messages.push({ userId, message, media: mediaUrl }); // Aqui está a modificação
         await community.save();
         
         return 'Mensagem enviada com sucesso';
