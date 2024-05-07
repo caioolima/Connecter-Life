@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./FindUserPage.css"; // Importar o arquivo de estilos CSS
+import i18n from "../../components/Language/i18n"; // Ajuste o caminho conforme a estrutura real
+import { Link } from "react-router-dom";
 
 /* Componentes */
 import SidebarMenu from "../../pages/perfil/SidebarMenu/index";
-import Footer from "../../components/Footer/footer";
+import Footer from "../SearchUser/footertwo";
 import { useTranslation } from "react-i18next"; // Importar o hook useTranslation para tradução
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 
@@ -13,6 +15,7 @@ const FindUserPage = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [typingTimeout, setTypingTimeout] = useState(null);
+
 
   useEffect(() => {
     const cleanedUsername = username.trim().replace(/\s+/g, " ");
@@ -27,13 +30,15 @@ const FindUserPage = () => {
     const timeout = setTimeout(() => {
       const fetchUsers = async () => {
         try {
-          const response = await fetch(`http://localhost:3000/find/${cleanedUsername}`);
+          const response = await fetch(
+            `http://localhost:3000/find/${cleanedUsername}`
+          );
           const userData = await response.json();
-          
+
           if (!response.ok) {
             throw new Error(t("users_not_found")); // Traduzir a mensagem de erro
           }
-          
+
           setUsers(userData);
           setError(null);
         } catch (error) {
@@ -42,7 +47,6 @@ const FindUserPage = () => {
           setUsers([]);
         }
       };
-      
 
       fetchUsers();
     }, 500);
@@ -53,11 +57,10 @@ const FindUserPage = () => {
 
   return (
     <div className="find-user-container">
-      {" "}
       {/* Container principal */}
+
       <SidebarMenu />
       <div className="find-user-content">
-        {" "}
         {/* Conteúdo da página */}
         <h1 className="details-users-details">{t("find_user_title")}</h1>{" "}
         {/* Traduzir o título */}
@@ -71,14 +74,11 @@ const FindUserPage = () => {
         {users.length > 0 && (
           <div>
             <div className="user-list">
-              {" "}
               {/* Lista de usuários */}
               {users.map((user) => (
                 <div key={user._id} className="user-item-user">
-                  {" "}
                   {/* Item de usuário */}
                   <a href={`/profile/${user._id}`} className="user-link-user">
-                    {" "}
                     {/* Link para o perfil do usuário */}
                     <div className="user-info">
                       {user.profileImageUrl ? ( // Verifica se há uma imagem de perfil
@@ -102,10 +102,9 @@ const FindUserPage = () => {
           <p className="error-message-error">
             {t("error")}: {error}
           </p>
-        )}{" "}
-        {/* Mensagem de erro */}
-        {/*<Footer />*/}
+        )}
       </div>
+      <Footer/>
     </div>
   );
 };

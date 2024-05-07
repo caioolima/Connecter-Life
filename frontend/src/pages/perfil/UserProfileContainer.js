@@ -12,6 +12,8 @@ import Galeria from "./Galeria/index";
 import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
 import { useAuth } from "../../hooks/use-auth";
+import Footer from "../../pages/SearchUser/footertwo";
+
 /* Functions */
 import useGetdata from "./hooks/useGetdata";
 
@@ -92,13 +94,15 @@ const UserProfileContainer = () => {
             <InfoProfile /> {/* Campo de perfil do usuário */}
             <Galeria /> {/* Galeria de imagens */}
             <SidebarMenu /> {/* Menu */}
+           
+
           </section>
-        )}
+        )} 
         {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
         {showModal && <ChangePhotoModal />} {/* Modal de mudar a foto perfil */}
         {showPhotoModal && <UploadPhotoModal />}{" "}
         {/* Modal de publicar foto na galeria */}
-      </main>
+      </main><Footer/>
     </>
   );
 };

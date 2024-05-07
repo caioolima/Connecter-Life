@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../Terms/privacy.css";
+import Footer from "../../components/Footer/footer.jsx";
 
 const PrivacyPolicy = () => {
   const { t } = useTranslation();
@@ -69,6 +70,7 @@ const PrivacyPolicy = () => {
           <p className="privacy-content">{t("dataController")}</p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

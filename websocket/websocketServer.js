@@ -4,11 +4,17 @@ const wss = new WebSocket.Server({ port: PORT });
 
 const clients = new Set();
 
+// Adicione um condicional para responder aos pings
 wss.on("connection", function connection(ws) {
   clients.add(ws);
 
   ws.on("message", function message(data) {
-    broadcastMessage(data); 
+    if (data === "ping") {
+      // Se receber um ping, responda com um pong
+      ws.send("pong");
+    } else {
+      broadcastMessage(data);
+    }
   });
 
   ws.on("close", function () {

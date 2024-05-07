@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../Terms/service.css"; // Supondo que seus estilos estejam em um arquivo chamado termosDeServico.css
 import { useTranslation } from "react-i18next";
+import Footer from "../../components/Footer/footer.jsx";
+
 function TermosDeServico() {
   const { t } = useTranslation();
   return (
@@ -50,6 +52,7 @@ function TermosDeServico() {
         <p className="acknowledgment">{t("revisedterms")}</p>
         <p className="acknowledgment">{t("favoritecommunity")}</p>
       </div>
+      <Footer />
     </div>
   );
 }

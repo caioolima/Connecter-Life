@@ -57,8 +57,38 @@
   margin-top: 20px;
 }
 
+.user-color-random-1 {
+  background-color: #16bb1f; /* Verde - cor detalhes */
+}
+
+.user-color-random-2 {
+  background-color: #0d7813; /* Verde mais escuro - cor detalhes hover */
+}
+
+.user-color-random-3 {
+  background-color: #41ee4a; /* Verde claro - cor detalhes foco */
+}
+
+.user-color-random-4 {
+  background-color: #ea4f97; /* Rosa - cor primária */
+}
+
+.user-color-random-5 {
+  background-color: #f291be; /* Rosa mais claro - cor primária hover */
+}
+
+.user-color-random-6 {
+  background-color: #f70073; /* Rosa mais escuro - cor primária foco */
+}
+
+.user-color-random-7 {
+  background-color: #4bc5f5; /* Azul - cor link */
+}
+
+
+/* Adicione mais classes .user-color-random-X conforme necessário para mais cores */
+
 .message-content.left {
-  background-color: var(--color-primary); /* Cor de fundo para mensagens do lado esquerdo (cor do Telegram) */
   margin: 10px auto;
   margin-bottom: 20px;
   border-radius: 20px; /* Borda arredondada para mensagens do lado esquerdo */

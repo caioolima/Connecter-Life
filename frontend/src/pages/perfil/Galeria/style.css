@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-
-.galery-contain {
-}
-
 .title-photo {
   margin: 0;
   font-size: 2rem;
@@ -31,6 +27,7 @@
   display: grid;
   gap: 5px;
   grid-template-columns: repeat(3, 1fr); /* Mantenha três colunas */
+  margin-bottom: 300px;
 }
 
 @media screen and (max-width: 660px) {

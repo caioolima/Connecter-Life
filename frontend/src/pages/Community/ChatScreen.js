@@ -21,6 +21,7 @@ const ChatScreen = () => {
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [scrollToBottomNeeded, setScrollToBottomNeeded] = useState(false);
   const [lastMessageSeenIndex, setLastMessageSeenIndex] = useState(null); // Novo estado para armazenar o índice da última mensagem vista pelo usuário
+  const [videoPlayed, setVideoPlayed] = useState(false);
 
   const [mediaFile, setMediaFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState(""); // Novo estado para armazenar o nome do arquivo selecionado
@@ -102,19 +103,32 @@ const ChatScreen = () => {
   };
 
   useEffect(() => {
-    loadCommunityMessages();
-    fetchAllUserProfileImages();
-
+    // Estabelece a conexão WebSocket
     const ws = new WebSocket("ws://localhost:3002");
+    let pingInterval; // Variável para armazenar o intervalo do ping
+
     ws.onopen = () => {
       console.log("Conexão WebSocket estabelecida");
       setWs(ws);
+
+      // Configura o intervalo para enviar pings a cada 30 segundos
+      pingInterval = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: "ping" }));
+        }
+      }, 30000); // 30 segundos
+    };
+
+    ws.onclose = () => {
+      console.log("Conexão WebSocket fechada");
+      clearInterval(pingInterval); // Limpa o intervalo quando a conexão é fechada
     };
 
     return () => {
       if (ws) {
         ws.close();
       }
+      clearInterval(pingInterval); // Limpa o intervalo quando o componente é desmontado
     };
   }, [userId, communityId]);
 
@@ -131,13 +145,18 @@ const ChatScreen = () => {
               return;
             }
             console.log("Nova mensagem recebida:", newMessage);
-            // Verifica se a mensagem recebida não é do usuário atual
-            if (newMessage.userId !== userId) {
-              setUnreadMessages((prevUnread) => prevUnread + 1);
-              fetchUserProfileImage(newMessage.userId);
-              // Adiciona a mensagem apenas se não for duplicada
-              if (!messages.find((msg) => msg.message === newMessage.message)) {
-                setMessages((prevMessages) => [...prevMessages, newMessage]);
+            // Verifica se a mensagem recebida não é um ping
+            if (newMessage.type !== "ping") {
+              // Verifica se a mensagem recebida não é do usuário atual
+              if (newMessage.userId !== userId) {
+                setUnreadMessages((prevUnread) => prevUnread + 1);
+                fetchUserProfileImage(newMessage.userId);
+                // Adiciona a mensagem apenas se não for duplicada
+                if (
+                  !messages.find((msg) => msg.message === newMessage.message)
+                ) {
+                  setMessages((prevMessages) => [...prevMessages, newMessage]);
+                }
               }
             }
           });
@@ -152,13 +171,16 @@ const ChatScreen = () => {
             return;
           }
 
-          // Verifica se a mensagem recebida não é do usuário atual
-          if (newMessage.userId !== userId) {
-            setUnreadMessages((prevUnread) => prevUnread + 1);
-            fetchUserProfileImage(newMessage.userId);
-            // Adiciona a mensagem apenas se não for duplicada
-            if (!messages.find((msg) => msg.message === newMessage.message)) {
-              setMessages((prevMessages) => [...prevMessages, newMessage]);
+          // Verifica se a mensagem recebida não é um ping
+          if (newMessage.type !== "ping") {
+            // Verifica se a mensagem recebida não é do usuário atual
+            if (newMessage.userId !== userId) {
+              setUnreadMessages((prevUnread) => prevUnread + 1);
+              fetchUserProfileImage(newMessage.userId);
+              // Adiciona a mensagem apenas se não for duplicada
+              if (!messages.find((msg) => msg.message === newMessage.message)) {
+                setMessages((prevMessages) => [...prevMessages, newMessage]);
+              }
             }
           }
         }
@@ -170,12 +192,12 @@ const ChatScreen = () => {
     scrollToBottomIfNeeded();
   }, [messages, scrollToBottomNeeded, unreadMessages]);
 
-  const scrollToBottomIfNeeded = () => {
+  useEffect(() => {
     if (scrollToBottomNeeded) {
       scrollToBottom();
       setScrollToBottomNeeded(false);
     }
-  };
+  }, [messages, scrollToBottomNeeded]);
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -185,18 +207,16 @@ const ChatScreen = () => {
 
   const handleUnreadMessageClick = () => {
     if (unreadMessages > 0) {
-      setScrollToBottomNeeded(true);
       setUnreadMessages(0);
+      setLastMessageSeenIndex(messages.length - 1);
+      setScrollToBottomNeeded(true); // Adicione esta linha para garantir que a rolagem ocorra após marcar as mensagens como lidas
+    }
+  };
 
-      // Se houver uma primeira mensagem não lida, rolar até ela
-      if (firstUnreadMessageIndex !== null) {
-        const unreadMessageRef = document.querySelector(
-          `.message-list .message:nth-child(${firstUnreadMessageIndex + 1})`
-        );
-        if (unreadMessageRef) {
-          unreadMessageRef.scrollIntoView({ behavior: "smooth" });
-        }
-      }
+  const scrollToBottomIfNeeded = () => {
+    if (scrollToBottomNeeded) {
+      scrollToBottom();
+      setScrollToBottomNeeded(false);
     }
   };
 
@@ -215,6 +235,17 @@ const ChatScreen = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // Define o intervalo para verificar novas mensagens a cada 10 segundos
+    const messageCheckInterval = setInterval(() => {
+      loadCommunityMessages(); // Função para verificar novas mensagens
+    }, 10000); // 10 segundos
+
+    return () => {
+      clearInterval(messageCheckInterval); // Limpa o intervalo quando o componente é desmontado
+    };
+  }, []);
 
   // Verifique a conexão de internet quando o componente é montado
   useEffect(() => {
@@ -274,6 +305,7 @@ const ChatScreen = () => {
         newMessage.isSending = false;
         setSendingMessage(false); // Define o estado de envio da mensagem como falso após o envio bem-sucedido
         setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setScrollToBottomNeeded(true);
         setMessageInput("");
         setMediaFile(null);
         setSelectedFileName("");
@@ -282,6 +314,13 @@ const ChatScreen = () => {
         console.error("Erro:", error.message);
         setSendingMessage(false);
       }
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+      setMessageInput("");
     }
   };
 
@@ -413,7 +452,6 @@ const ChatScreen = () => {
         setShowMediaModal(false); // Feche o modal de mídia
         setMediaUploading(false);
       } catch (error) {
-     
         setMediaUploading(false);
       }
     }
@@ -441,7 +479,6 @@ const ChatScreen = () => {
       }
 
       const responseData = await response.json();
-     
     } catch (error) {
       console.error("Erro ao enviar URL da mídia para o backend:", error);
     }
@@ -476,6 +513,24 @@ const ChatScreen = () => {
     return `${hours}:${minutes}`;
   };
 
+  const getUserColorClass = (userId) => {
+    // Verifica se a cor do usuário está armazenada no localStorage
+    const storedColor = localStorage.getItem(`userColor_${userId}`);
+
+    if (storedColor) {
+      return storedColor; // Retorna a cor armazenada se estiver disponível
+    } else {
+      // Caso contrário, gera uma nova cor
+      const randomNumber = Math.floor(Math.random() * 7) + 1;
+      const colorClass = `user-color-random-${randomNumber}`;
+
+      // Armazena a cor gerada no localStorage para o usuário
+      localStorage.setItem(`userColor_${userId}`, colorClass);
+
+      return colorClass;
+    }
+  };
+
   return (
     <div className="chat-screen">
       <SidebarMenu />
@@ -490,14 +545,13 @@ const ChatScreen = () => {
           >
             {index === 0 || messages[index - 1].userId !== message.userId ? (
               <div>
-                 {/* Renderiza o nome de usuário apenas para mensagens do lado esquerdo */}
-                 <p className="name-info-chat">
+                {/* Renderiza o nome de usuário apenas para mensagens do lado esquerdo */}
+                <p className="name-info-chat">
                   {message.userId !== userId ? message.username : "Eu"}
                 </p>
                 {/* Renderiza a foto do perfil apenas para mensagens do lado esquerdo */}
                 {message.userId !== userId && (
                   <div>
-                    
                     {profileImages[message.userId] ? (
                       <img
                         src={profileImages[message.userId]}
@@ -509,27 +563,26 @@ const ChatScreen = () => {
                         <AiOutlineUser className="profile-icon-profile" />
                       </div>
                     )}
-                  
                   </div>
                 )}
-               
               </div>
             ) : null}
             <div
               className={`message-content ${
                 message.userId === userId ? "right" : "left"
+              } ${
+                message.userId !== userId
+                  ? getUserColorClass(message.userId) // Use getUserColorClass aqui
+                  : ""
               }`}
             >
               {message.media ? (
                 message.media.includes("mp4") ||
                 message.media.includes("avi") ? (
                   <video
+                    src={message.media}
                     controls
                     className="attached-media"
-                    autoPlay={!message.videoPlayed} // Reproduz automaticamente se o vídeo ainda não foi reproduzido
-                    onPlay={() => {
-                      message.videoPlayed = true; // Define a propriedade videoPlayed da mensagem como verdadeira após a primeira reprodução
-                    }}
                   >
                     <source src={message.media} type="video/mp4" />
                     Seu navegador não suporta o elemento de vídeo.
@@ -568,6 +621,7 @@ const ChatScreen = () => {
           type="text"
           value={messageInput}
           onChange={(e) => setMessageInput(e.target.value)}
+          onKeyDown={handleKeyPress} // Adicione o evento de teclado aqui
           placeholder="Digite sua mensagem"
         />
         {/* Ícone de câmera para abrir o modal */}
