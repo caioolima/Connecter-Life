@@ -10,7 +10,6 @@ const communityRoutes = require('./src/routes/communityRoutes'); // Importe as r
 const routes = require('./src/routes');
 // Configuração do CORS
 const cors = require('cors');
-
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,7 +27,6 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .catch((error) => {
     console.error("Erro ao conectar-se ao banco de dados:", error);
   });
-
 app.use(bodyParser.json());
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);

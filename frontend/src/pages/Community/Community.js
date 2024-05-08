@@ -8,10 +8,10 @@ import SidebarMenu from "../perfil/SidebarMenu/index";
 import JapaoFlag from "./flags/japao.png";
 
 const CountryDetails = () => {
-
   const { user } = useAuth();
   const [userId, setUserId] = useState(null);
-  const [joined, setJoined] = useState(false);
+  const [isMember, setIsMember] = useState(false);
+  const [loading, setLoading] = useState(true); // Novo estado para controlar o carregamento
   const { countryId, communityId } = useParams();
   const normalizedCountryId = countryId.toLowerCase();
   
@@ -20,11 +20,11 @@ const CountryDetails = () => {
       setUserId(user.id);
       checkMembership(user.id, communityId);
     }
-  }, [user, communityId]); // Adicione communityId como dependência para re-verificar a associação quando mudar
+  }, [user, communityId]);
 
   useEffect(() => {
     if (userId) {
-      checkMembership(userId, communityId); // Re-verificar associação sempre que userId mudar
+      checkMembership(userId, communityId);
     }
   }, [userId, communityId]);
 
@@ -33,16 +33,14 @@ const CountryDetails = () => {
       const response = await fetch(`http://localhost:3000/communities/comunidade/verificar/${userId}/${communityId}`);
       if (response.ok) {
         const { message } = await response.json();
-        if (message === 'Usuário está na comunidade') {
-          setJoined(true);
-        } else {
-          setJoined(false);
-        }
+        setIsMember(message === 'Usuário está na comunidade');
       } else {
         throw new Error("Erro ao verificar a associação do usuário com a comunidade");
       }
     } catch (error) {
       console.error("Erro ao verificar a associação do usuário com a comunidade:", error);
+    } finally {
+      setLoading(false); // Indica que a verificação está completa
     }
   };
 
@@ -53,7 +51,7 @@ const CountryDetails = () => {
       });
 
       if (response.ok) {
-        setJoined(true);
+        setIsMember(true);
       } else {
         throw new Error("Falha ao entrar na comunidade");
       }
@@ -65,35 +63,40 @@ const CountryDetails = () => {
   const flagMappings = {
     brasil: BrasilFlag,
     alemanha: AlemanhaFlag,
-    japão: JapaoFlag, // Corrigido para "japao" em minúsculas
+    japao: JapaoFlag,
   };
   
-
   const countryFlag = flagMappings[normalizedCountryId];
 
   return (
-    <div className="flag" style={{ backgroundImage: `url(${countryFlag})` }}>
-      <div className="country-details-container"> 
-        <SidebarMenu />
-        <h2 className="country-details-title">Detalhes do País</h2>
-        <p className="country-id">{countryId}</p>
-        <h3 className="community-rules-title">Regras da Comunidade:</h3>
-        <ul className="community-rules-list">
-          <li>Proibido conteúdo ofensivo;</li>
-          <li>Proibido xingamentos;</li>
-          <li>Respeite as opiniões dos outros membros;</li>
-          <li>Mantenha as discussões relacionadas ao país.</li>
-        </ul>
-        {joined ? (
-          <Link to={`/comunidade/${countryId}/${communityId}/chat`} className="join-button">
-            Entrar
-          </Link>
-        ) : (
-          <button className="join-button" onClick={handleJoinCommunity}>
-            Participar da Comunidade
-          </button>
-        )}
-      </div>
+    <div>
+      {!loading && (
+        <div className="flag" style={{ backgroundImage: `url(${countryFlag})` }}>
+          <div className="country-details-container"> 
+            <SidebarMenu />
+            <h2 className="country-details-title">Detalhes do País</h2>
+            <p className="country-id">{countryId}</p>
+            <h3 className="community-rules-title">Regras da Comunidade:</h3>
+            <ul className="community-rules-list">
+              <li>Proibido conteúdo ofensivo;</li>
+              <li>Proibido xingamentos;</li>
+              <li>Respeite as opiniões dos outros membros;</li>
+              <li>Mantenha as discussões relacionadas ao país.</li>
+            </ul>
+            {!loading && ( // Exibe os botões somente quando a verificação estiver completa
+              isMember ? (
+                <Link to={`/comunidade/${countryId}/${communityId}/chat`} className="join-button">
+                  Entrar
+                </Link>
+              ) : (
+                <button className="join-button" onClick={handleJoinCommunity}>
+                  Participar da Comunidade
+                </button>
+              )
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
