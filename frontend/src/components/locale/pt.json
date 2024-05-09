@@ -184,8 +184,5 @@
   "follower-user":"seguidor",
   "followers-user":"seguidores",
   "viewProfile":"Ver perfil",
-  "topLikedPosts": "Top 10 publicações mais curtidas",
-  "numberOfLikes": "Número de curtidas",
-  "noFollowers": "Sem perfis para mostrar",
-  "noLikedPosts": "Sem publicações para mostrar"
+  "noFollowers": "Sem perfis para mostrar"
 }

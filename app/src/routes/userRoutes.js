@@ -82,33 +82,6 @@ router.get(
   userController.findAllUsers
 );
 
-// Rota para dar like em uma imagem da galeria do usuário
-router.post(
-  "/:userId/gallery-image/:imageUrl/like",
-  middleware.checkAuthMiddleware,
-  userController.likeGalleryImage
-);
-
-// Rota para remover o like de uma imagem da galeria do usuário
-router.post(
-  "/:userId/gallery-image/:imageUrl/unlike",
-  middleware.checkAuthMiddleware,
-  userController.unlikeGalleryImage
-);
-
-router.get(
-  "/:userId/gallery-image/:imageUrl/verify",
-  middleware.checkAuthMiddleware,
-  userController.getLikes
-);
-
-// Rota para encontrar as top 10 imagens mais curtidas
-router.get(
-  "/gallery-image/top-liked-images",
-  middleware.checkAuthMiddleware,
-  userController.getTopLikedImages
-);
-
 // Rota para obter todas as fotos de perfil por ID do usuário
 router.get(
   "/:id/profile-images",

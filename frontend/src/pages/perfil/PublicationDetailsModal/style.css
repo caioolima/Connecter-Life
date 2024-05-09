@@ -67,27 +67,6 @@
   height: 60px;
 }
 
-.like {
-  font-size: 38px;
-  transition: color 0.3s ease; /* Transição suave da cor */
-  color: #ffc837;margin-left: -45px;
-}
-
-.like.filled {
-    color:  #ff8008; /* Gradiente laranja para simular fogo */
-  }
-  
-  
-/* Adicione uma animação para o botão de curtir */
-.contain-like {
-  transition: transform 0.3s ease; /* Transição suave de escala */
-  
-}
-
-.contain-like:hover {
-  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
-}
-
 .hidden {
   display: none;
 }

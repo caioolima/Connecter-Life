@@ -94,15 +94,15 @@ const UserProfileContainer = () => {
             <InfoProfile /> {/* Campo de perfil do usuário */}
             <Galeria /> {/* Galeria de imagens */}
             <SidebarMenu /> {/* Menu */}
-           
-
+            {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
+            {showModal && <ChangePhotoModal />}{" "}
+            {/* Modal de mudar a foto perfil */}
+            {showPhotoModal && <UploadPhotoModal />}{" "}
+            {/* Modal de publicar foto na galeria */}
           </section>
-        )} 
-        {isEditMode && <EditModal />} {/* Modal de edição do perfil */}
-        {showModal && <ChangePhotoModal />} {/* Modal de mudar a foto perfil */}
-        {showPhotoModal && <UploadPhotoModal />}{" "}
-        {/* Modal de publicar foto na galeria */}
-      </main><Footer/>
+        )}
+      </main>
+      <Footer />
     </>
   );
 };

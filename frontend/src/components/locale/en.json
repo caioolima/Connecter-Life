@@ -183,8 +183,5 @@
   "follower-user":"follow",
   "followers-user":"followers",
   "viewProfile":"View profile",
-  "topLikedPosts": "Top 10 most liked posts",
-  "numberOfLikes": "Number of likes",
-  "noFollowers": "No profiles to show",
-  "noLikedPosts": "No posts to show"
+  "noFollowers": "No profiles to show"
 }

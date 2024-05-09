@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useEventsModals from "../hooks/useEventsModals";
+import { useAuth } from "../../../hooks/use-auth";
 import {
   FaArrowAltCircleRight,
   FaArrowAltCircleLeft,
@@ -24,31 +25,31 @@ const PublicationDetailsModal = () => {
     setDeleting,
     showDeleteModal,
     setShowDeleteModal,
-    likes,
-    desactiveLike,
-    setDesactiveLike,
-    activeLike,
-    setActiveLike,
-    likesArray,
   } = useMyContext();
-
-  // Verifica se a imagem atual está curtida
-  const isLiked = likesArray[currentImageIndex] === "1";
 
   const {
     handleClosePhotoModal,
     goToPreviousImage,
     goToNextImage,
-    handleLike,
-    getLikes,
   } = useEventsModals();
 
   const [postTime, setPostTime] = useState(""); // Estado para armazenar o tempo de postagem formatado
 
+  // Adicione uma nova variável de estado para armazenar o ID do usuário que fez a postagem
+  const [postUserId, setPostUserId] = useState("");
+  const { user } = useAuth();
+  const isOwner = user && user.id === userId;
+
   useEffect(() => {
-    getLikes();
     calculatePostTime(); // Chame a função para calcular o tempo de postagem formatado
   }, []);
+
+  // Atualize o useEffect para configurar o ID do usuário que fez a postagem
+  useEffect(() => {
+    if (userPhotos[currentImageIndex]) {
+      setPostUserId(userPhotos[currentImageIndex].userId);
+    }
+  }, [currentImageIndex, userPhotos]);
 
   // Função para calcular o tempo de postagem formatado
   const calculatePostTime = () => {
@@ -101,13 +102,11 @@ const PublicationDetailsModal = () => {
           // Arrastado para a direita
           if (!showDeleteModal) {
             goToNextImage();
-            getLikes();
           }
         } else {
           // Arrastado para a esquerda
           if (!showDeleteModal) {
             goToPreviousImage();
-            getLikes();
           }
         }
       }
@@ -227,39 +226,34 @@ const PublicationDetailsModal = () => {
                 {/* Exibir tempo de postagem */}
                 <p className="post-time">{postTime}</p>
               </div>
-              <div className="contain-like" onClick={handleLike}>
-                {isLiked ? (
-                  <AiFillFire className="like filled" />
-                ) : (
-                  <AiOutlineFire className="like" />
-                )}
-              </div>
 
-              {/* Botão para excluir a imagem */}
-              <div className="delete-menu">
-                <button
-                  className="delete-menu-button"
-                  onClick={handleOpenDeleteModal}
-                >
-                  <FaEllipsisH />
-                </button>
-                {/* Modal de exclusão de imagem */}
-                {showDeleteModal && (
-                  <div className="modal-modal">
-                    <div className="modal-content-modal">
-                      <p className="text-delete-modal">
-                        Deseja realmente excluir esta imagem?
-                      </p>
-                      <div className="modal-buttons-modal">
-                        <button onClick={handleDeleteImage}>Sim</button>
-                        <button onClick={() => setShowDeleteModal(false)}>
-                          Não
-                        </button>
+              {/* Botão para excluir a imagem se o usuário for o proprietário */}
+              {isOwner && (
+                <div className="delete-menu">
+                  <button
+                    className="delete-menu-button"
+                    onClick={handleOpenDeleteModal}
+                  >
+                    <FaEllipsisH />
+                  </button>
+                  {/* Modal de exclusão de imagem */}
+                  {showDeleteModal && (
+                    <div className="modal-modal">
+                      <div className="modal-content-modal">
+                        <p className="text-delete-modal">
+                          Deseja realmente excluir esta imagem?
+                        </p>
+                        <div className="modal-buttons-modal">
+                          <button onClick={handleDeleteImage}>Sim</button>
+                          <button onClick={() => setShowDeleteModal(false)}>
+                            Não
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

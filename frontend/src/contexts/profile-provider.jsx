@@ -7,7 +7,6 @@ const MyContext = createContext("");
 const MyContextProvider = ({ children }) => {
   const { user } = useAuth();
   const location = useLocation();
-  const [likesArray, setLikesArray] = useState([]);
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [profileImage, setProfileImage] = useState(null);
@@ -60,9 +59,6 @@ const MyContextProvider = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const myProfileLink = `/profile/${user && user.id}`;
   const isMyProfilePage = location.pathname === myProfileLink;
-  const [likes, setLikes] = useState("");
-  const [activeLike, setActiveLikeClass] = useState("");
-  const [desactiveLike, setInactiveLikeClass] = useState("");
 
   return (
     <MyContext.Provider
@@ -159,14 +155,6 @@ const MyContextProvider = ({ children }) => {
         setShowDeleteModal,
         myProfileLink,
         isMyProfilePage,
-        likes,
-        setLikes,
-        activeLike,
-        setActiveLikeClass,
-        desactiveLike,
-        setInactiveLikeClass,
-        likesArray,
-        setLikesArray,
       }}
     >
       {children}
