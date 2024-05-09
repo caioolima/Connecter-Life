@@ -178,10 +178,13 @@
   "Countries List": "Communities",
   "member": "{{count}} member",
   "members": "{{count}} members",
-  "join": "Join",
+  "join": "Access",
   "userMoreFollow":"Top 10 users with the most followers",
   "follower-user":"follow",
   "followers-user":"followers",
   "viewProfile":"View profile",
+  "topLikedPosts": "Top 10 most liked posts",
+  "numberOfLikes": "Number of likes",
+  "noLikedPosts": "No posts to show",
   "noFollowers": "No profiles to show"
 }

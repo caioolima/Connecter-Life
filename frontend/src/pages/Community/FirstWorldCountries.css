@@ -174,3 +174,168 @@ p {
   margin-top: 10px;
 }
 
+/* Estilos para o contêiner das publicações */
+.post-wrapper {
+  max-width: 1200px; /* Defina a mesma largura máxima que os cards */
+  margin: 0 auto; /* Centralize horizontalmente */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 80px;
+  position: relative; /* Adiciona posicionamento relativo */
+  background-color: var(--color-dark); /* Fundo semi-transparente */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9); /* Sombra suave */
+  border-radius: 20px; /* Borda arredondada */
+  margin-bottom: 80px;
+  height: 550px; /* Altura automática para acomodar o conteúdo */
+}
+
+.post-wrapper h2 {
+  position: absolute; /* Altera para posicionamento absoluto */
+  top: -40px; /* Posiciona o título acima das imagens */
+  left: 50%; /* Alinha o título ao centro horizontalmente */
+  transform: translateX(
+    -50%
+  ); /* Move o título 50% para a esquerda para centralizá-lo */
+  padding: 10px; /* Adiciona espaço interno ao redor do título */
+  z-index: 1; /* Garante que o título esteja sobre as postagens */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+  margin-top: -20px;
+}
+
+/* Estilos para cada publicação */
+.post-item-post {
+  width: calc(33.33% - 10px);
+  margin-bottom: 90px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative; /* Adiciona posicionamento relativo */
+}
+
+/* Estilos para a imagem dentro da publicação */
+.post-image-likes {
+  width: 100%; /* Garante que a imagem ocupe toda a largura da publicação */
+  height: auto; /* Mantém a proporção da imagem */
+  border-radius: 20px; /* Arredonda apenas as bordas superiores */
+  padding: 20px; /* Adiciona espaçamento interno ao redor da imagem */
+}
+
+/* Estilos para o texto dentro da publicação */
+.post-content-text {
+  padding: 10px; /* Adiciona um espaçamento interno */
+  margin: 10px; /* Remove a margem padrão */
+  font-weight: bold;
+  color: white;
+}
+
+.post-name {
+  color: white;
+  padding: 8px 10px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.post-button-post {
+  display: block;
+  margin: 20px auto;
+  border: none;
+  border-radius: 20px;
+  color: var(--color-dark);
+  background: var(--color-primary-focus);
+  padding: 8px 10px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
+}
+
+.post-button-post:hover {
+  background: white; /* Altera a cor de fundo ao passar o mouse */
+  color: var(--color-primary-focus);
+}
+
+/* Estilos para o contêiner das publicações */
+.post-wrapper {
+  max-width: 1200px; /* Defina a mesma largura máxima que os cards */
+  margin: 0 auto; /* Centralize horizontalmente */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 80px;
+  position: relative; /* Adiciona posicionamento relativo */
+  border-radius: 20px; /* Borda arredondada */
+  margin-bottom: 80px;
+  height: 550px; /* Altura automática para acomodar o conteúdo */
+}
+
+.post-wrapper.has-posts {
+  background-color: var(--color-dark); /* Fundo semi-transparente */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9); /* Sombra suave */
+}
+
+.post-wrapper.has-posts h2 {
+  position: absolute; /* Altera para posicionamento absoluto */
+  top: -40px; /* Posiciona o título acima das imagens */
+  left: 50%; /* Alinha o título ao centro horizontalmente */
+  transform: translateX(-50%); /* Move o título 50% para a esquerda para centralizá-lo */
+  padding: 10px; /* Adiciona espaço interno ao redor do título */
+  z-index: 1; /* Garante que o título esteja sobre as postagens */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+  margin-top: -20px;
+}
+
+.post-wrapper.has-posts .post-item-post {
+  width: calc(33.33% - 10px);
+  margin-bottom: 90px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative; /* Adiciona posicionamento relativo */
+}
+
+.post-wrapper.has-posts .post-item-post .post-image-likes {
+  width: 100%; /* Garante que a imagem ocupe toda a largura da publicação */
+  height: auto; /* Mantém a proporção da imagem */
+  border-radius: 20px; /* Arredonda apenas as bordas superiores */
+  padding: 20px; /* Adiciona espaçamento interno ao redor da imagem */
+}
+
+.post-wrapper.has-posts .post-item-post .post-content-text {
+  padding: 10px; /* Adiciona um espaçamento interno */
+  margin: 10px; /* Remove a margem padrão */
+  font-weight: bold;
+  color: white;
+}
+
+.post-wrapper.has-posts .post-item-post .post-name {
+  color: white;
+  padding: 8px 10px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.post-wrapper.has-posts .post-item-post .post-button-post {
+  display: block;
+  margin: 20px auto;
+  border: none;
+  border-radius: 20px;
+  color: var(--color-dark);
+  background: var(--color-primary-focus);
+  padding: 8px 10px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s; /* Adiciona uma transição suave de cor de fundo */
+}
+
+.post-wrapper.has-posts .post-item-post .post-button-post:hover {
+  background: white; /* Altera a cor de fundo ao passar o mouse */
+  color: var(--color-primary-focus);
+}
+
+.noLikedPosts {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 10px;
+}

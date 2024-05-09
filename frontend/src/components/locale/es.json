@@ -170,10 +170,13 @@
   "Countries List": "Comunidades",
   "member": "{{count}} miembro",
   "members": "{{count}} miembros",
-  "join": "Unirse",
+  "join": "Acceso",
   "userMoreFollow":"Top 10 de usuarios con más seguidores",
   "follower-user":"seguidor",
   "followers-user":"seguidores",
   "viewProfile":"Ver perfil",
-  "noFollowers": "No hay perfiles para mostrar"
+  "topLikedPosts": "Top 10 publicaciones más gustadas",
+  "numberOfLikes": "Número de me gusta",
+  "noFollowers": "No hay perfiles para mostrar",
+  "noLikedPosts": "No hay publicaciones para mostrar"
 }

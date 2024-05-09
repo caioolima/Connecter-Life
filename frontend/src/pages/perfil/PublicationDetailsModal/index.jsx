@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 
 import { AiFillFire, AiOutlineFire } from "react-icons/ai"; // Importe o ícone de fogo
+
 const PublicationDetailsModal = () => {
   const { userId } = useParams();
   const {
@@ -27,29 +28,20 @@ const PublicationDetailsModal = () => {
     setShowDeleteModal,
   } = useMyContext();
 
-  const {
-    handleClosePhotoModal,
-    goToPreviousImage,
-    goToNextImage,
-  } = useEventsModals();
+  const { handleClosePhotoModal, goToPreviousImage, goToNextImage } =
+    useEventsModals();
 
   const [postTime, setPostTime] = useState(""); // Estado para armazenar o tempo de postagem formatado
-
-  // Adicione uma nova variável de estado para armazenar o ID do usuário que fez a postagem
-  const [postUserId, setPostUserId] = useState("");
   const { user } = useAuth();
   const isOwner = user && user.id === userId;
+  const [isLiked, setIsLiked] = useState(false); // Estado para indicar se a imagem foi curtida pelo usuário
+  const [isModalLoaded, setIsModalLoaded] = useState(false); // Estado para indicar se o modal está carregado
 
   useEffect(() => {
-    calculatePostTime(); // Chame a função para calcular o tempo de postagem formatado
-  }, []);
-
-  // Atualize o useEffect para configurar o ID do usuário que fez a postagem
-  useEffect(() => {
-    if (userPhotos[currentImageIndex]) {
-      setPostUserId(userPhotos[currentImageIndex].userId);
-    }
-  }, [currentImageIndex, userPhotos]);
+    setIsModalLoaded(true); // Altera o estado para indicar que o modal está carregado
+    calculatePostTime(); // Chama a função para calcular o tempo de postagem formatado
+    checkLikeStatus(); // Verifica o status de curtida quando o modal é aberto
+  }, [currentImageIndex]); // Chama checkLikeStatus sempre que currentImageIndex mudar
 
   // Função para calcular o tempo de postagem formatado
   const calculatePostTime = () => {
@@ -102,11 +94,13 @@ const PublicationDetailsModal = () => {
           // Arrastado para a direita
           if (!showDeleteModal) {
             goToNextImage();
+            checkLikeStatus();
           }
         } else {
           // Arrastado para a esquerda
           if (!showDeleteModal) {
             goToPreviousImage();
+            checkLikeStatus();
           }
         }
       }
@@ -164,100 +158,196 @@ const PublicationDetailsModal = () => {
     }
   };
 
+  // Função para lidar com o like da imagem
+  const handleLikeImage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+          userPhotos[currentImageIndex].url
+        )}/like/${user.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Adicione cabeçalhos de autenticação, se necessário
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsLiked(true); // Atualize o estado para refletir que o usuário curtiu a imagem
+        // Outras atualizações de estado, se necessário
+      } else {
+        console.error("Erro ao curtir imagem:", data.message);
+      }
+    } catch (error) {
+      console.error("Erro ao curtir imagem:", error);
+    }
+  };
+
+  // Função para lidar com o deslike da imagem
+  const handleUnlikeImage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+          userPhotos[currentImageIndex].url
+        )}/unlike/${user.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Adicione cabeçalhos de autenticação, se necessário
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsLiked(false); // Atualize o estado para refletir que o usuário não curtiu mais a imagem
+        // Outras atualizações de estado, se necessário
+      } else {
+        console.error("Erro ao descurtir imagem:", data.message);
+      }
+    } catch (error) {
+      console.error("Erro ao descurtir imagem:", error);
+    }
+  };
+
+  // Função para verificar o status de curtida
+  const checkLikeStatus = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+          userPhotos[currentImageIndex].url
+        )}/check-like/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setIsLiked(data.userLiked); // Atualiza o estado com base na resposta da API
+      } else {
+        console.error("Erro ao verificar status do like:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Erro ao verificar status do like:", error);
+    }
+  };
+
   return (
     <>
-      <div className="overlay" onClick={handleOverlayClick}></div>
-      <div className="post-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-image-container">
-          <div className="content-post">
-            <div className="image-contain">
-              <button className="modal-close" onClick={handleCloseButtonClick}>
-                &times;
-              </button>
-              {/* Botão de navegação esquerdo */}
-              <button
-                className={`nav-button left ${
-                  previousButtonDisabled || showDeleteModal ? "disabled" : ""
-                }`}
-                onClick={!showDeleteModal ? goToPreviousImage : undefined}
-                disabled={previousButtonDisabled || showDeleteModal}
-              >
-                <FaArrowAltCircleLeft className="arrows" />
-              </button>
-              {selectedImageLoaded ? (
-                <img
-                  ref={imageRef}
-                  src={userPhotos[currentImageIndex].url}
-                  alt="Imagem selecionada"
-                  className={`selected-publication-photo ${fadeState}`}
-                  onTouchStart={handleTouchStart}
-                  onTouchMove={handleTouchMove}
-                  onTouchEnd={handleTouchEnd}
-                  onLoad={() => console.log("Imagem carregada com sucesso!")}
-                />
-              ) : (
-                <div className="loading-text">Carregando...</div>
-              )}
-
-              {/* Botão de navegação direito */}
-              <button
-                className={`nav-button right ${
-                  nextButtonDisabled || showDeleteModal ? "disabled" : ""
-                }`}
-                onClick={!showDeleteModal ? goToNextImage : undefined}
-                disabled={nextButtonDisabled || showDeleteModal}
-              >
-                <FaArrowAltCircleRight className="arrows" />
-              </button>
-            </div>
-            {/* Detalhes do usuário */}
-            <div className="user-details">
-              <Link to={`/profile/${userId}`}>
-                <img
-                  className="rounded-image"
-                  src={profileImage}
-                  alt="Profile"
-                />
-              </Link>
-              <div className="text-content">
-                <p className="details-user">
-                  <Link to={`/profile/${userId}`}>{username}</Link>
-                </p>
-                {/* Exibir tempo de postagem */}
-                <p className="post-time">{postTime}</p>
-              </div>
-
-              {/* Botão para excluir a imagem se o usuário for o proprietário */}
-              {isOwner && (
-                <div className="delete-menu">
-                  <button
-                    className="delete-menu-button"
-                    onClick={handleOpenDeleteModal}
-                  >
-                    <FaEllipsisH />
+      {isModalLoaded && (
+        <>
+          <div className="overlay" onClick={handleOverlayClick}></div>
+          <div className="post-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-image-container">
+              <div className="content-post">
+                <div className="image-contain">
+                  <button className="modal-close" onClick={handleCloseButtonClick}>
+                    &times;
                   </button>
-                  {/* Modal de exclusão de imagem */}
-                  {showDeleteModal && (
-                    <div className="modal-modal">
-                      <div className="modal-content-modal">
-                        <p className="text-delete-modal">
-                          Deseja realmente excluir esta imagem?
-                        </p>
-                        <div className="modal-buttons-modal">
-                          <button onClick={handleDeleteImage}>Sim</button>
-                          <button onClick={() => setShowDeleteModal(false)}>
-                            Não
-                          </button>
+                  {/* Botão de navegação esquerdo */}
+                  <button
+                    className={`nav-button left ${
+                      previousButtonDisabled || showDeleteModal ? "disabled" : ""
+                    }`}
+                    onClick={!showDeleteModal ? goToPreviousImage : undefined}
+                    disabled={previousButtonDisabled || showDeleteModal}
+                  >
+                    <FaArrowAltCircleLeft className="arrows" />
+                  </button>
+                  {selectedImageLoaded ? (
+                    <img
+                      ref={imageRef}
+                      src={userPhotos[currentImageIndex].url}
+                      alt="Imagem selecionada"
+                      className={`selected-publication-photo ${fadeState}`}
+                      onTouchStart={handleTouchStart}
+                      onTouchMove={handleTouchMove}
+                      onTouchEnd={handleTouchEnd}
+                      onLoad={() => console.log("Imagem carregada com sucesso!")}
+                    />
+                  ) : (
+                    <div className="loading-text">Carregando...</div>
+                  )}
+
+                  {/* Botão de navegação direito */}
+                  <button
+                    className={`nav-button right ${
+                      nextButtonDisabled || showDeleteModal ? "disabled" : ""
+                    }`}
+                    onClick={!showDeleteModal ? goToNextImage : undefined}
+                    disabled={nextButtonDisabled || showDeleteModal}
+                  >
+                    <FaArrowAltCircleRight className="arrows" />
+                  </button>
+                </div>
+                {/* Detalhes do usuário */}
+                <div className="user-details">
+                  <Link to={`/profile/${userId}`}>
+                    <img
+                      className="rounded-image"
+                      src={profileImage}
+                      alt="Profile"
+                    />
+                  </Link>
+                  <div className="text-content">
+                    <p className="details-user">
+                      <Link to={`/profile/${userId}`}>{username}</Link>
+                    </p>
+                    {/* Exibir tempo de postagem */}
+                    <p className="post-time">{postTime}</p>
+                  </div>
+                  <div className="contain-like">
+                    {/* Renderiza o botão de like */}
+                    <button onClick={isLiked ? handleUnlikeImage : handleLikeImage}>
+                      {isLiked ? (
+                        <AiFillFire className="like filled" />
+                      ) : (
+                        <AiOutlineFire className="like" />
+                      )}
+                    </button>
+                  </div>
+                  {/* Botão para excluir a imagem se o usuário for o proprietário */}
+                  {isOwner && (
+                    <div className="delete-menu">
+                      <button
+                        className="delete-menu-button"
+                        onClick={handleOpenDeleteModal}
+                      >
+                        <FaEllipsisH />
+                      </button>
+                      {/* Modal de exclusão de imagem */}
+                      {showDeleteModal && (
+                        <div className="modal-modal">
+                          <div className="modal-content-modal">
+                            <p className="text-delete-modal">
+                              Deseja realmente excluir esta imagem?
+                            </p>
+                            <div className="modal-buttons-modal">
+                              <button onClick={handleDeleteImage}>Sim</button>
+                              <button onClick={() => setShowDeleteModal(false)}>
+                                Não
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

@@ -14,9 +14,9 @@ const userSchema = new mongoose.Schema({
   galleryImageUrl: [{
     url: String, // URL of the gallery image
     postedAt: { type: Date, default: Date.now }, // Timestamp of image addition
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // Array of user IDs who liked the image
   }],  
 });
-
 
 const User = mongoose.model('User', userSchema);
 

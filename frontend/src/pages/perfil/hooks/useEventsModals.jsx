@@ -35,6 +35,7 @@ const useEventsModals = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleClosePhotoModal = () => {
     setShowPhotoModal(false); // Fecha o modal
@@ -60,16 +61,20 @@ const useEventsModals = () => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === 0 ? userPhotos.length - 1 : prevIndex - 1
       );
-      setFadeState("fade-in");
+      setFadeState("fade-in"); 
+      checkLikeStatus();
     }, 50);
+   
   };
 
   const goToNextImage = () => {
     setFadeState("fade-out");
     setTimeout(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % userPhotos.length);
-      setFadeState("fade-in");
+      setFadeState("fade-in");  
+      checkLikeStatus();
     }, 50);
+  
   };
 
   const openModal = () => {
@@ -145,6 +150,33 @@ const useEventsModals = () => {
   }, [userId, setNumberOfFollowers]);
 
   
+  const checkLikeStatus = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3000/${userId}/gallery-image/${encodeURIComponent(
+          userPhotos[currentImageIndex].url
+        )}/check-like/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setIsLiked(data.userLiked); // Atualize o estado com base na resposta da API
+      } else {
+        setIsLiked(false);
+        console.error("Erro ao verificar status do like:", response.statusText);
+      }
+    } catch (error) {
+      setIsLiked(false);
+      console.error("Erro ao verificar status do like:", error);
+    }
+  };
+  
+  
   return {
     handleClosePhotoModal,
     handlePublicationClick,
@@ -155,6 +187,7 @@ const useEventsModals = () => {
     openModalTwo,
     handleSignOut,
     handlePublishClick,
+    checkLikeStatus
   };
 };
 

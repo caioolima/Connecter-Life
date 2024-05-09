@@ -76,16 +76,45 @@ router.delete(
   userController.deleteGalleryImage
 );
 
-// Rota para encontrar todos os usuários
+// Rota para curtir uma imagem da galeria
+router.post(
+  "/:ownerId/gallery-image/:imageUrl/like/:userId",
+  middleware.checkAuthMiddleware,
+  userController.likeGalleryImage
+);
+
+
+// Rota para remover o like de uma imagem da galeria
+router.delete(
+  "/:ownerId/gallery-image/:imageUrl/unlike/:userId",
+  middleware.checkAuthMiddleware,
+  userController.unlikeGalleryImage
+);
+
+// Rota para verificar se o usuário curtiu uma imagem da galeria
 router.get(
-  "/find/:username",
-  userController.findAllUsers
+  "/:ownerId/gallery-image/:imageUrl/check-like/:userId",
+  middleware.checkAuthMiddleware,
+  userController.checkUserLikedImage
+);
+
+// Rota para obter os likes de uma imagem da galeria
+router.get(
+  "/:userId/gallery-image/:imageUrl/likes",middleware.checkAuthMiddleware,
+  userController.getGalleryImageLikes
+);
+
+// Rota para encontrar todos os usuários
+router.get("/find/:username", middleware.checkAuthMiddleware, userController.findAllUsers);
+
+// Rota para encontrar as top 10 imagens mais curtidas
+router.get(
+  "/gallery-image/top-liked-images",
+  middleware.checkAuthMiddleware,
+  userController.getTopLikedImages
 );
 
 // Rota para obter todas as fotos de perfil por ID do usuário
-router.get(
-  "/:id/profile-images",
-  userController.getAllProfileImagesById
-);
+router.get("/:id/profile-images", middleware.checkAuthMiddleware, userController.getAllProfileImagesById);
 
 module.exports = router;

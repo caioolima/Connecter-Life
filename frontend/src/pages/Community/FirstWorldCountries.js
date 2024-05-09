@@ -16,6 +16,7 @@ const FirstWorldCountries = () => {
   const [userId, setUserId] = useState(null);
   const [comunidades, setComunidades] = useState([]);
   const [topFollowedUsers, setTopFollowedUsers] = useState([]);
+  const [topLikedPosts, setTopLikedPosts] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -26,6 +27,7 @@ const FirstWorldCountries = () => {
   useEffect(() => {
     fetchComunidades();
     fetchTopFollowedUsers();
+    fetchTopLikedPosts();
   }, []);
 
   const fetchComunidades = async () => {
@@ -80,6 +82,26 @@ const FirstWorldCountries = () => {
         "Erro ao buscar os top usuários com mais seguidores:",
         error
       );
+    }
+  };
+
+  const fetchTopLikedPosts = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:3000/users/gallery-image/top-liked-images",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data); // Verifique os dados retornados no console
+      setTopLikedPosts(data.topLikedImages);
+    } catch (error) {
+      console.error("Erro ao buscar as top publicações mais curtidas:", error);
     }
   };
 
@@ -168,6 +190,37 @@ const FirstWorldCountries = () => {
             )}
           </div>
         </section>
+
+        <section
+          className={`post-wrapper ${
+            topLikedPosts.length > 0 ? "has-posts" : ""
+          }`}
+        >
+          <h2>{t("topLikedPosts")}</h2>
+          {topLikedPosts.length > 0 ? (
+            topLikedPosts.map((post) => (
+              <div key={post.imageUrl} className="post-item-post">
+                <a href={`/profile/${post.userId}`} className="post-link">
+                  <img
+                    src={post.imageUrl}
+                    alt="Top Liked Post"
+                    className="post-image-likes"
+                  />
+                  <span className="post-name">{post.username}</span>
+                  <p className="post-content-text">
+                    {t("numberOfLikes")}: {post.numberOfLikes}
+                  </p>
+                  <button className="post-button-post">
+                    {t("viewProfile")}
+                  </button>
+                </a>
+              </div>
+            ))
+          ) : (
+            <p className="noLikedPosts">{t("noLikedPosts")}</p>
+          )}
+        </section>
+
 
         <Footer />
       </article>
