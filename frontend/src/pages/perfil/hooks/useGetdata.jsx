@@ -306,7 +306,7 @@ const useGetdata = () => {
     }
   };
 
-  const getFollowers = async () => {
+  const getFollowers = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
@@ -328,9 +328,9 @@ const useGetdata = () => {
       console.error("Erro ao obter os seguidores:", error);
       return [];
     }
-  };
+  }, [userId]);
 
-  const getFollowing = async () => {
+  const getFollowing = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
@@ -352,7 +352,8 @@ const useGetdata = () => {
       console.error("Erro ao obter os usuários seguidos:", error);
       return [];
     }
-  };
+  }, [userId]);
+  
   useEffect(() => {
     // Limpar a imagem do perfil armazenada localmente ao carregar o perfil de um novo usuário
     localStorage.removeItem("profileImage");
