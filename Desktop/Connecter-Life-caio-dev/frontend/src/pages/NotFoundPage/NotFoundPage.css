@@ -1,0 +1,21 @@
+/* NotFoundPage.css */
+.not-found-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .not-found-content {
+    text-align: center;
+  }
+  
+  .not-found-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .not-found-content p {
+    font-size: 1.5rem;
+  }
+  
