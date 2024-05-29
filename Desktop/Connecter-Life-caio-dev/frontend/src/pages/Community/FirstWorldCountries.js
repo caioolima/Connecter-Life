@@ -89,7 +89,7 @@ const FirstWorldCountries = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:3000/users/gallery-image/top-liked-images",
+        "http://localhost:3000/gallery/top-liked",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -202,13 +202,13 @@ const FirstWorldCountries = () => {
               <div key={post.imageUrl} className="post-item-post">
                 <a href={`/profile/${post.userId}`} className="post-link">
                   <img
-                    src={post.imageUrl}
+                    src={post.url}
                     alt="Top Liked Post"
                     className="post-image-likes"
                   />
                   <span className="post-name">{post.username}</span>
                   <p className="post-content-text">
-                    {t("numberOfLikes")}: {post.numberOfLikes}
+                    {t("numberOfLikes")}: {post.likeCount}
                   </p>
                   <button className="post-button-post">
                     {t("viewProfile")}

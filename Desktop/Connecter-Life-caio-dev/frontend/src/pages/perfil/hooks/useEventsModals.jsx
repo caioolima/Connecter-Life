@@ -176,29 +176,28 @@ const useEventsModals = () => {
   //   }
   // };
   
-  const checkLikeStatus = async () => {
+  const checkLikeStatus = async (index = currentImageIndex) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:3000/${userId}/gallery/likes`, // Ajuste a URL para corresponder à rota correta
-        {
-          method: "POST", // A API espera um método POST para verificar likes
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Adicione cabeçalhos de autenticação, se necessário
-          },
-          body: JSON.stringify({ imageUrl: userPhotos[currentImageIndex].url }) // Envie a URL da imagem no corpo da requisição
-        }
-      );
-  
+      const response = await fetch(`http://localhost:3000/gallery/check-likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          imageUrl: userPhotos[index].url,
+          targetUserId: user.id,
+        }),
+      });
       if (response.ok) {
         const data = await response.json();
-        setIsLiked(data.userLiked); // Atualiza o estado com base na resposta da API
+        setIsLiked(data.isLikedByUser);
       } else {
-        console.error("Erro ao verificar status do like1:", response.statusText);
+        console.error("Erro ao verificar status de curtida:", response.statusText);
       }
     } catch (error) {
-      console.error("Erro ao verificar status do like1:", error);
+      console.error("Erro ao verificar status de curtida:", error);
     }
   };
   

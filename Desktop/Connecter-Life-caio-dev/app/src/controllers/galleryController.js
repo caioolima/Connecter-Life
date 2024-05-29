@@ -162,10 +162,9 @@ exports.unlikeGalleryImage = async (req, res) => {
   }
 };
 
-exports.checkLike = async (req, res) => {
+exports.checkLikes = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { imageUrl } = req.body;
+    const { imageUrl, targetUserId } = req.body;
 
     const image = await GalleryImage.findOne({ url: imageUrl });
 
@@ -173,25 +172,33 @@ exports.checkLike = async (req, res) => {
       return res.status(404).json({ success: false, message: "Gallery image not found." });
     }
 
-    // Verificar se o usuário curtiu a imagem
-    const userLiked = image.likes.includes(userId);
+    // Verificar se o ID do usuário alvo está presente na lista de IDs dos usuários que curtiram a imagem
+    const isLikedByUser = image.likes.includes(targetUserId);
 
-    return res.status(200).json({ success: true, userLiked });
+    // Retornar a lista completa de IDs dos usuários que curtiram a imagem
+    const likedUserIds = image.likes;
+
+    return res.status(200).json({ success: true, likedUserIds, isLikedByUser });
   } catch (error) {
-    console.error("Error checking like:", error);
+    console.error("Error checking likes:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error while checking like.",
+      message: "Internal server error while checking likes.",
     });
   }
 };
 
+
 // Obter as imagens mais curtidas com pelo menos 1 like
 exports.getTopLikedImages = async (req, res) => {
   try {
-    const topLikedImages = await GalleryImage.find({ likes: { $gt: 0 } })
-      .sort({ likes: -1 })
-      .limit(10);
+    // Buscar imagens que tenham pelo menos um like
+    const images = await GalleryImage.find({ 'likes.0': { $exists: true } }).sort({ 'likes.length': -1 }).limit(10);
+
+    const topLikedImages = images.map(image => ({
+      ...image.toObject(),
+      likeCount: image.likes.length
+    }));
 
     return res.status(200).json({ success: true, topLikedImages });
   } catch (error) {

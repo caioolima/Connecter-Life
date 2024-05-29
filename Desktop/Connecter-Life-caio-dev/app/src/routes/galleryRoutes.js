@@ -17,8 +17,8 @@ router.post("/:userId/gallery/like", galleryController.likeGalleryImage);
 // Rota para descurtir uma imagem da galeria
 router.post("/:userId/gallery/unlike", galleryController.unlikeGalleryImage);
 
-// Rota para verificar se um usuário curtiu uma imagem da galeria
-router.post("/:userId/gallery/likes", galleryController.checkLike);
+// Rota para verificar se um usuário curtiu uma determinada imagem da galeria
+router.post("/gallery/check-likes", galleryController.checkLikes);
 
 // Rota para obter as imagens mais curtidas
 router.get("/top-liked", galleryController.getTopLikedImages);
