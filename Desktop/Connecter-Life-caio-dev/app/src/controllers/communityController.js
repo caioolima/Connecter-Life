@@ -103,46 +103,4 @@ async function contarMembrosDaComunidade(communityId) {
     }
 }
 
-async function enviarMensagem(userId, communityId, message, media) {
-    try {
-        const community = await CommunityUser.findById(communityId);
-        if (!community) {
-            throw new Error('Comunidade não encontrada');
-        }
-
-        // Verificar se community.messages é definido antes de acessar a propriedade push
-        if (!community.messages) {
-            community.messages = []; // Inicialize messages como um array vazio se ainda não estiver definido
-        }
-
-        // Adiciona a mensagem à comunidade
-        let mediaUrl = media; // Assume que a mídia é um nome de arquivo local
-        if (media && media.startsWith('http')) {
-            // Se a mídia já for uma URL (caso seja um link do Firebase Storage), use diretamente
-            mediaUrl = media;
-        }
-        community.messages.push({ userId, message, media: mediaUrl }); // Aqui está a modificação
-        await community.save();
-        
-        return 'Mensagem enviada com sucesso';
-    } catch (error) {
-        return error.message;
-    }
-}
-
-
-async function listarMensagens(communityId) {
-    try {
-        const community = await CommunityUser.findById(communityId);
-        if (!community) {
-            throw new Error('Comunidade não encontrada');
-        }
-
-        // Retorna as mensagens da comunidade
-        return community.messages;
-    } catch (error) {
-        throw new Error('Erro ao listar as mensagens da comunidade: ' + error.message);
-    }
-}
-
-module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade, contarMembrosDaComunidade, enviarMensagem, listarMensagens   };
+module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade, contarMembrosDaComunidade };

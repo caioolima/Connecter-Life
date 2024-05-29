@@ -85,31 +85,4 @@ router.get('/comunidade/contarMembros/:communityId', async (req, res) => {
     }
 });
 
-// Rota para enviar uma mensagem (texto ou mídia) para a comunidade
-router.post('/comunidade/enviar-mensagem/:userId/:communityId', async (req, res) => {
-    const { userId, communityId } = req.params;
-    const { message, media } = req.body;
-
-    try {
-        const result = await usuarioPaisController.enviarMensagem(userId, communityId, message, media);
-        res.status(200).json({ message: result });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
-
-// Rota para listar mensagens da comunidade
-router.get('/comunidade/mensagens/:communityId', async (req, res) => {
-    const { communityId } = req.params;
-
-    try {
-        const messages = await usuarioPaisController.listarMensagens(communityId); // Corrigido para usar usuarioPaisController
-        res.status(200).json(messages);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
-
-
-
 module.exports = router;

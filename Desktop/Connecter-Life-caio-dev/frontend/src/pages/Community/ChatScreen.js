@@ -57,7 +57,7 @@ const ChatScreen = () => {
           userId={userId}
       />
       <MessageInput 
-          AiOutlineCamera={AiOutlineUser} 
+          AiOutlineCamera={AiOutlineCamera}
           handleKeyPress={handleKeyPress}
           handleUnreadMessageClick={handleUnreadMessageClick}
           lastMessageSeenIndex={lastMessageSeenIndex}

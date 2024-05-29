@@ -136,7 +136,7 @@ const Function = () => {
         const loadCommunityMessages = async () => {
             try {
             const response = await fetch(
-                `http://localhost:3000/communities/comunidade/mensagens/${communityId}`,
+                `http://localhost:3000/message/mensagens/${communityId}`,
                 {
                 method: "GET",
                 }
@@ -238,7 +238,7 @@ const Function = () => {
     
             try {
                 const response = await fetch(
-                `http://localhost:3000/communities/comunidade/enviar-mensagem/${userId}/${communityId}`,
+                `http://localhost:3000/message/enviar-mensagem/${userId}/${communityId}`,
                 {
                     method: "POST",
                     headers: {
@@ -372,7 +372,7 @@ const Function = () => {
         const enviarUrlParaBackEnd = async (url) => {
             try {
                 const response = await fetch(
-                `http://localhost:3000/communities/comunidade/enviar-mensagem/${userId}/${communityId}`,
+                `http://localhost:3000/message/enviar-mensagem/${userId}/${communityId}`,
                 {
                     method: "POST",
                     headers: {
