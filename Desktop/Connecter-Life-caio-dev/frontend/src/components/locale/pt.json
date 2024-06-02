@@ -187,5 +187,7 @@
   "topLikedPosts": "Top 10 publicações mais curtidas",
   "numberOfLikes": "Número de curtidas",
   "noFollowers": "Sem perfis para mostrar",
-  "noLikedPosts": "Sem publicações para mostrar"
+  "noLikedPosts": "Sem publicações para mostrar",
+  "feed_title":  "Explorar",
+  "feed_label": "Explorar"
 }

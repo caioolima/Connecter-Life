@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./FindUserPage.css"; // Importar o arquivo de estilos CSS
-import i18n from "../../components/Language/i18n"; // Ajuste o caminho conforme a estrutura real
-import { Link } from "react-router-dom";
 
 /* Componentes */
 import SidebarMenu from "../../pages/perfil/SidebarMenu/index";
@@ -104,7 +102,6 @@ const FindUserPage = () => {
           </p>
         )}
       </div>
-      <Footer/>
     </div>
   );
 };

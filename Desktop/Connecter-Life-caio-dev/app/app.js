@@ -10,6 +10,8 @@ const communityRoutes = require('./src/routes/communityRoutes'); // Importe as r
 const routes = require('./src/routes');
 const galleryRoutes = require('./src/routes/galleryRoutes');
 const messageRoutes = require('./src/routes/messageRoutes');
+const feedRoutes = require('./src/routes/feedRoutes');
+
 // Configuração do CORS
 const cors = require('cors');
 require('dotenv').config();
@@ -36,5 +38,5 @@ app.use('/profile', profileRoutes);
 app.use('/communities', communityRoutes); // Use as rotas das comunidades
 app.use('/message', messageRoutes);
 app.use('/gallery', galleryRoutes);
-
+app.use('/feedRoutes', feedRoutes)
 app.use(routes);

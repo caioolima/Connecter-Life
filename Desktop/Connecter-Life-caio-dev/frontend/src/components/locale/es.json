@@ -178,5 +178,7 @@
   "topLikedPosts": "Top 10 publicaciones más gustadas",
   "numberOfLikes": "Número de me gusta",
   "noFollowers": "No hay perfiles para mostrar",
-  "noLikedPosts": "No hay publicaciones para mostrar"
+  "noLikedPosts": "No hay publicaciones para mostrar",
+  "feed_title":  "Explorar",
+  "feed_label": "Explorar"
 }

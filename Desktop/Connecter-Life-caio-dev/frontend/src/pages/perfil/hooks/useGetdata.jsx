@@ -113,6 +113,7 @@ const useGetdata = () => {
   useEffect(() => {
     getGalleryImages();
   }, [setUserPhotos, userId]);
+  
   useEffect(() => {
     const fetchFollowingCount = async () => {
       try {

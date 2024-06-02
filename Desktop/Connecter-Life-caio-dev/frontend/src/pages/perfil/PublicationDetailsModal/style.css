@@ -67,18 +67,25 @@
   height: 60px;
 }
 
+/* Botão de like */
 .like {
   font-size: 38px;
   transition: color 0.3s ease; /* Transição suave da cor */
   color: #ffc837;
-  margin-left: -45px;
+  background: none;
+  border: none;
+  cursor: pointer; /* Cursor de ponteiro */
+  outline: none; /* Remove a borda de foco */
+  padding: 0; /* Remove qualquer preenchimento */
+  margin: 15px 15px;
 }
 
 .like.filled {
   color: #ff8008; /* Gradiente laranja para simular fogo */
+  margin: 15px 15px;
 }
 
-/* Adicione uma animação para o botão de curtir */
+/* Animação para o botão de curtir */
 .contain-like {
   transition: transform 0.3s ease; /* Transição suave de escala */
 }
@@ -88,10 +95,11 @@
 }
 
 .contain-like button {
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  outline: none; /* Remova a borda de foco */
+  background: none; /* Sem fundo */
+  border: none; /* Sem borda */
+  padding: 0; /* Sem preenchimento */
+  cursor: pointer; /* Cursor de ponteiro */
+  outline: none; /* Remove a borda de foco */
 }
 
 .hidden {
@@ -268,11 +276,11 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-left: -20px;
+  margin-left: -30px;
 }
 
 .delete-menu {
-  margin-left: 15px;
+  margin-left: 40px;
 }
 
 /* Estilos para as opções do menu de exclusão */

@@ -8,6 +8,7 @@ import IconHome from "./IconHome.jsx";
 import IconSearch from "./IconSearch.jsx";
 import IconPublish from "./IconPublish.jsx";
 import ButtonProfile from "./ButtonProfile.jsx";
+import IconFeed from "./IconFeed.jsx"
 import { useTranslation } from "react-i18next";
 
 const SidebarMenuItems = () => {
@@ -30,6 +31,7 @@ const SidebarMenuItems = () => {
             </div>
             <>
                 <IconHome/>
+                <IconFeed/>
                 <IconSearch/>
                 {isMyProfilePage && (
                     <IconPublish/>

@@ -12,7 +12,6 @@ import Galeria from "./Galeria/index";
 import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
 import { useAuth } from "../../hooks/use-auth";
-import Footer from "../../pages/SearchUser/footertwo";
 
 /* Functions */
 import useGetdata from "./hooks/useGetdata";
@@ -102,7 +101,6 @@ const UserProfileContainer = () => {
           </section>
         )}
       </main>
-      <Footer />
     </>
   );
 };

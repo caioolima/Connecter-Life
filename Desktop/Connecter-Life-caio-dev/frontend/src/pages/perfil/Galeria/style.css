@@ -1,12 +1,43 @@
 @charset "UTF-8";
 
-.title-photo {
-  margin: 0;
-  font-size: 2rem;
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-buttons button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 15px;
+  padding: 15px 20px;
+  font-size: 16px;
+  color: #717171;
+  transition: background-color 0.3s;
+  font-family: "Raleway", sans-serif;
+  border-top: 5px solid transparent; /* Adicionando a borda superior */
+}
+
+.tab-buttons button:hover {
+  background-color: #f0f0f0;
+}
+
+.tab-buttons button.active-tab {
   color: #000000;
-  padding: 20px;
-  position: relative; /* Define a posição relativa para permitir a posição absoluta do elemento de linha */
-  text-align: center; /* Centraliza o texto horizontalmente */
+  font-weight: bold;
+  border-top-color:  var(--color-primary);
+  font-size: 18px;
+  margin: 40px;
+}
+
+.empty-saved-posts-message{
+  font-size: 1rem;
+  color: #666;
+  margin: 40px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .line-profile {
@@ -33,10 +64,6 @@
 @media screen and (max-width: 660px) {
     .photo-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .title-photo {
-        font-size: 1.5rem;
     }
     
     .line-profile {

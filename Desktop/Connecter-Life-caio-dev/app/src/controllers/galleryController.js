@@ -42,7 +42,7 @@ exports.getGalleryImages = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const images = await GalleryImage.find({ userId });
+    const images = await GalleryImage.find({ userId }).sort({ postedAt: -1 });
 
     if (images.length === 0) {
       return res.status(404).json({ success: false, message: "No gallery images found." });

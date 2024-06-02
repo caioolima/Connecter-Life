@@ -14,6 +14,8 @@ import PrivateRoute from "./PrivateRoute.js";
 import FirstWorldCountries from "./pages/Community/FirstWorldCountries.js";
 import Community from "./pages/Community/Community.js";
 import ChatScreen from "./pages/Community/ChatScreen.js";
+import FeedPage from "./pages/Feed/feed.js";
+
 import { useAuth } from "./hooks/use-auth";
 
 function App() {
@@ -75,12 +77,15 @@ function App() {
       <Route path="/search" element={<SearchUser />} />
       <Route path="*" element={<NotFoundPage />} /> {/* Rota de erro 404 */}
       <Route path="/worldcommunity" element={<FirstWorldCountries />} />
-      <Route path="/comunidade/:countryId/:communityId/chat" element={<ChatScreen />} />
+      <Route
+        path="/comunidade/:countryId/:communityId/chat"
+        element={<ChatScreen />}
+      />
       <Route
         path="/community/:countryId/:communityId"
         element={<Community />}
-      />{" "}
-      {/* Rota para a página da comunidade */}
+      />
+      <Route path="/feed/:userId" element={<FeedPage />}></Route>
     </Routes>
   );
 }
