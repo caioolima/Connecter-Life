@@ -2,8 +2,10 @@ import "./style.css";
 import React, { useState } from "react";
 import { useMyContext } from "../../../contexts/profile-provider";
 import usePhotoModal from "../hooks/usePhotoModal";
+import { useTranslation } from "react-i18next"; // Importe o hook useTranslation
 
 const ChangePhotoModal = () => {
+  const { t } = useTranslation(); // Usa o hook useTranslation para tradução
   const { profileImage, uploadProgress, isEditMode } = useMyContext();
 
   const { closeModal, removeImage, handleImageChange, changeImage } =
@@ -40,13 +42,13 @@ const ChangePhotoModal = () => {
                 className="custom-modal-button"
                 onClick={handleConfirmButtonClick}
               >
-                Confirmar Mudança
+                {t("confirm_change")}
               </button>
               <button
                 className="custom-modal-button"
                 onClick={handleBackButtonClick}
               >
-                Voltar
+                {t("back")}
               </button>
             </div>
           </div>
@@ -64,7 +66,7 @@ const ChangePhotoModal = () => {
                   );
                 }}
               />
-              {profileImage ? "Trocar Foto" : "Adicionar Foto"}
+              {profileImage ? t("change_photo") : t("add_photo")}
             </label>
             {uploadProgress > 0 && uploadProgress < 100 && (
               <div className="progress-bar">
@@ -83,7 +85,7 @@ const ChangePhotoModal = () => {
         {!isEditMode && profileImage && !tempSelectedImage && (
           <div className="custom-file-upload">
             <button className="custom-remove-image" onClick={removeImage}>
-              Remover Imagem
+              {t("remove_image")}
             </button>
           </div>
         )}

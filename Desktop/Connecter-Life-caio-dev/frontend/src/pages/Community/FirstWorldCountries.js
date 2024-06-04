@@ -88,14 +88,11 @@ const FirstWorldCountries = () => {
   const fetchTopLikedPosts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        "http://localhost:3000/gallery/top-liked",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:3000/gallery/top-liked", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await response.json();
       console.log(data); // Verifique os dados retornados no console
@@ -221,8 +218,9 @@ const FirstWorldCountries = () => {
           )}
         </section>
 
-
-        <Footer />
+        <div className="footer-reset">
+          <Footer />
+        </div>
       </article>
     </main>
   );

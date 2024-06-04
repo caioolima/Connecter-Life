@@ -3,6 +3,7 @@ const Relationship = require('../models/relationShip');
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
 const SavedPost = require('../models/savedPost');
+const GalleryComment = require('../models/galleryComment');
 
 exports.getFeed = async (req, res) => {
     const userId = req.params.userId;
@@ -232,5 +233,81 @@ exports.checkSavedPost = async (req, res) => {
   } catch (error) {
     console.error('Error checking saved post:', error);
     return res.status(500).json({ success: false, message: 'Internal server error while checking saved post.' });
+  }
+};
+
+// Função para adicionar um comentário
+exports.addComment = async (req, res) => {
+  try {
+    const { userId, imageUrl, text } = req.body;
+
+    const newComment = new GalleryComment({
+      userId,
+      imageUrl,
+      text
+    });
+
+    await newComment.save();
+
+    // Atualizar a imagem para incluir o comentário
+    await GalleryImage.findOneAndUpdate(
+      { url: imageUrl },
+      { $push: { comments: newComment._id } }
+    );
+
+    return res.status(200).json({ success: true, message: 'Comment added successfully.', comment: newComment });
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error while adding comment.' });
+  }
+};
+
+// Função para obter comentários de uma imagem
+exports.getComments = async (req, res) => {
+  try {
+    const { imageUrl } = req.body;
+
+    const comments = await GalleryComment.find({ imageUrl })
+      .populate({
+        path: 'userId',
+        select: 'username profileImageUrl', // Seleciona os campos a serem populados
+      })
+      .sort({ postedAt: -1 });
+
+    return res.status(200).json({ success: true, comments });
+  } catch (error) {
+    console.error('Error getting comments:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error while getting comments.' });
+  }
+};
+
+
+// Função para deletar um comentário
+exports.deleteComment = async (req, res) => {
+  try {
+    const { commentId, userId } = req.body;
+
+    const comment = await GalleryComment.findById(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ success: false, message: 'Comment not found.' });
+    }
+
+    if (comment.userId.toString() !== userId) {
+      return res.status(403).json({ success: false, message: 'You are not authorized to delete this comment.' });
+    }
+
+    await GalleryComment.deleteOne({ _id: commentId });
+
+    // Atualizar a imagem para remover a referência ao comentário deletado
+    await GalleryImage.findOneAndUpdate(
+      { url: comment.imageUrl },
+      { $pull: { comments: commentId } }
+    );
+
+    return res.status(200).json({ success: true, message: 'Comment deleted successfully.' });
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error while deleting comment.' });
   }
 };

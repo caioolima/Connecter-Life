@@ -1,24 +1,31 @@
 /* FeedPage.css */
 
-/* feedPage.css */
-
-.loading-skeleton {
-  background-color: #ffffff;
-  border-radius: 4px;
-  animation: pulse 1.5s;
+.shimmer {
+  background: linear-gradient(to right, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
+  background-size: 1000px 100%;
+  position: relative;
 }
 
-@keyframes pulse {
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: shimmer 3s linear infinite; /* Remova o forwards para a animação continuar infinitamente */
+  animation-delay: 0.8s;
+}
+
+@keyframes shimmer {
   0% {
-    background-color: #e0e0e0;
-  }
-  50% {
-    background-color: #f0f0f0;
+    background-position: -100% 0; /* Mover da esquerda para a direita */
   }
   100% {
-    background-color: #e0e0e0;
+    background-position: 100% 0; /* Mover da direita para a esquerda */
   }
 }
+
 
 .feed-page {
   width: 100%;
@@ -33,7 +40,7 @@
   margin-top: 20px; /* Margem superior para separação */
   color: var(--color-dark); /* Cor do texto */
 }
-.end-explore{
+.end-explore {
   text-align: center;
   font-weight: 400; /* Negrito para destacar */
   font-size: 17px; /* Tamanho de fonte adequado */
@@ -101,11 +108,7 @@
 
 /* Adicione uma animação para o botão de curtir */
 .contain-like-feed {
-  transition: transform 0.8s ease; /* Transição suave de escala */
-}
-
-.contain-like-feed:hover {
-  transform: scale(0.98); /* Efeito de zoom ao passar o mouse */
+  display: flex;
 }
 
 .contain-like-feed button {
@@ -119,8 +122,11 @@
 .like-feed {
   font-size: 38px;
   transition: color 0.3s ease; /* Transição suave da cor */
-  color: #ffc837;
   margin: 15px 15px;
+}
+
+.like-feed:hover{
+  color: var(--color-gray);
 }
 
 .like.filled {
@@ -131,7 +137,7 @@
 .view-likes-button {
   background-color: transparent;
   border: none;
-  color: var(--color-primary); /* Cor principal */
+  color: var(--color-dark); /* Cor principal */
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
@@ -142,16 +148,32 @@
   font-family: "Raleway", sans-serif;
 }
 
+.post-actions {
+  display: flex;
+  align-items: center;
+  margin: 15px 5px;
+}
+
+.comment-icon {
+  font-size: 38px;
+  transition: color 0.3s ease; /* Transição suave da cor */
+}
+
+.comment-icon:hover{
+  color: var(--color-gray);
+}
+
+
 .view-likes-button:hover {
-  color: var(--color-primary-hover); /* Cor ao passar o mouse */
+  color: var(--color-gray);
 }
 
 .view-likes-button:focus {
-  color: var(--color-primary-focus); /* Cor ao focar */
+  color: var(--color-gray);
 }
 
 .view-likes-button:active {
-  color: var(--color-primary); /* Cor ao clicar */
+  color: var(--color-gray); /* Cor ao clicar */
 }
 
 .no-likes {
@@ -161,15 +183,19 @@
   text-align: center;
 }
 
-
 .save-icon {
   font-size: 28px;
   cursor: pointer;
   float: right;
   margin: -10px 10px;
 }
+
+.save-icon:hover{
+  color: var(--color-gray);
+}
+
 .saved {
-  color: var( --color-details); /* Cor do ícone quando salvo */
+  color: var(--color-details); /* Cor do ícone quando salvo */
 }
 
 .feed-modal {
@@ -190,7 +216,7 @@
 }
 
 .modal-content-feed {
-  background: #fff;
+  background: var(--color-dark);
   border-radius: 10px;
   padding: 20px;
   max-width: 500px;
@@ -206,11 +232,13 @@
   font-size: 30px;
   cursor: pointer;
   font-weight: 700;
+  font-size: 38px;
+  color: var(--color-primary-focus);
 }
 
 .feed-modal-title {
   font-size: 16px;
-  color: #ff0000;
+  color: #ffffff;
   text-align: center;
   margin-top: 30px;
 }
@@ -227,7 +255,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #ff8008;
+  color: var(--color-details);
+  max-height: 400px; /* Defina a altura máxima para a lista */
+  overflow-y: auto; /* Adicione rolagem vertical quando necessário */
 }
 
 .feed-modal li {
@@ -236,6 +266,7 @@
   margin: 10px 0;
   font-size: 16px;
   font-weight: bold;
+  
 }
 
 .feed-modal li img {

@@ -15,7 +15,7 @@ import FirstWorldCountries from "./pages/Community/FirstWorldCountries.js";
 import Community from "./pages/Community/Community.js";
 import ChatScreen from "./pages/Community/ChatScreen.js";
 import FeedPage from "./pages/Feed/feed.js";
-
+import NewPassword from "./pages/ResetPassword/NewPassword.jsx"
 import { useAuth } from "./hooks/use-auth";
 
 function App() {
@@ -86,6 +86,15 @@ function App() {
         element={<Community />}
       />
       <Route path="/feed/:userId" element={<FeedPage />}></Route>
+      <Route
+        path="/newpassword/:token" // Defina o caminho da rota com um parâmetro de token para identificar a solicitação de redefinição de senha
+        element={
+          <AuthLayout>
+            <NewPassword />{" "}
+            {/* Renderize o componente NewPassword quando a rota for correspondida */}
+          </AuthLayout>
+        }
+      />
     </Routes>
   );
 }

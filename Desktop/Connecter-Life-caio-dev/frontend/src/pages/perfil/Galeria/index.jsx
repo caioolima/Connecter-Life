@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next'; // Importa o hook useTranslation
 import "./style.css";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useEventsModals from "../hooks/useEventsModals";
@@ -6,6 +7,7 @@ import { useAuth } from '../../../contexts/auth-provider';
 import { useParams } from 'react-router-dom';
 
 const Galeria = () => {
+  const { t } = useTranslation(); // Usa o hook useTranslation para tradução
   const { userPhotos } = useMyContext();
   const { handlePublicationClick } = useEventsModals();
   const [savedPosts, setSavedPosts] = useState([]); // Estado para armazenar as publicações salvas
@@ -46,10 +48,10 @@ const Galeria = () => {
     };
 
     // Se a guia ativa for 'salvos' e o userId corresponder ao user.id, buscar as publicações salvas
-    if (activeTab === 'salvos' && userId === user.id) {
+    if (activeTab === 'salvos' && user && userId === user.id) {
       fetchSavedPosts();
     }
-  }, [activeTab, userId, user.id]);
+  }, [activeTab, userId, user]);
 
   const handleImageLoaded = (index) => {
     setLoadedImages((prevLoadedImages) => {
@@ -70,15 +72,15 @@ const Galeria = () => {
           className={activeTab === 'galeria' ? 'active-tab' : ''}
           onClick={() => toggleTab('galeria')}
         >
-          Galeria
+          {t('gallery')} {/* Traduz 'Galeria' */}
         </button>
-        {/* Renderiza o botão Salvos apenas se o userId corresponder ao user.id */}
-        {userId === user.id && (
+        {/* Renderiza o botão Salvos apenas se o user e userId corresponderem ao user.id */}
+        {user && userId === user.id && (
           <button
             className={activeTab === 'salvos' ? 'active-tab' : ''}
             onClick={() => toggleTab('salvos')}
           >
-            Salvos
+            {t('saved')} {/* Traduz 'Salvos' */}
           </button>
         )}
       </div>
@@ -98,7 +100,7 @@ const Galeria = () => {
                     )}
                     <img
                       src={photoData.url}
-                      alt={`Foto ${index}`}
+                      alt={t('photo')}
                       style={{ opacity: loadedImages[index] ? 1 : 0, transition: 'opacity 0.5s' }}
                       onLoad={() => handleImageLoaded(index)}
                     />
@@ -107,7 +109,7 @@ const Galeria = () => {
               ))}
             </div>
           ) : (
-            <p className="empty-gallery-message">Não há fotos na galeria.</p>
+            <p className="empty-gallery-message">{t('no_photos')}</p> 
           )
         ) : (
           userId === user.id && (
@@ -115,12 +117,12 @@ const Galeria = () => {
               {savedPosts.length > 0 ? (
                 savedPosts.map((post, index) => (
                   <div className="saved-post" key={index}>
-                    <img src={post.imageUrl} alt={`Publicação salva ${index}`} />
+                    <img src={post.imageUrl} alt={t('saved_post')} /> 
                     <p>{post.username}</p>
                   </div>
                 ))
               ) : (
-                <p className="empty-saved-posts-message">Não há publicações salvas.</p>
+                <p className="empty-saved-posts-message">{t('no_saved_posts')}</p> 
               )}
             </div>
           )

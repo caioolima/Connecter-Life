@@ -1,4 +1,3 @@
-// i18n.js ou i18n.ts
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import translationEN from "../locale/en.json";
@@ -19,8 +18,8 @@ i18n
         translation: translationES,
       },
     },
-    lng: "pt-BR", // define o idioma padrão
-    fallbackLng: "pt-BR", // define o idioma de fallback
+    lng: "pt-BR", // Idioma padrão inicial, caso não haja resposta do backend
+    fallbackLng: "pt-BR", // Idioma de fallback inicial, caso não haja resposta do backend
     interpolation: {
       escapeValue: false, // Not needed for react as it escapes by default
     },

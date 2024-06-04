@@ -10,7 +10,7 @@
     max-width: 500px;
     height: auto; /* Adjust for automatic height */
     max-height: 620px; /* Adjust as needed */
-    margin-top: 150px;
+    margin: 200px auto;
 }
 
 .close-button-publish {

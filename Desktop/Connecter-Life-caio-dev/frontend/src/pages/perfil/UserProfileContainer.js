@@ -12,6 +12,7 @@ import Galeria from "./Galeria/index";
 import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
 import { useAuth } from "../../hooks/use-auth";
+import Footer from "../../components/Footer/footer.jsx";
 
 /* Functions */
 import useGetdata from "./hooks/useGetdata";
@@ -28,7 +29,7 @@ const UserProfileContainer = () => {
 
   /* Função que obtem todos os dados do servidor */
   const { getDataUser } = useGetdata();
-  const { userId } = useParams();
+  const [userId, setUserId] = useState(useParams().userId);
   const [profileNotFound, setProfileNotFound] = useState(false);
   const { user } = useAuth();
   /* Se a aplicação renderizar, busque os dados no servidor */
@@ -99,6 +100,11 @@ const UserProfileContainer = () => {
             {showPhotoModal && <UploadPhotoModal />}{" "}
             {/* Modal de publicar foto na galeria */}
           </section>
+        )}
+        {userDataLoaded && (
+          <div className="footer-reset">
+            <Footer userId={userId} />
+          </div>
         )}
       </main>
     </>

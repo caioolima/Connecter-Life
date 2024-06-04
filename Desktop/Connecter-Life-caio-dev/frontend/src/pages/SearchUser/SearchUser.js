@@ -3,9 +3,9 @@ import "./FindUserPage.css"; // Importar o arquivo de estilos CSS
 
 /* Componentes */
 import SidebarMenu from "../../pages/perfil/SidebarMenu/index";
-import Footer from "../SearchUser/footertwo";
 import { useTranslation } from "react-i18next"; // Importar o hook useTranslation para tradução
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
+import Footer from "../../components/Footer/footer.jsx";
 
 const FindUserPage = () => {
   const { t } = useTranslation(); // Usar o hook useTranslation para tradução
@@ -101,6 +101,9 @@ const FindUserPage = () => {
             {t("error")}: {error}
           </p>
         )}
+      </div>
+      <div className="footer-reset">
+        <Footer />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import "../perfil/PublicationDetailsModal/style.css";
 import SidebarMenu from "../perfil/SidebarMenu/";
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"; // Importe os ícones de salvar (cheio e vazio)
+import { MdComment } from 'react-icons/md';
+import CommentModal from "./commentModal";
 
 const FeedPage = () => {
   const { user } = useAuth();
@@ -17,6 +19,7 @@ const FeedPage = () => {
   const [likedUsers, setLikedUsers] = useState([]); // Estado para armazenar os usuários que curtiram o post
   const [modalOpen, setModalOpen] = useState(false); // Estado para controlar se o modal está aberto
   const [modalUsers, setModalUsers] = useState([]); // Estado para armazenar os usuários para exibir no modal
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -26,6 +29,8 @@ const FeedPage = () => {
 
   useEffect(() => {
     const fetchFeedAndCheckSaved = async () => {
+      setLoading(true); // Define loading como true antes de carregar o feed
+
       if (userId) {
         try {
           const response = await fetch(
@@ -48,8 +53,11 @@ const FeedPage = () => {
               await checkSaved(post, post.userId._id); // Corrigido para passar o postOwnerId
             })
           );
+
+          setLoading(false); // Define loading como false após carregar o feed com sucesso
         } catch (err) {
           setError("Erro ao carregar o feed");
+          setLoading(false); // Define loading como false em caso de erro
         }
       }
     };
@@ -176,28 +184,26 @@ const FeedPage = () => {
 
   const openModal = () => {
     setModalOpen(true); // Abre o modal
-    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
   };
 
   const closeModal = () => {
     setModalOpen(false); // Fecha o modal
-    document.body.style.overflow = "auto";
+    document.body.style.position = "static";
   };
-  const [loadedImages, setLoadedImages] = useState({});
 
-  // Dentro da função que manipula o carregamento da imagem
-  const handleImageLoaded = (imageUrl, postId) => {
-    setLoadedImages((prevLoadedImages) => ({
-      ...prevLoadedImages,
-      [imageUrl]: true,
-    }));
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [selectedPostImageUrl, setSelectedPostImageUrl] = useState("");
 
-    // Define isLoading como false para a postagem atual
-    setFeed((prevFeed) =>
-      prevFeed.map((post) =>
-        post._id === postId ? { ...post, isLoading: false } : post
-      )
-    );
+  const openCommentModal = (imageUrl) => {
+    setSelectedPostImageUrl(imageUrl);
+    setCommentModalOpen(true);
+    document.body.style.position = "fixed";
+  };
+
+  const closeCommentModal = () => {
+    setCommentModalOpen(false);
+    document.body.style.position = "static";
   };
 
   const handleSave = async (postId, postOwnerId, post) => {
@@ -335,193 +341,164 @@ const FeedPage = () => {
       <div className="feed-page">
         <h1 className="welcome-explore">Bem-vindo ao Explorar.</h1>
         <SidebarMenu /> {/* Menu */}
-        {feed.map((post) => (
-          <div
-            key={post._id}
-            className={`post ${post.isLoading ? "loading-skeleton" : ""}`}
-          >
-            <div className="post-header">
-              {post.userId.profileImageUrl ? (
-                <a href={`/profile/${post.userId._id}`}>
-                  <img
-                    src={post.userId.profileImageUrl}
-                    alt={`${post.userId.firstName} ${post.userId.lastName}`}
-                    className={`profile-image-feed ${
-                      post.isLoading ? "loading-skeleton" : ""
-                    }`}
-                    onLoad={() => handleImageLoaded(post.url)}
-                  />
-                </a>
-              ) : (
-                <a href={`/profile/${post.userId._id}`}>
-                  <AiOutlineUser className="profile-icon-profile" />
-                </a>
-              )}
-              <a href={`/profile/${post.userId._id}`}>
-                <p
-                  className={`username-feed ${
-                    post.isLoading ? "loading-skeleton" : ""
-                  }`}
-                  onClick={() => setSelectedUserId(post.userId._id)}
-                >
-                  {`${post.userId.username}`}
-                </p>
-              </a>
-            </div>
-            <img
-              src={post.url}
-              alt="Imagem da galeria"
-              className={`post-image ${
-                post.isLoading ? "loading-skeleton" : ""
-              }`}
-              style={{
-                opacity: loadedImages[post.url] ? 1 : 0,
-                transition: "opacity 0.5s",
-              }}
-              onLoad={() => handleImageLoaded(post.url)}
-            />
-            <div className="post-info">
-              <div className="contain-like-feed">
-                <button
-                  onClick={() => {
-                    if (post.isLiked) {
-                      unlikePost(post._id, post.userId._id, post.url, user.id);
-                    } else {
-                      likePost(post._id, post.userId._id, post.url, user.id);
-                    }
-                  }}
-                >
-                  {post.isLiked ? (
-                    <>
-                      <AiFillFire
-                        className="like filled"
-                        style={{
-                          opacity: loadedImages[post.url] ? 1 : 0,
-                          transition: "opacity 0.5s",
-                        }}
-                        onLoad={() => handleImageLoaded(post.url)}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <AiOutlineFire
-                        className="like-feed"
-                        style={{
-                          opacity: loadedImages[post.url] ? 1 : 0,
-                          transition: "opacity 0.5s",
-                        }}
-                        onLoad={() => handleImageLoaded(post.url)}
-                      />
-                    </>
-                  )}
-                </button>
-              </div>
-              <button
-                className={`view-likes-button ${
-                  post.isLoading ? "loading-skeleton" : ""
-                }`}
-                onClick={() => handleViewLikes(post.url)}
-                style={{
-                  opacity: loadedImages[post.url] ? 1 : 0,
-                  transition: "opacity 0.5s",
-                }}
-                onLoad={() => handleImageLoaded(post.url)}
-              >
-                Ver quem curtiu
-              </button>
-              {post.isSaved ? (
-                <FaBookmark
-                  className={`save-icon saved ${
-                    post.isLoading ? "loading-skeleton" : ""
-                  }`}
-                  style={{
-                    opacity: loadedImages[post.url] ? 1 : 0,
-                    transition: "opacity 0.5s",
-                  }}
-                  onClick={() =>
-                    handleSaved(post, post.userId._id, post.url, post._id)
-                  }
-                />
-              ) : (
-                <FaRegBookmark
-                  className={`save-icon ${
-                    post.isLoading ? "loading-skeleton" : ""
-                  }`}
-                  style={{
-                    opacity: loadedImages[post.url] ? 1 : 0,
-                    transition: "opacity 0.5s",
-                  }}
-                  onClick={() =>
-                    handleSave(post._id, post.userId._id, post.url)
-                  }
-                />
-              )}
-
-              <p
-                className={`post-date-feed ${
-                  post.isLoading ? "loading-skeleton" : ""
-                }`}
-                style={{
-                  opacity:
-                    loadedImages[post.postedAt] !== undefined
-                      ? loadedImages[post.postedAt]
-                        ? 1
-                        : 0
-                      : 1,
-                  transition: "opacity 0.9s",
-                }}
-                onLoad={() => handleImageLoaded(post.postedAt)}
-              >
-                Publicado em: {new Date(post.postedAt).toLocaleString()}
-              </p>
-            </div>
-            {modalOpen && (
-              <div className="feed-modal">
-                <div className="modal-content-feed">
-                  <span className="close-feed-modal" onClick={closeModal}>
-                    &times;
-                  </span>
-
-                  {modalUsers.length > 0 ? (
-                    <ul className="feed-modal-list">
-                      {" "}
-                      <h2
-                        className="feed-modal-title"
-                        onLoad={() => handleImageLoaded(post.userId)}
-                      >
-                        Usuários que curtiram o post:
-                      </h2>
-                      {modalUsers.map((user) => (
-                        <li className="feed-modal-item" key={user.userId}>
-                          {post.userId.profileImageUrl ? (
-                            <a href={`/profile/${user.userId._id}`}>
-                              <img
-                                src={user.profileImageUrl}
-                                alt="Imagem da galeria"
-                                className="rounded-image-message-feed"
-                              />
-                            </a>
-                          ) : (
-                            <a href={`/profile/${user.userId._id}`}>
-                              <AiOutlineUser className="profile-icon-profile" />
-                            </a>
-                          )}
-                          <a href={`/profile/${user.userId._id}`}>
-                            {user.username}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="no-likes">
-                      Nenhum usuário curtiu esta postagem ainda.
-                    </p>
-                  )}
+        {loading ? (
+          // Renderizar esqueleto de carregamento enquanto os dados estão sendo buscados
+          <>
+            {[...Array(10)].map((_, index) => (
+              <div key={index} className="post shimmer">
+                <div className="post-header shimmer"></div>
+                <div className="shimmer post-image"></div>
+                <div className="post-info shimmer">
+                  <div className="contain-like-feed shimmer"></div>
+                  <button className="view-likes-button shimmer"></button>
+                  <div className="shimmer post-date-feed"></div>
                 </div>
               </div>
-            )}
-          </div>
-        ))}
+            ))}
+          </>
+        ) : (
+          feed.map((post) => (
+            <div key={post._id} className="post ">
+              <div className="post-header">
+                {post.userId.profileImageUrl ? (
+                  <a href={`/profile/${post.userId._id}`}>
+                    <img
+                      src={post.userId.profileImageUrl}
+                      alt={`${post.userId.firstName} ${post.userId.lastName}`}
+                      className="profile-image-feed"
+                      onLoad={() => setLoading(false)}
+                    />
+                  </a>
+                ) : (
+                  <a href={`/profile/${post.userId._id}`}>
+                    <AiOutlineUser className="profile-icon-profile" />
+                  </a>
+                )}
+                <a href={`/profile/${post.userId._id}`}>
+                  <p
+                    className="username-feed"
+                    onClick={() => setSelectedUserId(post.userId._id)}
+                  >
+                    {`${post.userId.username}`}
+                  </p>
+                </a>
+              </div>
+              <img
+                src={post.url}
+                alt="Imagem da galeria"
+                className="post-image"
+                onLoad={() => setLoading(false)} // Define loading como false após a imagem ser carregada
+              />
+              <div className="post-info">
+                <div className="contain-like-feed">
+                  <button
+                    onClick={() => {
+                      if (post.isLiked) {
+                        unlikePost(
+                          post._id,
+                          post.userId._id,
+                          post.url,
+                          user.id
+                        );
+                      } else {
+                        likePost(post._id, post.userId._id, post.url, user.id);
+                      }
+                    }}
+                  >
+                    {post.isLiked ? (
+                      <>
+                        <AiFillFire className="like filled" />
+                      </>
+                    ) : (
+                      <>
+                        <AiOutlineFire className="like-feed" />
+                      </>
+                    )}
+                  </button>
+                  <div className="post-actions">
+                    <button onClick={() => openCommentModal(post.url, user.id)}>
+                    <MdComment className="comment-icon" />
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  className="view-likes-button"
+                  onClick={() => handleViewLikes(post.url)}
+                >
+                  Ver quem curtiu
+                </button>
+                {post.isSaved ? (
+                  <FaBookmark
+                    className="save-icon saved"
+                    onClick={() =>
+                      handleSaved(post, post.userId._id, post.url, post._id)
+                    }
+                  />
+                ) : (
+                  <FaRegBookmark
+                    className="save-icon"
+                    onClick={() =>
+                      handleSave(post._id, post.userId._id, post.url)
+                    }
+                  />
+                )}
+                <p className="post-date-feed">
+                  Publicado em: {new Date(post.postedAt).toLocaleString()}
+                </p>
+              </div>
+              {modalOpen && (
+                <div className="feed-modal">
+                  <div className="modal-content-feed">
+                    <span className="close-feed-modal" onClick={closeModal}>
+                      &times;
+                    </span>
+
+                    {modalUsers.length > 0 ? (
+                      <ul className="feed-modal-list">
+                        {" "}
+                        <h2 className="feed-modal-title">
+                          Usuários que curtiram o post:
+                        </h2>
+                        {modalUsers.map((user) => (
+                          <li className="feed-modal-item" key={user.userId}>
+                            {post.userId.profileImageUrl ? (
+                              <a href={`/profile/${user.userId._id}`}>
+                                <img
+                                  src={user.profileImageUrl}
+                                  alt="Imagem da galeria"
+                                  className="rounded-image-message-feed"
+                                />
+                              </a>
+                            ) : (
+                              <a href={`/profile/${user.userId._id}`}>
+                                <AiOutlineUser className="profile-icon-profile" />
+                              </a>
+                            )}
+                            <a href={`/profile/${user.userId._id}`}>
+                              {user.username}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="no-likes">
+                        Nenhum usuário curtiu esta postagem ainda.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}{" "}
+              {commentModalOpen && (
+                <CommentModal
+                  imageUrl={selectedPostImageUrl}
+                  onClose={closeCommentModal}
+                  user={user}
+                />
+              )}
+            </div>
+          ))
+        )}
       </div>
       <h1 className="end-explore">Você chegou no fim.</h1>
     </main>

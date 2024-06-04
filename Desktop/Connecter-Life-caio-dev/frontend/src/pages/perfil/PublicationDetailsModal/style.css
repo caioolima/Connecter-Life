@@ -154,15 +154,14 @@
   padding: 0;
   font-size: 40px;
   font-weight: bold;
+  padding: 5px 10px;
   color: #fff;
   position: absolute;
-  background-color: transparent; /* Cor de fundo do botão de fechar */
+  background-color: rgb(0, 0, 0); /* Cor de fundo do botão de fechar */
   transition: background-color 0.3s;
   font-family: Arial, sans-serif;
-  top: 0;
-  right: 7px;
-  width: 7%;
-  height: 3%;
+  top: 10px;
+  right: 10px;
 }
 
 .loading-text-2 {
@@ -172,6 +171,12 @@
   position: relative;
   animation: reveal-text 5s ease infinite, scale-text 0.5s ease 4.5s forwards;
   margin-top: 300px;
+}
+
+.loading-text{
+  font-size: 25px;
+  font-weight: bold;
+  margin: 350px auto;
 }
 
 .post-modal .follow-button {

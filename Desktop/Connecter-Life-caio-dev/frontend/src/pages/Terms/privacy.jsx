@@ -70,7 +70,9 @@ const PrivacyPolicy = () => {
           <p className="privacy-content">{t("dataController")}</p>
         </div>
       </div>
-      <Footer />
+      <div className="footer-reset">
+        <Footer />
+      </div>
     </div>
   );
 };

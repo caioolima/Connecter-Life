@@ -5,7 +5,6 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router-dom";
 import "../Form/form.css";
-import axios from "axios";
 import { useAuth } from "../../hooks/use-auth";
 
 Modal.setAppElement("#root");
@@ -454,6 +453,11 @@ function LoginForm() {
             onChange={(e) => {
               handleLoginPasswordChange(e);
               setLoginMessage("");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLoginButtonClick(); // Chame a função de login quando a tecla "Enter" for pressionada
+              }
             }}
             required
           />

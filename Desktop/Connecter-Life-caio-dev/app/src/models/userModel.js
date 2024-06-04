@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
   dob: Date,
   gender: String,
   biography: String,
-  profileImageUrl: String
+  profileImageUrl: String,
+  resetPasswordToken: String,
+  resetPasswordExpiry: Date,
+  verificationCode: String,
+  language: { type: String, default: 'pt-BR' } // Adicionando a preferência de idioma
 });
 
 const User = mongoose.model('User', userSchema);

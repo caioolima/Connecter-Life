@@ -30,4 +30,13 @@ router.get('/savedPosts/:userId', feedController.getSavedPosts);
 // Rota para verificar se o post está salvo
 router.post('/savedPost', feedController.checkSavedPost);
 
+// Rota para adicionar um comentário
+router.post('/comment', feedController.addComment);
+
+// Rota para obter comentários de uma imagem
+router.post('/comments', feedController.getComments);
+
+// Rota para deletar um comentário
+router.delete('/comment', feedController.deleteComment);
+
 module.exports = router;

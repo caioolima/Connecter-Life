@@ -4,8 +4,10 @@ import useUploadModal from "../hooks/useUploadModal";
 import ButtonClosed from "./ButtonClosed.jsx"
 import ButtonPublish from "./ButtonPublish.jsx"
 import Loading from "./Loading.jsx"
+import { useTranslation } from "react-i18next";
 
 const UploadPhotoModal = () => {
+    const { t } = useTranslation(); // Usando o hook useTranslation para tradução
     const { selectedImage, uploadInProgress } = useMyContext();
 
     const { handleImageUpload } = useUploadModal();
@@ -18,18 +20,18 @@ const UploadPhotoModal = () => {
                     <section className="chosen-image-field">
                         <img
                             src={selectedImage}
-                            alt="Selected"
+                            alt={t("Selected")}
                             className="chosen-image"
                         />
                         <ButtonPublish/>
                     </section>
                 )}
-                {/* Display progress bar if upload is in progress */}
+                {/* Exibir barra de progresso se o upload estiver em andamento */}
                 {uploadInProgress && (
                     <Loading/>
                 )}
 
-                {/* Button to attach image */}
+                {/* Botão para anexar imagem */}
                 {!selectedImage && !uploadInProgress && (
                     <section className="custom-file-upload">
                         <label>
@@ -38,7 +40,7 @@ const UploadPhotoModal = () => {
                                 accept="image/*"
                                 onChange={handleImageUpload}
                             />
-                            Adicionar foto
+                            {t("Add photo")}
                         </label>
                     </section>
                 )}

@@ -15,7 +15,6 @@ section.profile-container {
   max-height: calc(
     100vh - 30px
   ); /* Calcule a altura máxima menos a margem superior */
-  margin-bottom: 560px; /* Adicione margem inferior para deixar espaço para o rodapé */
 }
 
 .modal.active {
