@@ -6,7 +6,7 @@ import "../perfil/PublicationDetailsModal/style.css";
 import SidebarMenu from "../perfil/SidebarMenu/";
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"; // Importe os ícones de salvar (cheio e vazio)
-import { MdComment } from 'react-icons/md';
+import { MdComment } from "react-icons/md";
 import CommentModal from "./commentModal";
 
 const FeedPage = () => {
@@ -20,6 +20,8 @@ const FeedPage = () => {
   const [modalOpen, setModalOpen] = useState(false); // Estado para controlar se o modal está aberto
   const [modalUsers, setModalUsers] = useState([]); // Estado para armazenar os usuários para exibir no modal
   const [loading, setLoading] = useState(true);
+
+  const [scrollPosition, setScrollPosition] = useState(0); // Estado para armazenar a posição de rolagem
 
   useEffect(() => {
     if (user) {
@@ -196,6 +198,7 @@ const FeedPage = () => {
   const [selectedPostImageUrl, setSelectedPostImageUrl] = useState("");
 
   const openCommentModal = (imageUrl) => {
+    setScrollPosition(window.pageYOffset); // Armazena a posição de rolagem atual
     setSelectedPostImageUrl(imageUrl);
     setCommentModalOpen(true);
     document.body.style.position = "fixed";
@@ -204,6 +207,7 @@ const FeedPage = () => {
   const closeCommentModal = () => {
     setCommentModalOpen(false);
     document.body.style.position = "static";
+    window.scrollTo(0, scrollPosition); // Restaura a posição de rolagem
   };
 
   const handleSave = async (postId, postOwnerId, post) => {
@@ -417,7 +421,7 @@ const FeedPage = () => {
                   </button>
                   <div className="post-actions">
                     <button onClick={() => openCommentModal(post.url, user.id)}>
-                    <MdComment className="comment-icon" />
+                      <MdComment className="comment-icon" />
                     </button>
                   </div>
                 </div>

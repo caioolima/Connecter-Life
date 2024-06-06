@@ -99,7 +99,7 @@ const useProfileEdit = () => {
     const handleCloseModal = () => {
         // Limpar o estado selectedImage
         setSelectedImage(null);
-
+        document.body.style.overflow = "auto";
         // Fechar o modal
         setShowModal(false);
     };

@@ -264,7 +264,7 @@ const PublicationDetailsModal = () => {
       console.error("Erro ao verificar status de curtida:", error);
     }
   };
-
+  document.body.style.overflow = "hidden";
   return (
     <>
       <div className="overlay" onClick={handleOverlayClick}></div>

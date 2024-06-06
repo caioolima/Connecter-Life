@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../hooks/use-auth";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import BrasilFlag from "./flags/brasil.jpeg";
 import AlemanhaFlag from "./flags/alemanha.png";
 import JapaoFlag from "./flags/japao.png";
 import { AiOutlineUser } from "react-icons/ai";
+
 const FirstWorldCountries = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -17,6 +18,8 @@ const FirstWorldCountries = () => {
   const [comunidades, setComunidades] = useState([]);
   const [topFollowedUsers, setTopFollowedUsers] = useState([]);
   const [topLikedPosts, setTopLikedPosts] = useState([]);
+  const carouselRef = useRef(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
     if (user) {
@@ -108,120 +111,179 @@ const FirstWorldCountries = () => {
     japão: JapaoFlag,
   };
 
+  const handleNext = () => {
+    if (carouselRef.current) {
+      const maxIndex =
+        Math.floor(
+          carouselRef.current.scrollWidth / carouselRef.current.clientWidth
+        ) - 1;
+      setCarouselIndex((prevIndex) =>
+        prevIndex < maxIndex ? prevIndex + 1 : prevIndex
+      );
+    }
+  };
+
+  const handlePrev = () => {
+    setCarouselIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : prevIndex
+    );
+  };
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({
+        left: carouselIndex * carouselRef.current.clientWidth,
+        behavior: "smooth",
+      });
+    }
+  }, [carouselIndex]);
+
   return (
     <main>
       <SidebarMenu />
-      <section className="images-field-top">
-        <div className="imagefield a1"></div>
-        <div className="imagefield a2"></div>
-        <div className="imagefield a3"></div>
-      </section>
-      <article className="container-cards">
-        <section className="cards-contain">
-          <h2 className="title-comunidade">{t("Countries List")}</h2>
-          <hr />
-          <section className="cards">
-            {comunidades.map((comunidade) => (
-              <section key={comunidade._id} className="card-community">
-                <div
-                  className="image-country"
-                  style={{
-                    backgroundImage: `url(${
-                      flagMappings[comunidade.country.toLowerCase()]
-                    })`,
-                  }}
-                ></div>
-
-                <span>{t(`${comunidade.country}`)}</span>
-                <p>
-                  {numeroMembros[comunidade._id] !== undefined
-                    ? numeroMembros[comunidade._id] === 1
-                      ? t("member", { count: numeroMembros[comunidade._id] })
-                      : t("members", { count: numeroMembros[comunidade._id] })
-                    : t("loading")}
-                </p>
-
-                <Link
-                  to={`/community/${encodeURIComponent(comunidade.country)}/${
-                    comunidade._id
-                  }`}
-                >
-                  <button className="sign-button-sign">{t("join")}</button>
-                </Link>
-              </section>
-            ))}
-          </section>
-        </section>
-        <section className="users-container">
-          <h2>{t("userMoreFollow")}</h2>
-          <hr />
-          <div className="users-list-list">
-            {topFollowedUsers.length > 0 ? (
-              topFollowedUsers.map((follower) => (
-                <div key={follower.userId} className="user-item-user">
-                  {/* Lógica para renderizar a imagem de perfil ou o ícone de perfil padrão */}
-                  {follower.profileImageUrl ? (
-                    <img src={follower.profileImageUrl} alt="Profile" />
-                  ) : (
-                    <AiOutlineUser className="profile-icon-profile" />
-                  )}
-                  <span className="user-name-user">{follower.username}</span>
-                  <p>
-                    {follower.numberOfFollowers}{" "}
-                    {follower.numberOfFollowers === 1
-                      ? t("follower-user")
-                      : t("followers-user")}
-                  </p>
-                  <a
-                    href={`/profile/${follower.userId}`}
-                    className="profile-link"
-                  >
-                    <button className="sign-button-sign">
-                      {t("viewProfile")}
-                    </button>
-                  </a>
-                </div>
-              ))
-            ) : (
-              <p className="noFollowers">{t("noFollowers")}</p>
-            )}
+      <div className="main-content">
+        <section className="images-field-top">
+          <div className="imagefield a1">
+            <span className="text-bottom-two">{t("bestPlaces")}</span>
+            <span className="text-bottom-finaly">{t("toGoBackpacking")}</span>
+            <div className="black-block">
+              <p>{t("discover")}</p>
+              <button className="button-article">{t("seeNow")}</button>
+            </div>
+          </div>
+          <div className="imagefield a2">
+            <span className="text-top-intro">{t("introduction")}</span>
+            <span className="text-top">
+            {t("toTheLife")}
+            </span>
+            <span className="text-bottom">{t("ofABackpacker")}</span>
+            <div className="black-block">
+              <p>{t("comeAndDiscover")}</p>
+              <button className="button-article">{t("seeNow")}</button>
+            </div>
+          </div>
+          <div className="imagefield a3">
+            <span className="text-bottom-three">{t("bestPlacesToGoBackpacking")}</span>
+            <div className="black-block-two">
+              <p>{t("discoverTheBestWays")}</p>
+              <button className="button-article">{t("seeNow")}</button>
+            </div>
           </div>
         </section>
 
-        <section
-          className={`post-wrapper ${
-            topLikedPosts.length > 0 ? "has-posts" : ""
-          }`}
-        >
-          <h2>{t("topLikedPosts")}</h2>
-          {topLikedPosts.length > 0 ? (
-            topLikedPosts.map((post) => (
-              <div key={post.imageUrl} className="post-item-post">
-                <a href={`/profile/${post.userId}`} className="post-link">
-                  <img
-                    src={post.url}
-                    alt="Top Liked Post"
-                    className="post-image-likes"
-                  />
-                  <span className="post-name">{post.username}</span>
-                  <p className="post-content-text">
-                    {t("numberOfLikes")}: {post.likeCount}
-                  </p>
-                  <button className="post-button-post">
-                    {t("viewProfile")}
-                  </button>
-                </a>
-              </div>
-            ))
-          ) : (
-            <p className="noLikedPosts">{t("noLikedPosts")}</p>
-          )}
-        </section>
+        <article className="container-cards">
+          <section className="cards-contain">
+            <h2 className="title-comunidade">{t("Countries List")}</h2>
+            <hr />
+            <section className="cards">
+              {comunidades.map((comunidade) => (
+                <section key={comunidade._id} className="card-community">
+                  <div
+                    className="image-country"
+                    style={{
+                      backgroundImage: `url(${
+                        flagMappings[comunidade.country.toLowerCase()]
+                      })`,
+                    }}
+                  ></div>
 
-        <div className="footer-reset">
+                  <span>{t(`${comunidade.country}`)}</span>
+                  <p>
+                    {numeroMembros[comunidade._id] !== undefined
+                      ? numeroMembros[comunidade._id] === 1
+                        ? t("member", { count: numeroMembros[comunidade._id] })
+                        : t("members", { count: numeroMembros[comunidade._id] })
+                      : t("loading")}
+                  </p>
+
+                  <Link
+                    to={`/community/${encodeURIComponent(comunidade.country)}/${
+                      comunidade._id
+                    }`}
+                  >
+                    <button className="sign-button-sign">{t("join")}</button>
+                  </Link>
+                </section>
+              ))}
+            </section>
+          </section>{" "}
+          <h2 className="top-liked-title">{t("userMoreFollow")}</h2>
+          <hr className="hr-top" />
+          <section className="users-container">
+            <div className="users-list-list">
+              {topFollowedUsers.length > 0 ? (
+                topFollowedUsers.map((follower) => (
+                  <div key={follower.userId} className="user-item-user">
+                    {/* Lógica para renderizar a imagem de perfil ou o ícone de perfil padrão */}
+                    {follower.profileImageUrl ? (
+                      <img src={follower.profileImageUrl} alt="Profile" />
+                    ) : (
+                      <AiOutlineUser className="profile-icon-profile" />
+                    )}
+                    <span className="user-name-user">{follower.username}</span>
+                    <p>
+                      {follower.numberOfFollowers}{" "}
+                      {follower.numberOfFollowers === 1
+                        ? t("follower-user")
+                        : t("followers-user")}
+                    </p>
+                    <a
+                      href={`/profile/${follower.userId}`}
+                      className="profile-link"
+                    >
+                      <button className="sign-button-sign">
+                        {t("viewProfile")}
+                      </button>
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <p className="noFollowers">{t("noFollowers")}</p>
+              )}
+            </div>
+          </section>
+          <h2 className="top-liked-title">{t("topLikedPosts")}</h2>
+          <hr className="hr-top" />
+          <div className="post-wrapper">
+            <div className="carousel" ref={carouselRef}>
+              {topLikedPosts.length > 0 ? (
+                topLikedPosts.map((post) => (
+                  <div key={post.userId._id} className="post-item-post">
+                    <a href={`/profile/${post.userId._id}`}>
+                      <img
+                        src={post.url}
+                        alt="Top Liked Post"
+                        className="post-image-likes"
+                      />
+                      <div className="post-name">
+                        <p>{post.username}</p>{" "}
+                        <p>
+                          {t("numberOfLikes")}: {post.likeCount}
+                        </p>
+                      </div>
+
+                      <button className="post-button-post">
+                        {t("viewProfile")}
+                      </button>
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <p className="noLikedPosts">{t("noLikedPosts")}</p>
+              )}
+            </div>
+            <button className="carousel-button prev" onClick={handlePrev}>
+              {t("<")}
+            </button>
+            <button className="carousel-button next" onClick={handleNext}>
+              {t(">")}
+            </button>
+          </div>
+        </article>
+        <div className="footer-world">
           <Footer />
         </div>
-      </article>
+      </div>
     </main>
   );
 };

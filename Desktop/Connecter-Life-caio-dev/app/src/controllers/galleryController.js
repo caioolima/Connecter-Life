@@ -192,12 +192,16 @@ exports.checkLikes = async (req, res) => {
 // Obter as imagens mais curtidas com pelo menos 1 like
 exports.getTopLikedImages = async (req, res) => {
   try {
-    // Buscar imagens que tenham pelo menos um like
-    const images = await GalleryImage.find({ 'likes.0': { $exists: true } }).sort({ 'likes.length': -1 }).limit(10);
+    // Buscar imagens que tenham pelo menos um like e popular o campo userId
+    const images = await GalleryImage.find({ 'likes.0': { $exists: true } })
+      .sort({ 'likes.length': -1 })
+      .limit(10)
+      .populate('userId', 'username'); // Populando apenas o campo username do usuário
 
     const topLikedImages = images.map(image => ({
       ...image.toObject(),
-      likeCount: image.likes.length
+      likeCount: image.likes.length,
+      username: image.userId.username // Adicionando o campo username ao objeto de imagem
     }));
 
     return res.status(200).json({ success: true, topLikedImages });

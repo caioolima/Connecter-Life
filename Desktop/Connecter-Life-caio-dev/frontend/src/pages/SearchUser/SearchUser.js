@@ -52,7 +52,7 @@ const FindUserPage = () => {
     // Limpar o timeout anterior se o usuário ainda estiver digitando
     return () => clearTimeout(timeout);
   }, [username, t]); // Adicionar t como dependência para atualizar a tradução quando a linguagem for alterada
-
+  document.body.style.position = "fixed";
   return (
     <div className="find-user-container">
       {/* Container principal */}

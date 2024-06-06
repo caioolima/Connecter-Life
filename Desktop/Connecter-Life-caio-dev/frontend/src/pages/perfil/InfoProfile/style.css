@@ -220,10 +220,11 @@
     background-color: rgb(0, 0, 0);
     padding: 20px;
     border-radius: 10px;
-    max-width: 35%; /* Largura máxima ajustada */
-    max-height: 80vh;
+    max-width: 30%; /* Largura máxima ajustada */
+    max-height: 65vh;
     overflow-y: auto;
-    width: 70%; /* Largura ajustada para centralizar */
+    width: 80%; /* Largura ajustada para centralizar */
+    margin-top: -100px;
 }
 
 .modal-content-two h3 {

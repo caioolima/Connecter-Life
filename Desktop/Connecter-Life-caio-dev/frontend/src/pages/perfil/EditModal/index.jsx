@@ -52,7 +52,7 @@ const EditModal = () => {
       handleSaveEdit(); // Salva as edições
     }
   };
-
+  document.body.style.overflow = "hidden";
   return (
     <div className="modal-edit">
       <div className="modal-content-edit">

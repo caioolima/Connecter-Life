@@ -33,11 +33,11 @@
 }
 
 .empty-saved-posts-message{
-  font-size: 1rem;
   color: #666;
   margin: 40px;
   text-align: center;
-  font-weight: bold;
+  font-size: 1.2rem;
+  color: #999; /* Cor de texto cinza claro */
 }
 
 .line-profile {
@@ -56,11 +56,20 @@
 
 .photo-grid {
   display: grid;
-  gap: 5px;
+  gap: 2px;
   grid-template-columns: repeat(3, 1fr); /* Mantenha três colunas */
-  margin-bottom: 300px;
+  margin-bottom: 200px;
 }
 
+@media screen and (min-width: 660px) and (max-width: 1300px) {
+  .photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .line-profile {
+      height: 2px;
+  }
+}
 @media screen and (max-width: 660px) {
     .photo-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -97,7 +106,7 @@
 .empty-gallery-message {
   font-size: 1.2rem;
   text-align: center; /* Centraliza horizontalmente */
-  margin-top: 50px; /* Adiciona margem superior para centralizar verticalmente */
+  margin: 40px;
   color: #999; /* Cor de texto cinza claro */
 }
 
