@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
-import { useAuth } from "../../../hooks/use-auth";
+import { useAuth } from "../../../../hooks/use-auth";
 import { useParams } from "react-router-dom";
-import { storage } from "../../../components/Firebase/storage";
+import { storage } from "../../../../components/Firebase/storage";
 import { ref, uploadBytesResumable, getDownloadURL, list } from "firebase/storage";
 
 import UseState from "./UseState";

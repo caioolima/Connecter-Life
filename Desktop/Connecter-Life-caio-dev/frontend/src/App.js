@@ -9,11 +9,11 @@ import Privacy from "./pages/Terms/privacy";
 import UserProfileContainer from "./pages/perfil/UserProfileContainer";
 import Introduction from "./pages/ConnecterHome/introduction";
 import SearchUser from "./pages/SearchUser/SearchUser";
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"; // Importe a página de erro 404
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import PrivateRoute from "./PrivateRoute.js";
-import FirstWorldCountries from "./pages/Community/FirstWorldCountries.js";
-import Community from "./pages/Community/Community.js";
-import ChatScreen from "./pages/Community/ChatScreen.js";
+import FirstWorldCountries from "./pages/Community/World Community/FirstWorldCountries.js";
+import Community from "./pages/Community/Community Services/Community.js";
+import ChatScreen from "./pages/Community/Chat/ChatScreen.js";
 import FeedPage from "./pages/Feed/feed.js";
 import NewPassword from "./pages/ResetPassword/NewPassword.jsx"
 import { useAuth } from "./hooks/use-auth";

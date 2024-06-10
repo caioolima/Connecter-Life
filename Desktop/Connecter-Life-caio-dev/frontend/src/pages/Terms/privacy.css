@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 /* Estilo do contêiner da política de privacidade */
@@ -24,13 +24,13 @@ body {
 }
 
 /* Estilo do cabeçalho */
-h1 {
+.privacy-container h1 {
   color: #333;
   font-size: 24px;
   margin-bottom: 50px;
 }
 
-p{
+.privacy-container p{
   margin-bottom: 30px;
 }
 

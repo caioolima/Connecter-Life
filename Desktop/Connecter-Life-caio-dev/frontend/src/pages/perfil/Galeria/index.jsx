@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next"; // Importa o hook useTranslation
+import { useTranslation } from "react-i18next";
 import "./style.css";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useEventsModals from "../hooks/useEventsModals";
 import { useAuth } from "../../../contexts/auth-provider";
 import { useParams } from "react-router-dom";
+import TabButton from "./TabButton";
+import PhotoGrid from "./PhotoGrid";
+import SavedPostsGrid from "./SavedPostsGrid";
+import EmptyMessage from "./EmptyMessage";
 
 const Galeria = () => {
-  const { t } = useTranslation(); // Usa o hook useTranslation para tradução
+  const { t } = useTranslation();
   const { userPhotos } = useMyContext();
   const { handlePublicationClick } = useEventsModals();
-  const [savedPosts, setSavedPosts] = useState([]); // Estado para armazenar as publicações salvas
-  const [loadedImages, setLoadedImages] = useState(
-    Array(userPhotos.length).fill(false)
-  );
-  const [activeTab, setActiveTab] = useState("galeria"); // Estado para controlar a guia ativa
+  const [savedPosts, setSavedPosts] = useState([]);
+  const [loadedImages, setLoadedImages] = useState(Array(userPhotos.length).fill(false));
+  const [activeTab, setActiveTab] = useState("galeria");
   const { user } = useAuth();
   const { userId } = useParams();
 
@@ -37,11 +39,8 @@ const Galeria = () => {
   useEffect(() => {
     const fetchSavedPosts = async () => {
       try {
-        console.log(userId);
         // Fazer uma requisição para obter as publicações salvas
-        const response = await fetch(
-          `http://localhost:3000/feedRoutes/savedPosts/${userId}`
-        );
+        const response = await fetch(`http://localhost:3000/feedRoutes/savedPosts/${userId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch saved posts");
         }
@@ -71,94 +70,34 @@ const Galeria = () => {
   };
 
   return (
-    <div className="galery-contain">
+    <div className="gallery-container">
       <div className="tab-buttons">
-        <button
-          className={activeTab === "galeria" ? "active-tab" : ""}
-          onClick={() => toggleTab("galeria")}
-        >
-          {t("gallery")} {/* Traduz 'Galeria' */}
-        </button>
-        {/* Renderiza o botão Salvos apenas se o user e userId corresponderem ao user.id */}
+        <TabButton active={activeTab === "galeria"} onClick={() => toggleTab("galeria")}>gallery</TabButton>
         {user && userId === user.id && (
-          <button
-            className={activeTab === "salvos" ? "active-tab" : ""}
-            onClick={() => toggleTab("salvos")}
-          >
-            {t("saved")} {/* Traduz 'Salvos' */}
-          </button>
+          <TabButton active={activeTab === "salvos"} onClick={() => toggleTab("salvos")}>saved</TabButton>
         )}
       </div>
-      <div
-        className={`photo-gallery ${
-          activeTab === "galeria" ? "active-tab" : "saved-tab"
-        }`}
-      >
-        {activeTab === "galeria" ? (
-          userPhotos.length > 0 ? (
-            <div className="photo-grid">
-              {userPhotos.map((photoData, index) => (
-                <div className="photo-item" key={index}>
-                  <button onClick={() => handlePublicationClick(index)}>
-                    {!loadedImages[index] && (
-                      <div className="loading-spinner">
-                        <div className="dot-loader"></div>
-                        <div className="dot-loader"></div>
-                        <div className="dot-loader"></div>
-                      </div>
-                    )}
-                    <img
-                      src={photoData.url}
-                      alt={t("photo")}
-                      style={{
-                        opacity: loadedImages[index] ? 1 : 0,
-                        transition: "opacity 0.5s",
-                      }}
-                      onLoad={() => handleImageLoaded(index)}
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="empty-gallery-message">{t("no_photos")}</p>
-          )
+      {activeTab === "galeria" ? (
+        userPhotos.length > 0 ? (
+          <PhotoGrid
+            photos={userPhotos}
+            loadedImages={loadedImages}
+            handleImageLoaded={handleImageLoaded}
+            handleClick={handlePublicationClick}
+          />
         ) : (
-          userId === user.id && (
-            <div className="photo-gallery">
-              {savedPosts.length > 0 ? (
-                <div className="photo-grid">
-                  {savedPosts.map((post, index) => (
-                    <div className="photo-item" key={index}>
-                      {!loadedImages[index] && (
-                        <div className="loading-spinner">
-                          <div className="dot-loader"></div>
-                          <div className="dot-loader"></div>
-                          <div className="dot-loader"></div>
-                        </div>
-                      )}
-                      <a href={`/profile/${post.postOwnerId}`}>
-                        <img
-                          src={post.imageUrl}
-                          alt={t("saved_post")}
-                          style={{
-                            opacity: loadedImages[index] ? 1 : 0,
-                            transition: "opacity 0.5s",
-                          }}
-                        />
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="empty-saved-posts-message">
-                  {t("no_saved_posts")}
-                </p>
-              )}
-            </div>
-          )
-        )}
-      </div>
+          <EmptyMessage messageKey="no_photos" />
+        )
+      ) : (
+        userId === user.id && (
+          <SavedPostsGrid
+            savedPosts={savedPosts}
+            loadedImages={loadedImages}
+            handleImageLoaded={handleImageLoaded}
+            handlePublicationClick={handlePublicationClick}
+          />
+        )
+      )}
     </div>
   );
 };

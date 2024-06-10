@@ -1,29 +1,9 @@
-/* introduction.css */
-.abc {
+ /* introduction.css */
+ .abc {
   position: relative;
   text-align: center;
   color: #fff;
   font-family: "Raleway", sans-serif;
-}
-
-.background-image {
-  width: 100%;
-  height: 87.2vh;
-  background-image: url("../../assets/backpackercommunity.jpeg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Adiciona a animação de rolagem */
-}
-
-
-.intro-content {
-  position: absolute;
-  top: 30%;
-  left: 100px;
-  transform: translateY(-50%);
-  text-align: left;
-  z-index: 1;
-  padding: 20px;
 }
 
 .abcd {
@@ -33,20 +13,51 @@
   color: black;
 }
 
-.intro-info .intro-h2 {
-  margin-top: -200px;
+
+.backgroundImage {
+  max-width: 100%;
+  height: 87.2vh;
+  background-image: url("../../assets/backpackercommunity.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Adiciona a animação de rolagem */
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+
+.introContent {
+  margin-left: 35px;
+  padding: 5px;
+  width: 60%;
+}
+
+@media (max-width:800px) {
+    .backgroundImage{
+      text-align: center;
+      justify-content: center;
+
+    }
+
+    .introContent{
+      width: 100%;
+      margin: 0px;
+    }
+ 
+}
+
+.introInfo .introH2 {
   font-size: 2.2rem;
   margin-bottom: 20px; /* Reduz a margem inferior */
-  width: 55%;
 }
 
-.intro-p {
+.introP {
   font-size: 1.2rem;
   margin-bottom: 30px; /* Reduz a margem inferior */
-  width: 45%;
 }
-
-.vamos-nessa-button {
+.vamosNessaButton {
   background-color: #fff;
   color: var(--color-primary-focus);
   border: 2px solid var(--color-primary-focus); /* Adiciona uma borda de 2px sólida branca */
@@ -61,18 +72,18 @@
 }
 
 
-.vamos-nessa-button:hover {
+.vamosNessaButton:hover {
   background-color: var(--color-primary-focus);
   color: #fff;
   border: 2px solid var(--color-primary-focus);
 }
 
-.vamos-nessa-button:active {
+.vamosNessaButton:active {
   transform: scale(0.95);
 }
 
 
-.explore-info .main-title {
+.exploreInfo .mainTitle {
   color: #000000; /* Cor do texto */
   text-align: center; /* Alinhamento centralizado */
   margin-top: 60px; /* Espaçamento superior */
@@ -83,7 +94,7 @@
   margin-right: auto; /* Margem à direita automática */
 }
 
-.explore-info .sub-title {
+.exploreInfo .subTitle {
   color: #000; /* Cor do texto */
   text-align: center; /* Alinhamento centralizado */
   margin-top: 60px; /* Espaçamento superior */
@@ -95,8 +106,8 @@
   position: relative; /* Para posicionamento dos pseudo-elementos */
 }
 
-.explore-info .sub-title::before,
-.explore-info .sub-title::after {
+.exploreInfo .subTitle::before,
+.exploreInfo .subTitle::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -106,23 +117,50 @@
   background-color: var(--color-details); /* Cor da seta */
 }
 
-.explore-info .sub-title::before {
-  left: 500px; /* Posicionamento da seta à esquerda */
+.exploreInfo .subTitle::before {
+  left: 100vh; /* Posicionamento da seta à esquerda */
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
 
-.explore-info .sub-title::after {
-  right: 500px; /* Posicionamento da seta à direita */
+.exploreInfo .subTitle::after {
+  right: 100vh; /* Posicionamento da seta à direita */
   clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
 }
 
-.steps-container {
+@media (max-width:850px) {
+  .exploreInfo .subTitle::before {
+    left: 90%; /* Posicionamento da seta à esquerda */
+  }
+  
+  .exploreInfo .subTitle::after {
+    right: 90%; /* Posicionamento da seta à direita */
+  }
+}
+
+.stepsContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 80%;
   margin: 50px auto;
   position: relative;
+}
+
+@media (max-width:650px) {
+    .lines{
+      display: none;
+    }
+
+    .line{
+      display: none;
+    }
+}
+
+@media (max-width:586px) {
+    .stepsContainer{
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 }
 
 .lines {
@@ -138,16 +176,19 @@
 .line {
   width: 20%; /* Reduz a largura das linhas para que haja mais espaço entre elas */
   height: 2px;
-  background-color: var(--color-primary-focus);
+  background-color: var(--color-dark);
 }
 .step {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 30%;
+  margin: 5px;
 }
 
-.step-number {
+ 
+
+.stepNumber {
   width: 50px;
   height: 50px;
   background-color: var(--color-primary-focus);
@@ -162,7 +203,7 @@
 }
 
 
-.step-text {
+.stepText {
   margin-top: 20px;
   text-align: center;
   font-size: 1.0rem;
@@ -170,20 +211,20 @@
   width: 80%;
 }
 
-.connect-with-travelers {
+.connectWithTravelers {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.connect-with-travelers {
+.connectWithTravelers {
   position: relative;
   width: 100%;
   height: 57.2vh;
 }
 
-.background-image2 {
+.backgroundImage2 {
   position: relative;
   width: 100%;
   height: 100%;
@@ -194,7 +235,7 @@
   filter: blur(2px); /* Aplica o efeito de desfoque à imagem de fundo */
 }
 
-.connect-text-h2 {
+.connectTextH2 {
   color: #fff; /* Cor do texto */
   font-size: 2rem;
   margin-bottom: 20px; /* Aumenta a margem inferior do h2 */
@@ -207,7 +248,7 @@
   z-index: 2; /* Garante que o h2 esteja acima do parágrafo */
 }
 
-.connect-text-p {
+.connectTextP {
   color: #fff; /* Cor do texto */
   font-size: 1.2rem;
   margin: 0; /* Remove a margem padrão do parágrafo */
@@ -221,7 +262,18 @@
   z-index: 2; /* Garante que o parágrafo esteja acima do fundo */
 }
 
-.cta-section {
+@media (min-width:601px) and (max-width:1200px) {
+  .connectTextH2{
+    top: 35%;
+    width: 90%;
+  }
+
+  .connectTextP{
+    top: 60%;
+  }
+}
+
+.ctaSection {
   display: flex;
   align-items: center;
   justify-content: center; /* Centraliza horizontalmente */
@@ -229,7 +281,7 @@
   padding: 20px;
 }
 
-.cta-content p {
+.ctaContent p {
   color: #000000; /* Cor do texto */
   font-size: 2.1rem;
   margin-right: 70px; /* Espaçamento entre o texto e o botão */
@@ -237,7 +289,7 @@
   font-weight: bold;
 }
 
-.vamo-comigo-button {
+.vamoComigoButton {
   background-color: var(--color-details); /* Cor de fundo do botão */
   color: #fff; /* Cor do texto */
   font-size: 1.5rem; /* Tamanho da fonte */
@@ -249,12 +301,13 @@
   transition: background-color 0.3s, transform 0.3s; /* Transição de cor de fundo e escala */
   border-radius: 20px;
   font-family: "Raleway", sans-serif; /* Fonte */
+  margin-top: 15px;
 }
 
-.vamo-comigo-button:hover {
+.vamoComigoButton:hover {
   background-color: var(--color-details-hover); /* Cor de fundo do botão ao passar o mouse */
 }
 
-.vamo-comigo-button:active {
+.vamoComigoButton:active {
   transform: scale(0.95); /* Efeito de escala ao clicar */
 }
