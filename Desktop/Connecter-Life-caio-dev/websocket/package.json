@@ -5,7 +5,10 @@
   "main": "websocketServer.js",
   "scripts": {
     "start": "node websocketServer.js"
-  },  
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.17.0"
+  }
 }

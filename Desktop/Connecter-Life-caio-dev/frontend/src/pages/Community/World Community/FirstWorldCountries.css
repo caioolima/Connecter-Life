@@ -77,13 +77,14 @@
   font-weight: 700;
   border-radius: 20px;
   box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.9);
-  margin: auto 10px;
+  margin: 10px 10px;
   flex: 1 1 100px; /* Cada cartão tem largura flexível, mas com no máximo 200px */
 }
 
 .card-community span,
 p {
   margin: 0 10px;
+  color: black;
 }
 
 .sign-button-sign {
@@ -408,3 +409,47 @@ p {
   }
 }
 
+
+
+
+.user-communities-card {
+  background: black;
+  max-width: 600px;
+  border-radius: 20px;
+  border: 1px solid var(--color-details);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  margin: 40px auto;
+  margin-bottom: 70px;
+}
+
+.user-communities-card h2 {
+  color: white;
+  text-align: left;
+  width: 90%;
+  transform: translateY(10px);
+  margin: auto;
+  padding: 10px 10px;
+}
+
+.communities-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.user-communities-card hr {
+  width: 90%;
+  padding: 1px;
+  border-radius: 20px;
+  background: var(--color-details);
+  border: none;
+  margin: 10px auto;
+}
+
+
+.user-communities-card span{
+  margin: 0 10px;
+}

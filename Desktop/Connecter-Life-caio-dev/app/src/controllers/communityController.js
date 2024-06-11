@@ -49,9 +49,14 @@ async function sairDaComunidade(userId, communityId) {
 }
 
 // Função para criar uma nova comunidade
-async function criarComunidade(country) {
+async function criarComunidade(country, userId, image = null) {
     try {
-        const novaComunidade = new CommunityUser({ country });
+        const novaComunidade = new CommunityUser({ 
+            country, 
+            userCountry: [userId],
+            image 
+        });
+
         await novaComunidade.save();
         return novaComunidade._id; // Retorna o ID da nova comunidade criada
     } catch (error) {
@@ -103,4 +108,15 @@ async function contarMembrosDaComunidade(communityId) {
     }
 }
 
-module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade, contarMembrosDaComunidade };
+// Função para obter as comunidades do usuário
+async function obterComunidadesDoUsuario(userId) {
+    try {
+        // Encontra todas as comunidades em que o usuário está associado
+        const comunidadesDoUsuario = await CommunityUser.find({ userCountry: userId });
+        return comunidadesDoUsuario;
+    } catch (error) {
+        throw new Error('Erro ao obter as comunidades do usuário: ' + error.message);
+    }
+}
+
+module.exports = { entrarNaComunidade, sairDaComunidade, criarComunidade, listarComunidades, verificarMembroDaComunidade, contarMembrosDaComunidade, obterComunidadesDoUsuario  };

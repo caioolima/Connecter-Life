@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 import { useAuth } from "../../../hooks/use-auth";
-import { checkMembership, joinCommunity } from "../../Community/Community Services/communityService";
+import {
+  checkMembership,
+  joinCommunity,
+} from "../../Community/Community Services/communityService";
 import Flag from "./Flag";
 import CommunityRules from "./CommunityRules";
 import JoinButton from "./JoinButton";
 import SidebarMenu from "../../perfil/SidebarMenu/index";
-import BrasilFlag from "./flags/brasil.jpeg"
+import BrasilFlag from "./flags/brasil.jpeg";
 import AlemanhaFlag from "./flags/alemanha.png";
 import JapaoFlag from "./flags/japao.png";
 import "./community.css";
+import Footer from "../../../components/Footer/footer.jsx";
+import { useTranslation } from "react-i18next";
 
 const CountryDetails = () => {
   const { user } = useAuth();
@@ -18,7 +23,8 @@ const CountryDetails = () => {
   const [loading, setLoading] = useState(true);
   const { countryId, communityId } = useParams();
   const normalizedCountryId = countryId.toLowerCase();
-  
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (user) {
       setUserId(user.id);
@@ -37,7 +43,10 @@ const CountryDetails = () => {
       const isUserMember = await checkMembership(userId, communityId);
       setIsMember(isUserMember);
     } catch (error) {
-      console.error("Erro ao verificar a associação do usuário com a comunidade:", error);
+      console.error(
+        "Erro ao verificar a associação do usuário com a comunidade:",
+        error
+      );
     } finally {
       setLoading(false);
     }
@@ -57,27 +66,30 @@ const CountryDetails = () => {
     alemanha: AlemanhaFlag,
     japao: JapaoFlag,
   };
-  
+
   const countryFlag = flagMappings[normalizedCountryId];
 
   return (
     <div>
       {!loading && (
         <Flag countryFlag={countryFlag}>
-          <div className="country-details-container"> 
+          <div className="country-details-container">
             <SidebarMenu />
-            <h2 className="country-details-title">Detalhes do País</h2>
+            <h2 className="country-details-title">{t("details-community-title")}</h2>
             <p className="country-id">{countryId}</p>
             <CommunityRules />
-            <JoinButton 
-              isMember={isMember} 
-              countryId={countryId} 
-              communityId={communityId} 
-              handleJoinCommunity={handleJoinCommunity} 
+            <JoinButton
+              isMember={isMember}
+              countryId={countryId}
+              communityId={communityId}
+              handleJoinCommunity={handleJoinCommunity}
             />
           </div>
         </Flag>
       )}
+      <div className="footer-world">
+        <Footer />
+      </div>
     </div>
   );
 };

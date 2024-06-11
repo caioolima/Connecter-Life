@@ -1,17 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const JoinButton = ({ isMember, countryId, communityId, handleJoinCommunity }) => {
-  return (
-    isMember ? (
-      <Link to={`/comunidade/${countryId}/${communityId}/chat`} className="join-button">
-        Entrar
-      </Link>
-    ) : (
-      <button className="join-button" onClick={handleJoinCommunity}>
-        Participar da Comunidade
-      </button>
-    )
+import { useTranslation } from "react-i18next";
+const JoinButton = ({
+  isMember,
+  countryId,
+  communityId,
+  handleJoinCommunity,
+}) => {
+  const { t } = useTranslation();
+  return isMember ? (
+    <Link
+      to={`/comunidade/${countryId}/${communityId}/chat`}
+      className="join-button"
+    >
+      {t("join")}
+    </Link>
+  ) : (
+    <button className="join-button" onClick={handleJoinCommunity}>
+      {t("joinCommunity")}
+    </button>
   );
 };
 

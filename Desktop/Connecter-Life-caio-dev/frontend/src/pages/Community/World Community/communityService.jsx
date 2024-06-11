@@ -48,3 +48,16 @@ export const fetchTopLikedPosts = async () => {
     throw error;
   }
 };
+
+export async function fetchComunidadesDoUsuario(userId) {
+  try {
+    const response = await fetch(`http://localhost:3000/communities/comunidade/obterComunidadesDoUsuario/${userId}`);
+    if (!response.ok) {
+      throw new Error('Erro ao buscar as comunidades do usuário');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

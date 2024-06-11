@@ -23,6 +23,7 @@ async function enviarMensagem(userId, communityId, message, media) {
 
         const newMessage = new Message({
             userId,
+            communityId, // Adiciona o ID da comunidade à mensagem
             message,
             media: mediaUrl
         });
@@ -43,7 +44,7 @@ async function listarMensagens(communityId) {
         }
 
         // Busca todas as mensagens dessa comunidade
-        const messages = await Message.find({ userId: { $in: community.userCountry } }).populate('userId', 'username');
+        const messages = await Message.find({ communityId: communityId }).populate('userId', 'username');
         return messages;
     } catch (error) {
         throw new Error('Erro ao listar as mensagens da comunidade: ' + error.message);

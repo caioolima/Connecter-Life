@@ -32,6 +32,10 @@
   padding: 10px;
 }
 
+.footer-copy{
+  color: #fff;
+}
+
 .language-buttons button {
   /* ↑ Estilo para o os alteradores de linguagem. */
   background-color: transparent;

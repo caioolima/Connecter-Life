@@ -1,3 +1,5 @@
+// Atualize o MyContextProvider para incluir o estado do modal
+
 import React, { createContext, useState, useContext } from "react";
 import { useAuth } from "../hooks/use-auth";
 import { useLocation } from "react-router-dom";
@@ -7,6 +9,9 @@ const MyContext = createContext("");
 const MyContextProvider = ({ children }) => {
   const { user } = useAuth();
   const location = useLocation();
+  
+  const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
+
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [profileImage, setProfileImage] = useState(null);
@@ -154,9 +159,13 @@ const MyContextProvider = ({ children }) => {
         setDeleting,
         showDeleteModal,
         setShowDeleteModal,
+        isCreateCommunityModalOpen,
+        setIsCreateCommunityModalOpen,
         myProfileLink,
         feedLink,
         isMyProfilePage,
+        isCreateCommunityModalOpen,
+        setIsCreateCommunityModalOpen,
       }}
     >
       {children}

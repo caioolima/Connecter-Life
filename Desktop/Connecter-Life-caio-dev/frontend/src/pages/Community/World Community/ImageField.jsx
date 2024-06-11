@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import "./styles.css"
+import "./styles.css";
 
 export default function Articles() {
   return (
@@ -22,9 +22,10 @@ export default function Articles() {
             <div className="textContainer">
               <span className="text-top-intro">{t("introduction")}</span>
               <span>
-                {t("toTheLife")}
+                {t("toTheLife")}{t("continuosLife")}
               </span>
-              <span >{t("ofABackpacker")}</span>
+
+              <span>{t("ofABackpacker")}</span>
             </div>
             <div className="black-block">
               <p>{t("comeAndDiscover")}</p>
@@ -45,5 +46,5 @@ export default function Articles() {
         </div>
       </div>
     </section>
-  )
+  );
 }

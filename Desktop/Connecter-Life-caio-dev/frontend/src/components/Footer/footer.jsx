@@ -103,7 +103,7 @@ function Footer({ userId }) {
       </div>
 
       <div className="footer-info">
-        <p>&copy; 2023 ConnecterLife</p>
+        <p className="footer-copy">&copy; 2023 ConnecterLife</p>
       </div>
     </footer>
   );

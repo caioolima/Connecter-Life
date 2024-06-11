@@ -12,6 +12,7 @@ const MessageList = ({
     formatMessageTime }) => {
   return (
     <div className="message-list">
+       <h2 className="chat-name">Chat</h2>
         {messages.map((message, index) => (
           <div
             key={index}

@@ -111,3 +111,14 @@
 .country-details-container::before {
   background-image: url("./flags/japao.png");
 }
+
+/* Estilos para a bandeira da Alemanha */
+.country-details-container::before {
+  background-image: url("./flags/itália.jpg");
+}
+
+/* Estilos para a bandeira da Alemanha */
+.country-details-container::before {
+  background-image: url("./flags/china.jpg");
+}
+
