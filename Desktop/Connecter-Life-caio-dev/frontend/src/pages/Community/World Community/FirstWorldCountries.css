@@ -216,16 +216,35 @@ p {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9);
   border-radius: 20px;
   margin-bottom: 20px;
-  height: 480px;
+  height: 510px;
   margin: 20px auto;
 }
 
 .post-name {
   color: rgb(255, 255, 255);
   font-weight: bold;
-  margin: 10px auto; /* Define as margens automáticas para centralizar horizontalmente */
-  display: block; /* Garante que a imagem seja exibida como um bloco */
-  width: 55%;
+  margin: auto; /* Define as margens automáticas para centralizar horizontalmente */
+  display: flex; /* Garante que a imagem seja exibida como um bloco */
+  width: 50%;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.post-user-like{
+  color: #ffffff;flex-direction: column;
+}
+
+.post-like-user{
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+.profile-image {
+  width: 40px; /* Ajuste o tamanho conforme necessário */
+  height: 40px;
+  border-radius: 50%; /* Torna a imagem circular */
+  object-fit: cover; /* Garante que a imagem se ajuste ao contêiner */
+  margin-right: 10px; /* Espaço entre a imagem de perfil e o nome do usuário */
+  display: flex;
 }
 
 .post-button-post {
@@ -233,12 +252,12 @@ p {
   border-radius: 20px;
   color: var(--color-dark);
   background: var(--color-primary-focus);
-  padding: 8px 10px;
+  width: 40%;
+  height: 20px;
+  margin: auto;
   font-family: "Raleway", sans-serif;
   font-weight: bold;
-  margin: 15px auto; /* Define as margens automáticas para centralizar horizontalmente */
-  display: block; /* Garante que a imagem seja exibida como um bloco */
-  width: 15%;
+  display: block;
 }
 
 .post-button-post:hover {
@@ -453,3 +472,4 @@ p {
 .user-communities-card span{
   margin: 0 10px;
 }
+
