@@ -462,7 +462,7 @@ const FeedPage = () => {
                       <ul className="feed-modal-list">
                         {" "}
                         <h2 className="feed-modal-title">
-                          Usuários que curtiram o post:
+                          Usuários que curtiram este post:
                         </h2>
                         {modalUsers.map((user) => (
                           <li className="feed-modal-item" key={user.userId}>
